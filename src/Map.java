@@ -1,10 +1,5 @@
-import java.util.ArrayList;
-
 public class Map {
 	int[][] grid;
-	ArrayList<Coordinates> boxes;
-	ArrayList<Coordinates> goals;
-	Coordinates player;
 	int seed;
 	
 	/*grid internal representation
@@ -22,16 +17,12 @@ public class Map {
 	 * @param seed the seed for the map grid
 	 */
 	public Map(int seed){
+		this.seed = seed;
 		grid = newMap(seed);
-		boxes = new ArrayList<Coordinates>();
-		goals = new ArrayList<Coordinates>();
-		player = new Coordinates(0,0);
 		
 		//generate grid here
 		
-		//add list of boxes
-		
-		//add list of goals (same number as boxes)
+		//add boxes and goals
 		
 		//give player initial coordinates
 	}
@@ -152,16 +143,12 @@ public class Map {
 	 * @return
 	 */
 	public boolean winState(){
-		for (Coordinates box:boxes){
-			boolean found = false;
-			for (Coordinates goal:goals){
-				if (box.equals(goal)){
-					found = true;
-					break;
+		for (int x=0; x < grid.length; x++){
+			for (int y=0; y < grid[0].length; y++){
+				if (grid[x][y]==3){//if box not on goal then it is not a win state
+					return false;
 				}
 			}
-			if (found)continue;
-			return false;
 		}
 		return true;
 	}
