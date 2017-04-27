@@ -1,6 +1,8 @@
 public class Map {
 	int[][] grid;
 	int seed;
+	int player_x;
+	int player_y;
 	
 	/*grid internal representation
 	 * 0: wall
@@ -19,12 +21,6 @@ public class Map {
 	public Map(int seed){
 		this.seed = seed;
 		grid = newMap(seed);
-		
-		//generate grid here
-		
-		//add boxes and goals
-		
-		//give player initial coordinates
 	}
 	
 	/**
@@ -72,6 +68,22 @@ public class Map {
 		}
 	}
 	
+	public void moveLeft(){
+		moveTo(player_x, player_y, player_x-1, player_y);
+	}
+	
+	public void moveRight(){
+		moveTo(player_x, player_y, player_x+1, player_y);
+	}
+	
+	public void moveUp(){
+		moveTo(player_x, player_y, player_x, player_y+1);
+	}
+	
+	public void moveDown(){
+		moveTo(player_x, player_y, player_x, player_y-1);
+	}
+	
 	/**
 	 * attempts to move the player from one spot to another
 	 * @param from_x
@@ -82,7 +94,7 @@ public class Map {
 	 * @post the grid is a valid state
 	 * @return true if movement was successful, false otherwise (e.g. if there was a wall in the way)
 	 */
-	public boolean moveTo(int from_x, int from_y, int to_x, int to_y){
+	private boolean moveTo(int from_x, int from_y, int to_x, int to_y){
 		if (grid[to_x][to_y] == 0){//wall
 			return false;//can never move into a wall
 		}
