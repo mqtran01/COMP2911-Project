@@ -18,7 +18,7 @@ public class WarehouseBoss extends JFrame {
 			
 		}
 		
-		WarehouseBoss(){		
+		WarehouseBoss(){
 			Map map = new Map('a');
 			for (int y=0; y < 8; y++){
 				for (int x=0; x < 6; x++){
@@ -57,45 +57,44 @@ public class WarehouseBoss extends JFrame {
 		}
 		
 		private static void createAndShowGUI() {
-	        //Create and set up the window.
-	        JFrame frame = new JFrame("Warehouse Boss");
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        //Set Layout
-	        frame.setLayout(new BorderLayout());
-	        //To prevent window resizing
+			//Create and set up the window.
+			JFrame frame = new JFrame("Warehouse Boss");
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			//Set Layout
+			frame.setLayout(new BorderLayout());
+			//To prevent window resizing
 			frame.setResizable(false);
-	        //Set up the content pane.
-	        addComponentsToPane(frame.getContentPane());
-	        //Display the window.
-	        frame.pack();
-	        frame.setVisible(true);
-	    }
+			//Set up the content pane.
+			addComponentsToPane(frame.getContentPane());
+			//Display the window.
+			frame.pack();
+			frame.setVisible(true);
+			}
 		
 		public static void addComponentsToPane(Container pane) {
 			String[] buttonText = {"Start Game", "Load Game", "Quit", "Settings"};
-	
+			
 			JPanel panel = new JPanel();
 			panel.setLayout(new GridLayout(9, 1));
-    
+
 			int counter = 0;
-		    for (int i = 0; i < 9; i++) {
-		    	if (i%2 == 0) {
-		    	   JPanel space = new JPanel();
-		  		   panel.add(space);
-		  		   space.setPreferredSize(new Dimension(300, 50));
-		    	} else {
-			    	JButton btn = new JButton(buttonText[counter++]);
-			    	btn.setHorizontalAlignment(JTextField.LEFT);
-			    	btn.setPreferredSize(new Dimension(300, 50));
-			        panel.add(btn);
-		    	}
-		    }
-		    pane.add(panel, BorderLayout.WEST);		  
-		    
-		    JTextField text = new JTextField("Warehouse Boss");
+			for (int i = 0; i < 9; i++) {
+				if (i%2 == 0) {
+					JPanel space = new JPanel();
+					panel.add(space);
+					space.setPreferredSize(new Dimension(300, 50));
+				} else {
+					JButton btn = new JButton(buttonText[counter++]);
+					btn.setHorizontalAlignment(JTextField.LEFT);
+					btn.setPreferredSize(new Dimension(300, 50));
+					panel.add(btn);
+				}
+			}
+			pane.add(panel, BorderLayout.WEST);		  
+
+			JTextField text = new JTextField("Warehouse Boss");
 			text.setHorizontalAlignment(JTextField.CENTER);
 			text.setPreferredSize(new Dimension(800, 50));
-			pane.add(text, BorderLayout.NORTH);
-		   
+			pane.add(text, BorderLayout.NORTH); 
 		}
 }
