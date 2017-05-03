@@ -1,10 +1,14 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Scanner;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -74,27 +78,23 @@ public class WarehouseBoss extends JFrame {
 		public static void addComponentsToPane(Container pane) {
 			String[] buttonText = {"Start Game", "Load Game", "Quit", "Settings"};
 			
-			JPanel panel = new JPanel();
-			panel.setLayout(new GridLayout(9, 1));
+			JPanel panel = new JPanel(new BorderLayout());
+			panel.setLayout(new GridLayout(5,1));
+			
+			ImageIcon image = new ImageIcon("image/title.png");
+			JLabel label = new JLabel("", image, JLabel.CENTER);
+			panel.add( label, BorderLayout.NORTH);
 
 			int counter = 0;
-			for (int i = 0; i < 9; i++) {
-				if (i%2 == 0) {
-					JPanel space = new JPanel();
-					panel.add(space);
-					space.setPreferredSize(new Dimension(300, 50));
-				} else {
-					JButton btn = new JButton(buttonText[counter++]);
-					btn.setHorizontalAlignment(JTextField.LEFT);
-					btn.setPreferredSize(new Dimension(300, 50));
-					panel.add(btn);
-				}
+			for (int i = 0; i < 4; i++) {
+				JButton btn = new JButton(buttonText[counter++]);
+				btn.setFont(new Font("Myriad Pro Light", Font.BOLD, 20));
+				btn.setHorizontalAlignment(JTextField.CENTER);
+				btn.setPreferredSize(new Dimension(300, 50));
+				panel.add(btn);
 			}
-			pane.add(panel, BorderLayout.WEST);		  
-
-			JTextField text = new JTextField("Warehouse Boss");
-			text.setHorizontalAlignment(JTextField.CENTER);
-			text.setPreferredSize(new Dimension(800, 50));
-			pane.add(text, BorderLayout.NORTH); 
+			
+			pane.add(panel);		  
+			
 		}
 }
