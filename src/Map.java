@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Map {
 	int[][] grid;//note: 0,0 is upper left of grid
 	int seed;
@@ -28,11 +30,20 @@ public class Map {
 	 */
 	public Map(int seed){
 		this.seed = seed;
-		grid = newMap(seed);
+		//grid = newMap(seed);
+		MapGenerator mGen = new MapGenerator();
+		
+		ArrayList<int[][]> gridList =  new ArrayList<int[][]>();
+		for (int i = 0; i < 6; i++) {
+		    int[][] part = mGen.createMapMatrix(i);
+		    gridList.add(part);
+		}
+		grid = mGen.mergeTemplates(gridList, 3, 2);
 	}
 	
 	//pregenerated maps, accessed using characters
 	public Map(char seed){
+	    
 		this.grid = new int[6][8];
 		for (int x=0; x < 6; x++){
 			grid[x][0]=WALL;
@@ -74,6 +85,7 @@ public class Map {
 		
 		player_x=1;
 		player_y=2;
+
 	}
 	
 	/**

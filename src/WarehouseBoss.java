@@ -23,13 +23,24 @@ public class WarehouseBoss extends JFrame {
 		}
 		
 		WarehouseBoss(){
+		    /*
 			Map map = new Map('a');
-			for (int y=0; y < 8; y++){
-				for (int x=0; x < 6; x++){
-					System.out.print(map.getTile(x, y));
-				}
-				System.out.print("\n");
-			}
+		    for (int y=0; y < 8; y++){
+                for (int x=0; x < 6; x++){
+                    System.out.print(map.getTile(x, y));
+                }
+                System.out.print("\n");
+            }
+            */
+		    
+		    Map map = new Map(0);
+		    for (int y=0; y < 6; y++){
+                for (int x=0; x < 9; x++){
+                    System.out.print(map.getTile(x, y));
+                }
+                System.out.print("\n");
+            }
+			
 			
 			Scanner sc = new Scanner(System.in);
 			String input;
