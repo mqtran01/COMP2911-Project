@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 public class MapGenerator {
     final int WALL = 0;
@@ -64,9 +65,9 @@ public class MapGenerator {
                        "110" + 
                        "110";
             case 9:
-                return "111" + 
-                       "010" + 
-                       "111";
+                return "010" + 
+                       "111" + 
+                       "101";
             default: // For debugging purposes ONLY
                 return "123" + 
                        "456" + 
@@ -79,9 +80,11 @@ public class MapGenerator {
      * @param seed
      * @return
      */
-    public int[][] createMapMatrix(int seed, int rotation) {
+    public int[][] createMapMatrix(Random rGen) {
         int[][] grid = new int[3][3];
-        String mapString = createTemplate(seed);
+        int item = rGen.nextInt(10);
+        String mapString = createTemplate(item);
+        int rotation = rGen.nextInt(4);
         if (rotation == 0) {
             grid = rotate0(mapString);
         } else if (rotation == 1) {
@@ -192,5 +195,94 @@ public class MapGenerator {
             }
         }
         return grid;
+    }
+    
+    /**
+     * Places the specified objective in 2 spots
+     * @param grid
+     * @param rGen
+     * @param objective
+     * @return
+     */
+    public boolean placeObjectives(int[][] grid, Random rGen, int objective) {
+        // Finds the size of the matrix
+        int size  = grid.length * grid[0].length;
+        int cap = (int) Math.pow(size, 2);
+        
+        // Attempts to add 2 objectives
+        for (int i = 0; i < 2; i++) {
+            boolean placed = false;
+            int retry = 0;
+            while (!placed && retry < cap) {
+                // Finds a random place
+                int num = rGen.nextInt(size);
+                int xPos = num / grid.length;
+                int yPos = num % grid[0].length;
+                // Check if valid position
+                if (checkSides(grid, xPos, yPos, objective)) {
+                    // Box cannot be placed at the edge, more stringent check
+                    if (objective == BOX) {
+                        
+                    }
+                    grid[xPos][yPos] = objective;
+                    placed = true;
+                } else {
+                    retry++;
+                }
+                if (retry > cap)
+                    return false;
+                
+            }
+        }
+        return true;
+        
+    }
+    
+    /**
+     * Checks that at least 3 adjacent sides are free before placing
+     * @param grid
+     * @param xPos
+     * @param yPos
+     * @return
+     */
+    private boolean checkSides(int[][] grid, int xPos, int yPos, int objective) {
+        int i = 0;
+        // Check self is empty
+        if (isClear(grid, xPos, yPos)) {
+            // Box has an additional restriction cannot be placed on edge
+            if (objective == BOX) {
+                if (xPos <= 0 || xPos > grid.length || yPos <= 0 || yPos > grid[0].length)
+                    return false;
+            }
+            // Checks the 4 adjacent spots
+            if (isClear(grid, xPos, yPos - 1))
+                i++;
+            if (isClear(grid, xPos, yPos + 1))
+                i++;
+            if (isClear(grid, xPos - 1, yPos))
+                i++;
+            if (isClear(grid, xPos + 1, yPos))
+                i++;
+        }
+        if (i >= 3)
+            return true;
+        return false;
+    }
+    
+    /**
+     * Check if the spot is empty
+     * @param grid
+     * @param xPos
+     * @param yPos
+     * @return
+     */
+    private boolean isClear(int[][] grid, int xPos, int yPos) {
+        // Out of bounds check
+        if (xPos < 0 || xPos >= grid.length || yPos < 0 || yPos >= grid[0].length)
+            return false;
+        // Check if spot is empty
+        if (grid[xPos][yPos] == EMPTY) 
+            return true;
+        return false;
     }
 }
