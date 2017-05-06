@@ -33,9 +33,9 @@ public class WarehouseBoss extends JFrame {
             }
             */
 		    
-		    Map map = new Map(0);
-		    for (int y=0; y < 6; y++){
-                for (int x=0; x < 9; x++){
+		    Map map = new Map(0, 5, 3);
+		    for (int y=0; y < map.getHeight(); y++){
+                for (int x=0; x < map.getLength(); x++){
                     System.out.print(map.getTile(x, y));
                 }
                 System.out.print("\n");

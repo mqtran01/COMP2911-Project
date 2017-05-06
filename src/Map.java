@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Map {
 	int[][] grid;//note: 0,0 is upper left of grid
@@ -35,11 +36,30 @@ public class Map {
 		
 		ArrayList<int[][]> gridList =  new ArrayList<int[][]>();
 		for (int i = 0; i < 6; i++) {
-		    int[][] part = mGen.createMapMatrix(i);
+		    int[][] part = mGen.createMapMatrix(i, 0);
 		    gridList.add(part);
 		}
 		grid = mGen.mergeTemplates(gridList, 3, 2);
 	}
+	
+	public Map(int seed, int length, int height){
+        this.seed = seed;
+        //grid = newMap(seed);
+        MapGenerator mGen = new MapGenerator();
+        // TODO change to random by seed rather than by system time
+        Random rGen  = new Random(System.currentTimeMillis());
+        
+        ArrayList<int[][]> gridList =  new ArrayList<int[][]>();
+        for (int i = 0; i < length * height; i++) {
+            rGen.nextInt(10);
+            //System.out.println(rand);
+            int[][] part = mGen.createMapMatrix(rGen.nextInt(10), rGen.nextInt(4));
+            gridList.add(part);
+        }
+        grid = mGen.mergeTemplates(gridList, length, height);
+    }
+	
+	
 	
 	//pregenerated maps, accessed using characters
 	public Map(char seed){
@@ -257,5 +277,17 @@ public class Map {
 			}
 		}
 		return true;
+	}
+	
+	public int getLength() {
+	    if (grid != null)
+	        return grid.length;
+	    return 0;
+	}
+	
+	public int getHeight() {
+	    if (grid != null && grid[0] != null)
+	        return grid[0].length;
+	    return 0;
 	}
 }
