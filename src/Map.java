@@ -33,10 +33,11 @@ public class Map {
 		this.seed = seed;
 		//grid = newMap(seed);
 		MapGenerator mGen = new MapGenerator();
+		Random rGen  = new Random(System.currentTimeMillis());
 		
 		ArrayList<int[][]> gridList =  new ArrayList<int[][]>();
 		for (int i = 0; i < 6; i++) {
-		    int[][] part = mGen.createMapMatrix(i, 0);
+		    int[][] part = mGen.createMapMatrix(rGen);
 		    gridList.add(part);
 		}
 		grid = mGen.mergeTemplates(gridList, 3, 2);
@@ -53,10 +54,22 @@ public class Map {
         for (int i = 0; i < length * height; i++) {
             rGen.nextInt(10);
             //System.out.println(rand);
-            int[][] part = mGen.createMapMatrix(rGen.nextInt(10), rGen.nextInt(4));
+            int[][] part = mGen.createMapMatrix(rGen);
             gridList.add(part);
         }
         grid = mGen.mergeTemplates(gridList, length, height);
+        boolean success = mGen.placeObjectives(grid, rGen, GOAL);
+        if (!success) {
+            // Handle it
+            System.out.println("Couldn't find a spot in time for goal");
+        }
+        
+        success = mGen.placeObjectives(grid, rGen, BOX);
+        if (!success) {
+            // Handle it
+            System.out.println("Couldn't find a spot in time for box");
+        }
+            
     }
 	
 	
