@@ -28,6 +28,7 @@ public class WarehouseBoss extends JFrame {
 			//Set Layout
 			this.setLayout(new BorderLayout());
 			//To prevent window resizing
+			this.setPreferredSize(new Dimension(800,600));
 			this.setResizable(false);
 			
 			//Set up the content pane.
@@ -88,24 +89,49 @@ public class WarehouseBoss extends JFrame {
 		}
 		
 		public static void addComponentsToPane(Container pane) {
-			String[] buttonText = {"Start Game", "Load Game", "Quit", "Settings"};
+			String[] buttonText = {"Start Game", "Load Game", "Settings", "Quit"};
 			
 			JPanel panel = new JPanel(new BorderLayout());
-			panel.setLayout(new GridLayout(5,1));
+			//panel.setLayout(new GridLayout(5,1));
+			panel.setLayout(null);
 			
-			ImageIcon image = new ImageIcon("image/title.png");
-			JLabel label = new JLabel("", image, JLabel.CENTER);
-			panel.add( label, BorderLayout.NORTH);
-
-			int counter = 0;
-			for (int i = 0; i < 4; i++) {
-				JButton btn = new JButton(buttonText[counter++]);
-				btn.setFont(new Font("Myriad Pro Light", Font.BOLD, 20));
-				btn.setHorizontalAlignment(JTextField.CENTER);
-				btn.setPreferredSize(new Dimension(300, 50));
-				panel.add(btn);
-			}
+			//Make new buttons
+			JButton startGameBtn = new JButton(buttonText[0]);
+			JButton loadGameBtn = new JButton(buttonText[1]);
+			JButton quitBtn = new JButton(buttonText[2]);
+			JButton settingsBtn = new JButton(buttonText[3]);
 			
+			//Add buttons to panel
+			panel.add(startGameBtn);
+			panel.add(loadGameBtn);
+			panel.add(quitBtn);
+			panel.add(settingsBtn);
+			
+			
+			//Set the location of each button
+			int btnWidth = 200;
+			int btnHeight = 50;
+			int startXPos = 400 - btnWidth/2;
+			int startYPos = 75;
+			startGameBtn.setBounds(startXPos, startYPos + 100, btnWidth, btnHeight);
+			loadGameBtn.setBounds(startXPos, startYPos + 200, btnWidth, btnHeight);
+			quitBtn.setBounds(startXPos, startYPos + 300, btnWidth, btnHeight);
+			settingsBtn.setBounds(startXPos, startYPos + 400, btnWidth, btnHeight);
+			
+			//Set button fonts
+			Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
+			startGameBtn.setFont(gameFont);
+			loadGameBtn.setFont(gameFont);
+			quitBtn.setFont(gameFont);
+			settingsBtn.setFont(gameFont);
+			
+			//Set button actions
+			//quitBtn.addActionListener(System.exit(0););
+			
+			ImageIcon titleImage = new ImageIcon("image/menu_back1.png");
+			JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
+			panel.add(titleLabel);
+			titleLabel.setBounds(0, 0, 800, 600);
 			pane.add(panel);		  
 			
 		}
