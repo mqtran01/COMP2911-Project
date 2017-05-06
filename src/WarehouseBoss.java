@@ -3,6 +3,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Scanner;
 
 import javax.swing.ImageIcon;
@@ -98,14 +100,14 @@ public class WarehouseBoss extends JFrame {
 			//Make new buttons
 			JButton startGameBtn = new JButton(buttonText[0]);
 			JButton loadGameBtn = new JButton(buttonText[1]);
-			JButton quitBtn = new JButton(buttonText[2]);
-			JButton settingsBtn = new JButton(buttonText[3]);
+			JButton settingsBtn = new JButton(buttonText[2]);
+			JButton quitBtn = new JButton(buttonText[3]);
 			
 			//Add buttons to panel
 			panel.add(startGameBtn);
 			panel.add(loadGameBtn);
-			panel.add(quitBtn);
 			panel.add(settingsBtn);
+			panel.add(quitBtn);
 			
 			
 			//Set the location of each button
@@ -115,18 +117,18 @@ public class WarehouseBoss extends JFrame {
 			int startYPos = 75;
 			startGameBtn.setBounds(startXPos, startYPos + 100, btnWidth, btnHeight);
 			loadGameBtn.setBounds(startXPos, startYPos + 200, btnWidth, btnHeight);
-			quitBtn.setBounds(startXPos, startYPos + 300, btnWidth, btnHeight);
-			settingsBtn.setBounds(startXPos, startYPos + 400, btnWidth, btnHeight);
+			settingsBtn.setBounds(startXPos, startYPos + 300, btnWidth, btnHeight);
+			quitBtn.setBounds(startXPos, startYPos + 400, btnWidth, btnHeight);
 			
 			//Set button fonts
 			Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
 			startGameBtn.setFont(gameFont);
 			loadGameBtn.setFont(gameFont);
-			quitBtn.setFont(gameFont);
 			settingsBtn.setFont(gameFont);
+			quitBtn.setFont(gameFont);
 			
 			//Set button actions
-			//quitBtn.addActionListener(System.exit(0););
+			quitBtn.addActionListener(e->System.exit(0));
 			
 			ImageIcon titleImage = new ImageIcon("image/menu_back1.png");
 			JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
