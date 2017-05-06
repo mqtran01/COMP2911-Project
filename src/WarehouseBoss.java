@@ -17,12 +17,28 @@ public class WarehouseBoss extends JFrame {
 		private static final long serialVersionUID = 1L;
 		
 		public static void main(String[] args){
-			createAndShowGUI();
 			new WarehouseBoss();
 			
 		}
 		
 		WarehouseBoss(){
+			//Create and set up the window.
+			super("Warehouse Boss");
+			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			//Set Layout
+			this.setLayout(new BorderLayout());
+			//To prevent window resizing
+			this.setResizable(false);
+			
+			//Set up the content pane.
+			addComponentsToPane(this.getContentPane());
+			
+			//Display the window.
+			this.pack();
+			this.setLocationRelativeTo(null);
+			this.setVisible(true);
+			
+			
 		    /*
 			Map map = new Map('a');
 		    for (int y=0; y < 8; y++){
@@ -70,21 +86,6 @@ public class WarehouseBoss extends JFrame {
 			System.out.println("You win");
 			
 		}
-		
-		private static void createAndShowGUI() {
-			//Create and set up the window.
-			JFrame frame = new JFrame("Warehouse Boss");
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			//Set Layout
-			frame.setLayout(new BorderLayout());
-			//To prevent window resizing
-			frame.setResizable(false);
-			//Set up the content pane.
-			addComponentsToPane(frame.getContentPane());
-			//Display the window.
-			frame.pack();
-			frame.setVisible(true);
-			}
 		
 		public static void addComponentsToPane(Container pane) {
 			String[] buttonText = {"Start Game", "Load Game", "Quit", "Settings"};
