@@ -9,13 +9,15 @@ import javax.swing.JPanel;
 
 public class Menu extends JPanel{
 	private String[] buttonText = {"Start Game", "Load Game", "Settings", "Quit"};
+	private WarehouseBoss controller;
 	
 	/**
 	 * Constructor for Menu Panel/View
 	 */
-	public Menu() {
+	public Menu(WarehouseBoss controller) {
 		this.setLayout(new BorderLayout());
 		//this.setLayout(new GridLayout(5,1));
+		this.controller = controller;
 		
 		//Make new buttons
 		JButton startGameBtn = new JButton(buttonText[0]);
@@ -45,7 +47,7 @@ public class Menu extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GUIView.getInstance().setCurrentPanel("Play");
-				WarehouseBoss.getInstance().update();
+				//controller.getInstance().update();
 			}
 		});
 		
@@ -53,15 +55,18 @@ public class Menu extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GUIView.getInstance().setCurrentPanel("Load");
-				WarehouseBoss.getInstance().update();
+				//WarehouseBoss.getInstance().update();
 			}
 		});
 		
 		settingsBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GUIView.getInstance().setCurrentPanel("Settings");
-				WarehouseBoss.getInstance().update();
+			    System.out.println("Clicked settings!");
+			    //GUIView.getInstance().setCurrentPanel("Settings");
+			    //controller.getInstance().update();
+				controller.update("Settings");
+				
 			}
 		});
 		

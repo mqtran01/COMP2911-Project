@@ -14,12 +14,14 @@ public class WarehouseBoss extends JFrame {
 			
 		}
 		
+		
 		public static WarehouseBoss getInstance() {
 			if (game == null) {
 				game = new WarehouseBoss();
 			}
 			return game;
 		}
+		
 		
 		WarehouseBoss(){
 			//Create and set up the window.
@@ -32,28 +34,18 @@ public class WarehouseBoss extends JFrame {
 			this.setResizable(false);
 			
 			view = GUIView.getInstance();
-			view.add("Menu", new Menu());
+			view.add("Menu", new Menu(this));
 			view.setCurrentPanel("Menu");
-			//view.add("Settings", new Settings());
+			view.add("Settings", new Settings(this));
 			//view.setCurrentPanel("Settings");
 			//Set up the content pane.
+			view.setCurrentPanel("Menu");
 			this.getContentPane().add(view.getCurrentPanel());
 			
 			//Display the window.
 			this.pack();
 			this.setLocationRelativeTo(null);
 			this.setVisible(true);
-			
-			
-		    /*
-			Map map = new Map('a');
-		    for (int y=0; y < 8; y++){
-                for (int x=0; x < 6; x++){
-                    System.out.print(map.getTile(x, y));
-                }
-                System.out.print("\n");
-            }
-            */
 		    
 		    Map map = new Map(0, 3, 2);
 		    for (int y=0; y < map.getHeight(); y++){
@@ -92,8 +84,16 @@ public class WarehouseBoss extends JFrame {
 			System.out.println("You win");
 			
 		}
+		// End constructor
 		
-		public void update(){
+		public void update(String panelName){
+		    System.out.println("We need to change the panel to " + panelName);
+		    this.getContentPane().removeAll();
+		    view.setCurrentPanel(panelName);
+            this.getContentPane().add(view.getCurrentPanel());
+            this.pack();
+            // Old stuff
+            /*
 			if (view.getCurrentPanelKey().equals("Play")) {
 				if (view.getCurrentPanel() == null) {
 					//TODO
@@ -110,11 +110,15 @@ public class WarehouseBoss extends JFrame {
 				this.add(view.getCurrentPanel());
 			} else if (view.getCurrentPanelKey().equals("Settings")) {
 				if (view.getCurrentPanel() == null) {
-					view.add("Settings", new Settings());
+					//view.add("Settings", new Settings());
 				}
+				//view.add("Settings", new Settings());
 				//this.removeAll();
-				this.add(view.getCurrentPanel());
+				view.setCurrentPanel(panelName);
+				this.getContentPane().add(view.getCurrentPanel());
+				//this.add(view.getCurrentPanel());
 			}
+			*/
 		}
 		
 }

@@ -41,6 +41,7 @@ public class GUIView {
 	 */
 	public void add(String panelName, JPanel panel) {
 		panels.put(panelName, panel);
+		setCurrentPanel(panelName);
 	}
 	
 	/**

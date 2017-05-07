@@ -10,13 +10,15 @@ import javax.swing.JPanel;
 
 public class Settings extends JPanel {
 	private String[] text = {"Music", "SFX", "Back"};
+	private WarehouseBoss controller;
 	
 	/**
-	 * Constructor for Menu Panel/View
+	 * Constructor for Settings Panel/View
 	 */
-	public Settings() {
+	public Settings(WarehouseBoss controller) {
 		this.setLayout(new BorderLayout());
-		this.setLayout(null);
+		this.controller = controller;
+		//this.setLayout(null);
 		
 		//Make new check boxes and button
 		JCheckBox musicBox = new JCheckBox(text[0]);
