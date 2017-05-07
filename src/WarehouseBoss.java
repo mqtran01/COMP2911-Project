@@ -1,26 +1,24 @@
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Scanner;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class WarehouseBoss extends JFrame {
-	
+		
 		private static final long serialVersionUID = 1L;
+		private static WarehouseBoss game;
+		private GUIView view;
 		
 		public static void main(String[] args){
-			new WarehouseBoss();
+			game = new WarehouseBoss();
 			
+		}
+		
+		public static WarehouseBoss getInstance() {
+			if (game == null) {
+				game = new WarehouseBoss();
+			}
+			return game;
 		}
 		
 		WarehouseBoss(){
@@ -33,8 +31,13 @@ public class WarehouseBoss extends JFrame {
 			this.setPreferredSize(new Dimension(800,600));
 			this.setResizable(false);
 			
+			view = GUIView.getInstance();
+			view.add("Menu", new Menu());
+			view.setCurrentPanel("Menu");
+			//view.add("Settings", new Settings());
+			//view.setCurrentPanel("Settings");
 			//Set up the content pane.
-			addComponentsToPane(this.getContentPane());
+			this.getContentPane().add(view.getCurrentPanel());
 			
 			//Display the window.
 			this.pack();
@@ -90,51 +93,28 @@ public class WarehouseBoss extends JFrame {
 			
 		}
 		
-		public static void addComponentsToPane(Container pane) {
-			String[] buttonText = {"Start Game", "Load Game", "Settings", "Quit"};
-			
-			JPanel panel = new JPanel(new BorderLayout());
-			//panel.setLayout(new GridLayout(5,1));
-			panel.setLayout(null);
-			
-			//Make new buttons
-			JButton startGameBtn = new JButton(buttonText[0]);
-			JButton loadGameBtn = new JButton(buttonText[1]);
-			JButton settingsBtn = new JButton(buttonText[2]);
-			JButton quitBtn = new JButton(buttonText[3]);
-			
-			//Add buttons to panel
-			panel.add(startGameBtn);
-			panel.add(loadGameBtn);
-			panel.add(settingsBtn);
-			panel.add(quitBtn);
-			
-			
-			//Set the location of each button
-			int btnWidth = 200;
-			int btnHeight = 50;
-			int startXPos = 400 - btnWidth/2;
-			int startYPos = 75;
-			startGameBtn.setBounds(startXPos, startYPos + 100, btnWidth, btnHeight);
-			loadGameBtn.setBounds(startXPos, startYPos + 200, btnWidth, btnHeight);
-			settingsBtn.setBounds(startXPos, startYPos + 300, btnWidth, btnHeight);
-			quitBtn.setBounds(startXPos, startYPos + 400, btnWidth, btnHeight);
-			
-			//Set button fonts
-			Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
-			startGameBtn.setFont(gameFont);
-			loadGameBtn.setFont(gameFont);
-			settingsBtn.setFont(gameFont);
-			quitBtn.setFont(gameFont);
-			
-			//Set button actions
-			quitBtn.addActionListener(e->System.exit(0));
-			
-			ImageIcon titleImage = new ImageIcon("image/menu_back1.png");
-			JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
-			panel.add(titleLabel);
-			titleLabel.setBounds(0, 0, 800, 600);
-			pane.add(panel);		  
-			
+		public void update(){
+			if (view.getCurrentPanelKey().equals("Play")) {
+				if (view.getCurrentPanel() == null) {
+					//TODO
+					//view.add("Play", new Game());
+				}
+				this.removeAll();
+				this.add(view.getCurrentPanel());
+			} else if (view.getCurrentPanelKey().equals("Load")) {
+				if (view.getCurrentPanel() == null) {
+					//TODO
+					//view.add("Load", Game());
+				}
+				this.removeAll();
+				this.add(view.getCurrentPanel());
+			} else if (view.getCurrentPanelKey().equals("Settings")) {
+				if (view.getCurrentPanel() == null) {
+					view.add("Settings", new Settings());
+				}
+				//this.removeAll();
+				this.add(view.getCurrentPanel());
+			}
 		}
+		
 }
