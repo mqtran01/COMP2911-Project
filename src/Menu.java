@@ -60,8 +60,9 @@ public class Menu extends JPanel{
 		settingsBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GUIView.getInstance().setCurrentPanel("Settings");
-				WarehouseBoss.getInstance().update();
+				//GUIView.getInstance().setCurrentPanel("Settings");
+				//WarehouseBoss.getInstance().update();
+				new SettingsWindow(Menu.this);
 			}
 		});
 		

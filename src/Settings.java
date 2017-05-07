@@ -16,7 +16,7 @@ public class Settings extends JPanel {
 	 */
 	public Settings() {
 		this.setLayout(new BorderLayout());
-		this.setLayout(null);
+		//this.setLayout(null);
 		
 		//Make new check boxes and button
 		JCheckBox musicBox = new JCheckBox(text[0]);

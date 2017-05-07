@@ -55,7 +55,7 @@ public class WarehouseBoss extends JFrame {
             }
             */
 		    
-		    Map map = new Map(0, 3, 2);
+		    /*Map map = new Map(0, 3, 2);
 		    for (int y=0; y < map.getHeight(); y++){
                 for (int x=0; x < map.getLength(); x++){
                     System.out.print(map.getTile(x, y));
@@ -89,7 +89,7 @@ public class WarehouseBoss extends JFrame {
 				if (map.winState())break;
 			}
 			sc.close();
-			System.out.println("You win");
+			System.out.println("You win");*/
 			
 		}
 		
@@ -112,7 +112,7 @@ public class WarehouseBoss extends JFrame {
 				if (view.getCurrentPanel() == null) {
 					view.add("Settings", new Settings());
 				}
-				//this.removeAll();
+				this.removeAll();
 				this.add(view.getCurrentPanel());
 			}
 		}
