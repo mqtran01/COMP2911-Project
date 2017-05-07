@@ -1,7 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -44,9 +47,38 @@ public class Game extends JPanel {
 			}
 		}
 		
-		ImageIcon titleImage = new ImageIcon("image/menu_back1.png");
-		JLabel titleLabel = new JLabel("", titleImage, JLabel.CENTER);
-		panel.add(titleLabel, BorderLayout.SOUTH);
-		titleLabel.setBounds(0, 0, 800, 600);
+		JButton saveBtn = new JButton("Save");
+		JButton hintBtn = new JButton("Hint");
+		JButton quitBtn = new JButton("Quit");
+		JPanel btnPanel = new JPanel(new GridLayout(1,3));
+		
+		btnPanel.add(saveBtn);
+		btnPanel.add(hintBtn);
+		btnPanel.add(quitBtn);
+		
+		saveBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//System.out.println("Clicked Save!");
+				//controller.update("Save");
+			}
+		});
+		
+		hintBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//System.out.println("Clicked Hint!");
+				//controller.update("Hint");
+			}
+		});
+		quitBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Clicked Quit!");
+				System.exit(0);
+			}
+		});
+		
+		panel.add(btnPanel, BorderLayout.SOUTH);
 	}
 }
