@@ -105,6 +105,7 @@ public class MapGenerator {
      * @return
      */
     public int[][] mergeTemplates(ArrayList<int[][]> maps, int length, int height) {
+        // TODO add border
         int xOffset = 0;
         int yOffset = 0;
         Iterator<int[][]> iMaps = maps.iterator();

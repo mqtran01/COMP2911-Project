@@ -63,5 +63,9 @@ public class GUIView {
 		}
 		return null;
 	}
+	
+	public void generateViews(WarehouseBoss controller) {
+	    // TODO use this to create views to segregate from the controller
+	}
 
 }

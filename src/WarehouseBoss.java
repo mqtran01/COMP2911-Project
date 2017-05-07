@@ -24,9 +24,11 @@ public class WarehouseBoss extends JFrame {
 			this.setResizable(false);
 			
 			view = GUIView.getInstance();
+			view.generateViews(this);
+			// Move these below into generateViews
 			view.add("Menu", new Menu(this));
-			view.setCurrentPanel("Menu");
 			view.add("Settings", new Settings(this));
+			// End here
 			
 			//Set up the content pane.
 			view.setCurrentPanel("Menu");
@@ -84,7 +86,7 @@ public class WarehouseBoss extends JFrame {
             this.getContentPane().add(view.getCurrentPanel());
             this.revalidate();
             this.repaint();
-            this.pack();
+            //this.pack();
 		}
 		
 }

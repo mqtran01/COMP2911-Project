@@ -16,6 +16,7 @@ public class Game extends JPanel {
 	private int height;
 	
 	public Game(WarehouseBoss controller, Map m) {
+	    // TODO I think we should be using JLabel instead of JPanel for the map - Michael
 		this.setLayout(new BorderLayout());
 		JPanel panel = new JPanel(new GridLayout(m.getLength()/3, m.getLength()/3, 0 ,0));
 		add(panel, BorderLayout.CENTER);
@@ -51,7 +52,7 @@ public class Game extends JPanel {
 		saveBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println("Clicked Save!");
+				System.out.println("Clicked Save!");
 				//controller.update("Save");
 			}
 		});
@@ -59,7 +60,7 @@ public class Game extends JPanel {
 		hintBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println("Clicked Hint!");
+				System.out.println("Clicked Hint!");
 				//controller.update("Hint");
 			}
 		});
