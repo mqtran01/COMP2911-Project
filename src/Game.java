@@ -30,15 +30,7 @@ public class Game extends JPanel {
 				panel.add((this.boxes[x][y]));
 			}
 		}
-		/**
-		 * for (int y=0; y < map.getHeight(); y++){
-                for (int x=0; x < map.getLength(); x++){
-                    System.out.print(map.getTile(x, y));
-                }
-                System.out.print("\n");
-            }
-			
-		 */
+
 		this.grid = new GridComponent[length][height];
 		for (int y=0; y < height; y++) {
 			for (int x=0; x < length; x++) {
