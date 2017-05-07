@@ -6,22 +6,12 @@ import javax.swing.JFrame;
 public class WarehouseBoss extends JFrame {
 		
 		private static final long serialVersionUID = 1L;
-		private static WarehouseBoss game;
 		private GUIView view;
 		
 		public static void main(String[] args){
-			game = new WarehouseBoss();
+			new WarehouseBoss();
 			
 		}
-		
-		
-		public static WarehouseBoss getInstance() {
-			if (game == null) {
-				game = new WarehouseBoss();
-			}
-			return game;
-		}
-		
 		
 		WarehouseBoss(){
 			//Create and set up the window.
@@ -37,7 +27,7 @@ public class WarehouseBoss extends JFrame {
 			view.add("Menu", new Menu(this));
 			view.setCurrentPanel("Menu");
 			view.add("Settings", new Settings(this));
-			//view.setCurrentPanel("Settings");
+			
 			//Set up the content pane.
 			view.setCurrentPanel("Menu");
 			this.getContentPane().add(view.getCurrentPanel());
@@ -88,37 +78,12 @@ public class WarehouseBoss extends JFrame {
 		
 		public void update(String panelName){
 		    System.out.println("We need to change the panel to " + panelName);
-		    this.getContentPane().removeAll();
+		    this.getContentPane().remove(view.getCurrentPanel());
 		    view.setCurrentPanel(panelName);
             this.getContentPane().add(view.getCurrentPanel());
+            this.revalidate();
+            this.repaint();
             this.pack();
-            // Old stuff
-            /*
-			if (view.getCurrentPanelKey().equals("Play")) {
-				if (view.getCurrentPanel() == null) {
-					//TODO
-					//view.add("Play", new Game());
-				}
-				this.removeAll();
-				this.add(view.getCurrentPanel());
-			} else if (view.getCurrentPanelKey().equals("Load")) {
-				if (view.getCurrentPanel() == null) {
-					//TODO
-					//view.add("Load", Game());
-				}
-				this.removeAll();
-				this.add(view.getCurrentPanel());
-			} else if (view.getCurrentPanelKey().equals("Settings")) {
-				if (view.getCurrentPanel() == null) {
-					//view.add("Settings", new Settings());
-				}
-				//view.add("Settings", new Settings());
-				//this.removeAll();
-				view.setCurrentPanel(panelName);
-				this.getContentPane().add(view.getCurrentPanel());
-				//this.add(view.getCurrentPanel());
-			}
-			*/
 		}
 		
 }

@@ -63,13 +63,5 @@ public class GUIView {
 		}
 		return null;
 	}
-	
-	/**
-	 * Method to get the key of the Panel currently been displayed
-	 * @return String
-	 */
-	public String getCurrentPanelKey() {
-		return currentPanel;
-	}
 
 }

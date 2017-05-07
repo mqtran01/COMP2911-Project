@@ -18,8 +18,7 @@ public class Settings extends JPanel {
 	public Settings(WarehouseBoss controller) {
 		this.setLayout(new BorderLayout());
 		this.controller = controller;
-		//this.setLayout(null);
-		
+
 		//Make new check boxes and button
 		JCheckBox musicBox = new JCheckBox(text[0]);
 		JCheckBox SFXBox = new JCheckBox(text[1]);
@@ -63,7 +62,7 @@ public class Settings extends JPanel {
 		backBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO
+				controller.update("Menu");
 			}
 		});
 		
