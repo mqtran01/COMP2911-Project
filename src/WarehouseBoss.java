@@ -38,6 +38,7 @@ public class WarehouseBoss extends JFrame {
 			this.setVisible(true);
 		    
 		    Map map = new Map(0, 3, 2);
+		    view.add("Game", new Game(this, map));
 		    for (int y=0; y < map.getHeight(); y++){
                 for (int x=0; x < map.getLength(); x++){
                     System.out.print(map.getTile(x, y));
@@ -78,7 +79,7 @@ public class WarehouseBoss extends JFrame {
 		
 		public void update(String panelName){
 		    System.out.println("We need to change the panel to " + panelName);
-		    this.getContentPane().remove(view.getCurrentPanel());
+		    this.getContentPane().removeAll();
 		    view.setCurrentPanel(panelName);
             this.getContentPane().add(view.getCurrentPanel());
             this.revalidate();

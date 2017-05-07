@@ -46,16 +46,16 @@ public class Menu extends JPanel{
 		startGameBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//GUIView.getInstance().setCurrentPanel("Play");
-				//controller.update();
+				System.out.println("Clicked Play Game!");
+				controller.update("Game");
 			}
 		});
 		
 		loadGameBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//GUIView.getInstance().setCurrentPanel("Load");
-				//controller.update();
+				//System.out.println("Clicked Load Game!");
+				//controller.update("Load");
 			}
 		});
 		
@@ -63,7 +63,6 @@ public class Menu extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			    System.out.println("Clicked settings!");
-			    //GUIView.getInstance().setCurrentPanel("Settings");
 				controller.update("Settings");
 				
 			}
@@ -72,6 +71,7 @@ public class Menu extends JPanel{
 		quitBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("Clicked Quit!");
 				System.exit(0);
 			}
 		});
