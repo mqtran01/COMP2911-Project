@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,9 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 public class Settings extends JPanel {
-	private String[] text = {"Music", "SFX", "Back"};
+	private String[] text = {"   Music", "   SFX", "Back"};
 	private WarehouseBoss controller;
 	
 	/**
@@ -32,10 +35,10 @@ public class Settings extends JPanel {
 		int btnWidth = 200;
 		int btnHeight = 50;
 		int startXPos = 400 - btnWidth/2;
-		int startYPos = 75;
-		musicBox.setBounds(startXPos, startYPos + 100, btnWidth, btnHeight);
-		SFXBox.setBounds(startXPos, startYPos + 200, btnWidth, btnHeight);
-		backBtn.setBounds(startXPos, startYPos + 400, btnWidth, btnHeight);
+		int startYPos = 150;
+		musicBox.setBounds(startXPos, startYPos, btnWidth, btnHeight);
+		SFXBox.setBounds(startXPos, startYPos + 100, btnWidth, btnHeight);
+		backBtn.setBounds(startXPos, startYPos + 300, btnWidth, btnHeight);
 
 		
 		//Set button fonts
@@ -43,6 +46,10 @@ public class Settings extends JPanel {
 		musicBox.setFont(gameFont);
 		SFXBox.setFont(gameFont);
 		backBtn.setFont(gameFont);
+		
+		//Set button border
+		Border buttonBorder = new LineBorder(Color.BLUE, 2);
+		backBtn.setBorder(buttonBorder);
 		
 		//Set button actions
 		musicBox.addActionListener(new ActionListener(){
@@ -71,7 +78,7 @@ public class Settings extends JPanel {
 		this.add(SFXBox);
 		this.add(backBtn);
 		
-		ImageIcon titleImage = new ImageIcon("image/menu_back1.png");
+		ImageIcon titleImage = new ImageIcon("image/menu_back3.png");
 		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
 		this.add(titleLabel);
 		titleLabel.setBounds(0, 0, 800, 600);
