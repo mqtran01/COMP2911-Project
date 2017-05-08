@@ -1,26 +1,25 @@
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Game extends JPanel {
-	private WarehouseBoss controller;
 	private JPanel[][] boxes;
 	private GridComponent[][] grid;
 	private int length; 
 	private int height;
 	
-	public Game(WarehouseBoss controller, Map m) {
+	public Game(CardLayout views, JPanel mainPanel, Map m) {
 	    // TODO I think we should be using JLabel instead of JPanel for the map - Michael
 		this.setLayout(new BorderLayout());
 		JPanel panel = new JPanel(new GridLayout(m.getLength()/3, m.getLength()/3, 0 ,0));
 		add(panel, BorderLayout.CENTER);
-		this.controller = controller;
+		
 		length = m.getLength();
 		height = m.getHeight();
 		
@@ -43,17 +42,12 @@ public class Game extends JPanel {
 		JButton saveBtn = new JButton("Save");
 		JButton hintBtn = new JButton("Hint");
 		JButton quitBtn = new JButton("Quit");
-		JPanel btnPanel = new JPanel(new GridLayout(1,3));
-		
-		btnPanel.add(saveBtn);
-		btnPanel.add(hintBtn);
-		btnPanel.add(quitBtn);
 		
 		saveBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Save!");
-				//controller.update("Save");
+				//views.show(mainPanel, "Save");
 			}
 		});
 		
@@ -61,7 +55,7 @@ public class Game extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Hint!");
-				//controller.update("Hint");
+				//views.show(mainPanel, "Hint");
 			}
 		});
 		quitBtn.addActionListener(new ActionListener(){
@@ -72,6 +66,8 @@ public class Game extends JPanel {
 			}
 		});
 		
-		panel.add(btnPanel, BorderLayout.SOUTH);
+		panel.add(saveBtn, BorderLayout.SOUTH);
+		panel.add(hintBtn, BorderLayout.SOUTH);
+		panel.add(quitBtn, BorderLayout.SOUTH);
 	}
 }

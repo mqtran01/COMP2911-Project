@@ -1,12 +1,18 @@
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.util.Scanner;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class WarehouseBoss extends JFrame {
 		
 		private static final long serialVersionUID = 1L;
-		private GUIView view;
+		JPanel mainPanel = new JPanel();
+		JPanel menuPanel = new JPanel();
+		JPanel gamePanel = new JPanel();
+		JPanel settingsPanel = new JPanel();
+		CardLayout views = new CardLayout();
 		
 		public static void main(String[] args){
 			new WarehouseBoss();
@@ -17,30 +23,32 @@ public class WarehouseBoss extends JFrame {
 			//Create and set up the window.
 			super("Warehouse Boss");
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			//Set Layout
-			this.setLayout(new BorderLayout());
+
 			//To prevent window resizing
 			this.setPreferredSize(new Dimension(800,600));
-			this.setResizable(false);
+			this.setResizable(false);			
+		    
+		    Map map = new Map(0, 3, 2);
+		    //view.add("Game", new Game(this, map));
+		    
+		    mainPanel.setLayout(views);
+			menuPanel.add(new Menu(views, mainPanel));
+			gamePanel.add(new Game(views, mainPanel, map));
+			settingsPanel.add(new Settings(views, mainPanel));
 			
-			view = GUIView.getInstance();
-			view.generateViews(this);
-			// Move these below into generateViews
-			view.add("Menu", new Menu(this));
-			view.add("Settings", new Settings(this));
-			// End here
+			mainPanel.add(menuPanel, "Menu");
+			mainPanel.add(gamePanel, "Game");
+			mainPanel.add(settingsPanel, "Settings");
+			views.show(mainPanel, "Menu");
 			
-			//Set up the content pane.
-			view.setCurrentPanel("Menu");
-			this.getContentPane().add(view.getCurrentPanel());
-			
+			this.add(mainPanel);
+		    
 			//Display the window.
 			this.pack();
 			this.setLocationRelativeTo(null);
 			this.setVisible(true);
-		    
-		    Map map = new Map(0, 3, 2);
-		    view.add("Game", new Game(this, map));
+			
+			
 		    for (int y=0; y < map.getHeight(); y++){
                 for (int x=0; x < map.getLength(); x++){
                     System.out.print(map.getTile(x, y));
@@ -78,15 +86,4 @@ public class WarehouseBoss extends JFrame {
 			
 		}
 		// End constructor
-		
-		public void update(String panelName){
-		    System.out.println("We need to change the panel to " + panelName);
-		    this.getContentPane().removeAll();
-		    view.setCurrentPanel(panelName);
-            this.getContentPane().add(view.getCurrentPanel());
-            this.revalidate();
-            this.repaint();
-            //this.pack();
-		}
-		
 }

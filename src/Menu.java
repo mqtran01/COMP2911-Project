@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -12,15 +13,12 @@ import javax.swing.border.LineBorder;
 
 public class Menu extends JPanel{
 	private String[] buttonText = {"Start Game", "Load Game", "Settings", "Quit"};
-	private WarehouseBoss controller;
 	
 	/**
 	 * Constructor for Menu Panel/View
 	 */
-	public Menu(WarehouseBoss controller) {
+	public Menu(final CardLayout views, final JPanel mainPanel) {
 		this.setLayout(new BorderLayout());
-		//this.setLayout(new GridLayout(5,1));
-		this.controller = controller;
 		
 		//Make new buttons
 		JButton startGameBtn = new JButton(buttonText[0]);
@@ -57,15 +55,15 @@ public class Menu extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Play Game!");
-				controller.update("Game");
+				views.show(mainPanel, "Game");
 			}
 		});
 		
 		loadGameBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println("Clicked Load Game!");
-				//controller.update("Load");
+				System.out.println("Clicked Load Game!");
+				//views.show(mainPanel, "Load");
 			}
 		});
 		
@@ -73,8 +71,7 @@ public class Menu extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			    System.out.println("Clicked settings!");
-				controller.update("Settings");
-				
+			    views.show(mainPanel, "Settings");
 			}
 		});
 		

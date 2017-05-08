@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -13,15 +14,13 @@ import javax.swing.border.LineBorder;
 
 public class Settings extends JPanel {
 	private String[] text = {"   Music", "   SFX", "Back"};
-	private WarehouseBoss controller;
 	
 	/**
 	 * Constructor for Settings Panel/View
 	 */
-	public Settings(WarehouseBoss controller) {
+	public Settings(CardLayout views, JPanel mainPanel) {
 		this.setLayout(new BorderLayout());
-		this.controller = controller;
-
+		
 		//Make new check boxes and button
 		JCheckBox musicBox = new JCheckBox(text[0]);
 		JCheckBox SFXBox = new JCheckBox(text[1]);
@@ -69,7 +68,7 @@ public class Settings extends JPanel {
 		backBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.update("Menu");
+				views.show(mainPanel, "Menu");
 			}
 		});
 		
