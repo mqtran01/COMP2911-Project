@@ -13,7 +13,7 @@ public class GridComponent extends JPanel{
 		this.x=xPos;
 		this.y=yPos;
 		JButton btn = new JButton(Integer.toString(val));
-		//btn.setPreferredSize(new Dimension(SIZE,SIZE));
+		btn.setPreferredSize(new Dimension(600/9,400/6));
 		this.add(btn);
 	}
 }

@@ -1,77 +1,67 @@
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Game extends JPanel {
-	private WarehouseBoss controller;
-	private JPanel[][] boxes;
-	private GridComponent[][] grid;
+	//private WarehouseBoss controller;
+	private JLabel[][] grid;
 	private int length; 
 	private int height;
 	
 	public Game(WarehouseBoss controller, Map m) {
-	    // TODO I think we should be using JLabel instead of JPanel for the map - Michael
-		this.setLayout(new BorderLayout());
-		JPanel panel = new JPanel(new GridLayout(m.getLength()/3, m.getLength()/3, 0 ,0));
-		add(panel, BorderLayout.CENTER);
-		this.controller = controller;
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		length = m.getLength();
 		height = m.getHeight();
-		
-		this.boxes = new JPanel[length/3][height/3];
-		for (int y=0; y < height/3; y++) {
-			for (int x=0; x < length/3; x++) {
-				this.boxes[x][y] = new JPanel(new GridLayout(3,3,0,0));
-				panel.add((this.boxes[x][y]));
-			}
-		}
+		grid = new JLabel[length][height];
 
-		this.grid = new GridComponent[length][height];
-		for (int y=0; y < height; y++) {
-			for (int x=0; x < length; x++) {
-				this.grid[x][y] = new GridComponent(x,y, m.getTile(x, y));
-				this.boxes[x/3][y/3].add(this.grid[x][y]);
+		ImageIcon wallImage = new ImageIcon("image/Wall.png");
+		
+		for (int y=0; y<height; y++){
+			for (int x=0; x<length; x++){
+				grid[x][y] = new JLabel("", wallImage, JLabel.CENTER);
+				grid[x][y].setPreferredSize(new Dimension(800/9,500/6));
+				add(grid[x][y]);
 			}
 		}
 		
-		JButton saveBtn = new JButton("Save");
-		JButton hintBtn = new JButton("Hint");
-		JButton quitBtn = new JButton("Quit");
-		JPanel btnPanel = new JPanel(new GridLayout(1,3));
 		
-		btnPanel.add(saveBtn);
-		btnPanel.add(hintBtn);
-		btnPanel.add(quitBtn);
+//		JButton saveBtn = new JButton("Save");
+//		JButton hintBtn = new JButton("Hint");
+//		JButton quitBtn = new JButton("Quit");
+//		
+//		saveBtn.setBounds(50,550, 50, 25);
+//		hintBtn.setBounds(150,550, 50, 25);
+//		quitBtn.setBounds(250,550, 50, 25);
+//		
+//		this.add(saveBtn);
+//		this.add(hintBtn);
+//		this.add(quitBtn);
 		
-		saveBtn.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Clicked Save!");
-				//controller.update("Save");
-			}
-		});
+//		saveBtn.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("Clicked Save!");
+//				//controller.update("Save");
+//			}
+//		});
+//		
+//		hintBtn.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("Clicked Hint!");
+//				//controller.update("Hint");
+//			}
+//		});
+//		quitBtn.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("Clicked Quit!");
+//				System.exit(0);
+//			}
+//		});
 		
-		hintBtn.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Clicked Hint!");
-				//controller.update("Hint");
-			}
-		});
-		quitBtn.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Clicked Quit!");
-				System.exit(0);
-			}
-		});
-		
-		panel.add(btnPanel, BorderLayout.SOUTH);
+		//panel.add(btnPanel);
 	}
 }
