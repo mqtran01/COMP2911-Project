@@ -15,12 +15,30 @@ public class Game extends JPanel {
 		length = m.getLength();
 		height = m.getHeight();
 		grid = new JLabel[length][height];
-
-		ImageIcon wallImage = new ImageIcon("image/Wall.png");
 		
 		for (int y=0; y<height; y++){
 			for (int x=0; x<length; x++){
-				grid[x][y] = new JLabel("", wallImage, JLabel.CENTER);
+				if (m.getTile(x, y) == m.WALL){
+					grid[x][y] = new JLabel("", new ImageIcon("image/Wall.png"), JLabel.CENTER);
+					
+				} else if (m.getTile(x, y) == m.EMPTY){
+					grid[x][y] = new JLabel("", new ImageIcon("image/Empty.png"), JLabel.CENTER);
+					
+				} else if (m.getTile(x, y) == m.PLAYER){
+					grid[x][y] = new JLabel("", new ImageIcon("image/Wall.png"), JLabel.CENTER);
+					
+				} else if (m.getTile(x, y) == m.BOX){
+					grid[x][y] = new JLabel("", new ImageIcon("image/Box.png"), JLabel.CENTER);
+					
+				} else if (m.getTile(x, y) == m.GOAL){
+					grid[x][y] = new JLabel("", new ImageIcon("image/Goal.png"), JLabel.CENTER);
+					
+				} else if (m.getTile(x, y) == m.GOALBOX){
+					grid[x][y] = new JLabel("", new ImageIcon("image/Wall.png"), JLabel.CENTER);
+					
+				} else if (m.getTile(x, y) == m.GOALPLAYER){
+					grid[x][y] = new JLabel("", new ImageIcon("image/Wall.png"), JLabel.CENTER);
+				}
 				grid[x][y].setPreferredSize(new Dimension(800/9,500/6));
 				add(grid[x][y]);
 			}
