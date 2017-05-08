@@ -214,7 +214,7 @@ public class MapGenerator {
         for (int i = 0; i < 2; i++) {
             boolean placed = false;
             int retry = 0;
-            while (!placed && retry < cap) {
+            while (!placed) {
                 // Finds a random place
                 int num = rGen.nextInt(size);
                 int xPos = num / grid.length;
@@ -229,9 +229,12 @@ public class MapGenerator {
                     placed = true;
                 } else {
                     retry++;
+                    //System.out.println("Wrong " + retry);
                 }
-                if (retry > cap)
+                if (retry > cap) {
+                    //System.out.println("CANNOT!");
                     return false;
+                }
                 
             }
         }
