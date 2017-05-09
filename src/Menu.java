@@ -13,19 +13,19 @@ import javax.swing.border.LineBorder;
 
 public class Menu extends JPanel{
 	private String[] buttonText = {"Start Game", "Load Game", "Settings", "Quit"};
-	
+
 	/**
 	 * Constructor for Menu Panel/View
 	 */
 	public Menu(final CardLayout views, final JPanel mainPanel) {
 		this.setLayout(new BorderLayout());
-		
+
 		//Make new buttons
 		JButton startGameBtn = new JButton(buttonText[0]);
 		JButton loadGameBtn = new JButton(buttonText[1]);
 		JButton settingsBtn = new JButton(buttonText[2]);
 		JButton quitBtn = new JButton(buttonText[3]);
-		
+
 		//Set the location of each button
 		int btnWidth = 200;
 		int btnHeight = 50;
@@ -35,21 +35,21 @@ public class Menu extends JPanel{
 		loadGameBtn.setBounds(startXPos, startYPos + 100, btnWidth, btnHeight);
 		settingsBtn.setBounds(startXPos, startYPos + 200, btnWidth, btnHeight);
 		quitBtn.setBounds(startXPos, startYPos + 300, btnWidth, btnHeight);
-		
+
 		//Set button fonts
 		Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
 		startGameBtn.setFont(gameFont);
 		loadGameBtn.setFont(gameFont);
 		settingsBtn.setFont(gameFont);
 		quitBtn.setFont(gameFont);
-		
+
 		//Set button border
 		Border buttonBorder = new LineBorder(Color.BLUE, 2);
 		startGameBtn.setBorder(buttonBorder);
 		loadGameBtn.setBorder(buttonBorder);
 		settingsBtn.setBorder(buttonBorder);
 		quitBtn.setBorder(buttonBorder);
-		
+
 		//Set button actions
 		startGameBtn.addActionListener(new ActionListener(){
 			@Override
@@ -58,7 +58,7 @@ public class Menu extends JPanel{
 				views.show(mainPanel, "Game");
 			}
 		});
-		
+
 		loadGameBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -66,15 +66,15 @@ public class Menu extends JPanel{
 				//views.show(mainPanel, "Load");
 			}
 		});
-		
+
 		settingsBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			    System.out.println("Clicked settings!");
-			    views.show(mainPanel, "Settings");
+				System.out.println("Clicked settings!");
+				views.show(mainPanel, "Settings");
 			}
 		});
-		
+
 		quitBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -82,13 +82,13 @@ public class Menu extends JPanel{
 				System.exit(0);
 			}
 		});
-		
+
 		//Add buttons to this
 		this.add(startGameBtn);
 		this.add(loadGameBtn);
 		this.add(settingsBtn);
 		this.add(quitBtn);
-		
+
 		ImageIcon titleImage = new ImageIcon("image/menu_back3.png");
 		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
 		this.add(titleLabel);
