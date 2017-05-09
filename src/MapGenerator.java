@@ -221,10 +221,6 @@ public class MapGenerator {
 				int yPos = num % grid[0].length;
 				// Check if valid position
 				if (checkSides(grid, xPos, yPos, objective)) {
-					// Box cannot be placed at the edge, more stringent check
-					if (objective == BOX) {
-
-					}
 					grid[xPos][yPos] = objective;
 					placed = true;
 				} else {
@@ -254,8 +250,8 @@ public class MapGenerator {
 		// Check self is empty
 		if (isClear(grid, xPos, yPos)) {
 			// Box has an additional restriction cannot be placed on edge
-			if (objective == BOX) {
-				if (xPos <= 0 || xPos > grid.length || yPos <= 0 || yPos > grid[0].length)
+			if (objective == Map.BOX) {
+				if (xPos <= 0 || xPos >= grid.length - 1 || yPos <= 0 || yPos >= grid[0].length - 1)
 					return false;
 			}
 			// Checks the 4 adjacent spots

@@ -3,9 +3,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -24,31 +29,46 @@ public class Game extends JPanel {
 		length = m.getLength();
 		height = m.getHeight();
 		grid = new JLabel[length][height];
+		
+		ImageIcon wall = resizedImage(Map.WALL, length, height);
+		ImageIcon empty = resizedImage(Map.EMPTY, length, height);
+	    ImageIcon player = resizedImage(Map.PLAYER, length, height);
+		ImageIcon box = resizedImage(Map.BOX, length, height);
+		ImageIcon goal = resizedImage(Map.GOAL, length, height);
+		ImageIcon goalBox = resizedImage(Map.GOALBOX, length, height);
+		ImageIcon goalPlayer = resizedImage(Map.GOALPLAYER, length, height);
+
+		
 
 		for (int y=0; y<height; y++){
 			for (int x=0; x<length; x++){
-				if (m.getTile(x, y) == m.WALL){
-					grid[x][y] = new JLabel("", new ImageIcon("image/Wall.png"), JLabel.CENTER);
+				if (m.getTile(x, y) == Map.WALL){
+				    grid[x][y] = new JLabel("", wall, JLabel.CENTER);
 
-				} else if (m.getTile(x, y) == m.EMPTY){
-					grid[x][y] = new JLabel("", new ImageIcon("image/Empty.png"), JLabel.CENTER);
+				} else if (m.getTile(x, y) == Map.EMPTY){
+					grid[x][y] = new JLabel("", empty, JLabel.CENTER);
 
-				} else if (m.getTile(x, y) == m.PLAYER){
-					grid[x][y] = new JLabel("", new ImageIcon("image/Wall.png"), JLabel.CENTER);
+				} else if (m.getTile(x, y) == Map.PLAYER){
+					grid[x][y] = new JLabel("", player, JLabel.CENTER);
 
-				} else if (m.getTile(x, y) == m.BOX){
-					grid[x][y] = new JLabel("", new ImageIcon("image/Box.png"), JLabel.CENTER);
+				} else if (m.getTile(x, y) == Map.BOX){
+					grid[x][y] = new JLabel("", box, JLabel.CENTER);
 
-				} else if (m.getTile(x, y) == m.GOAL){
-					grid[x][y] = new JLabel("", new ImageIcon("image/Goal.png"), JLabel.CENTER);
+				} else if (m.getTile(x, y) == Map.GOAL){
+					grid[x][y] = new JLabel("", goal, JLabel.CENTER);
 
-				} else if (m.getTile(x, y) == m.GOALBOX){
-					grid[x][y] = new JLabel("", new ImageIcon("image/Wall.png"), JLabel.CENTER);
+				} else if (m.getTile(x, y) == Map.GOALBOX){
+					grid[x][y] = new JLabel("", goalBox, JLabel.CENTER);
 
-				} else if (m.getTile(x, y) == m.GOALPLAYER){
-					grid[x][y] = new JLabel("", new ImageIcon("image/Wall.png"), JLabel.CENTER);
+				} else if (m.getTile(x, y) == Map.GOALPLAYER){
+					grid[x][y] = new JLabel("", goalPlayer, JLabel.CENTER);
 				}
-				grid[x][y].setPreferredSize(new Dimension(800/9,500/6));
+				
+				double scaledLen = 800/length;
+		        double scaledHgt = 500/height;
+		        int proportion = (int) Math.min(scaledLen, scaledHgt);
+		        grid[x][y].setPreferredSize(new Dimension(proportion,proportion));
+				//grid[x][y].setPreferredSize(new Dimension(800/length,500/height));
 				add(grid[x][y]);
 			}
 		}
@@ -98,5 +118,46 @@ public class Game extends JPanel {
 		add(saveBtn);
 		add(hintBtn);
 		add(quitBtn);
+	}
+	
+	private ImageIcon resizedImage(int item, int length, int height) {
+	    
+	    String imgLoc = null;
+	    switch (item) {
+	        case Map.WALL:
+	            imgLoc = "image/Wall.png";
+	            break;
+	        case Map.EMPTY:
+	            imgLoc = "image/Empty.png";
+                break;
+	        case Map.PLAYER:
+	            imgLoc = "image/Wall.png"; // TODO proper image
+                break;
+            case Map.BOX:
+                imgLoc = "image/Box.png";
+                break;
+            case Map.GOAL:
+                imgLoc = "image/Goal.png";
+                break;
+            case Map.GOALBOX:
+                imgLoc = "image/Wall.png"; // TODO proper image
+                break;
+            case Map.GOALPLAYER:
+                imgLoc = "image/Wall.png"; // TODO proper image
+                break;
+	    }
+	    
+	    BufferedImage img = null;
+	    try {
+	        img = ImageIO.read(new File(imgLoc));
+	    } catch (IOException e) {
+	        return null;
+	    }
+	    
+	    double scaledLen = 800/length;
+	    double scaledHgt = 500/height;
+	    int proportion = (int) Math.min(scaledLen, scaledHgt);
+	    Image dimg = img.getScaledInstance(proportion, proportion, Image.SCALE_SMOOTH);
+	    return new ImageIcon(dimg);
 	}
 }

@@ -28,7 +28,7 @@ public class WarehouseBoss extends JFrame {
 		this.setPreferredSize(new Dimension(800,600));
 		this.setResizable(false);			
 
-		Map map = new Map(0, 3, 2);
+		Map map = new Map(0, 2, 2);
 
 		mainPanel.setLayout(views);
 		menuPanel.add(new Menu(views, mainPanel));
