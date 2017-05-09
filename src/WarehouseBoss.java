@@ -23,12 +23,12 @@ public class WarehouseBoss extends JFrame {
 		//Create and set up the window.
 		super("Warehouse Boss");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
 		//To prevent window resizing
 		this.setPreferredSize(new Dimension(800,600));
 		this.setResizable(false);			
 
-		Map map = new Map(0, 3, 2);
+		Map map = new Map(0, 2, 2);
 
 		mainPanel.setLayout(views);
 		menuPanel.add(new Menu(views, mainPanel));
