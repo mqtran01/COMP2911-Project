@@ -147,7 +147,7 @@ public class Game extends JPanel {
                 imgLoc = "image/GoalBox.png";
                 break;
             case Map.GOALPLAYER:
-                imgLoc = "image/Wall.png"; // TODO proper image
+                imgLoc = "image/playerUpGoal.png"; // TODO change player direction
                 break;
 	    }
 	    
