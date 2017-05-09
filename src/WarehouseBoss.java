@@ -29,7 +29,6 @@ public class WarehouseBoss extends JFrame {
 			this.setResizable(false);			
 		    
 		    Map map = new Map(0, 3, 2);
-		    //view.add("Game", new Game(this, map));
 		    
 		    mainPanel.setLayout(views);
 			menuPanel.add(new Menu(views, mainPanel));
