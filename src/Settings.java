@@ -36,8 +36,8 @@ public class Settings extends JPanel {
 		int startXPos = 400 - btnWidth/2;
 		int startYPos = 150;
 		musicBox.setBounds(startXPos, startYPos, btnWidth, btnHeight);
-		SFXBox.setBounds(startXPos, startYPos + 100, btnWidth, btnHeight);
-		backBtn.setBounds(startXPos, startYPos + 300, btnWidth, btnHeight);
+		SFXBox.setBounds(startXPos, startYPos + 90, btnWidth, btnHeight);
+		backBtn.setBounds(startXPos, startYPos + 290, btnWidth, btnHeight);
 
 
 		//Set button fonts

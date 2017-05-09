@@ -32,9 +32,9 @@ public class Menu extends JPanel{
 		int startXPos = 400 - btnWidth/2;
 		int startYPos = 150;
 		startGameBtn.setBounds(startXPos, startYPos, btnWidth, btnHeight);
-		loadGameBtn.setBounds(startXPos, startYPos + 100, btnWidth, btnHeight);
-		settingsBtn.setBounds(startXPos, startYPos + 200, btnWidth, btnHeight);
-		quitBtn.setBounds(startXPos, startYPos + 300, btnWidth, btnHeight);
+		loadGameBtn.setBounds(startXPos, startYPos + 90, btnWidth, btnHeight);
+		settingsBtn.setBounds(startXPos, startYPos + 190, btnWidth, btnHeight);
+		quitBtn.setBounds(startXPos, startYPos + 290, btnWidth, btnHeight);
 
 		//Set button fonts
 		Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
