@@ -7,13 +7,13 @@ public class Map {
 	int player_x;
 	int player_y;
 	
-	final int WALL = 0;
-	final int EMPTY = 1;
-	final int PLAYER = 2;
-	final int BOX = 3;
-	final int GOAL = 4;
-	final int GOALBOX = 5;
-	final int GOALPLAYER = 6;
+	final static int WALL = 0;
+	final static int EMPTY = 1;
+	final static int PLAYER = 2;
+	final static int BOX = 3;
+	final static int GOAL = 4;
+	final static int GOALBOX = 5;
+	final static int GOALPLAYER = 6;
 	
 	/*grid internal representation
 	 * 0: wall
@@ -25,24 +25,13 @@ public class Map {
 	 * 6: player+goal
 	 */
 	
+
 	/**
 	 * constructor
-	 * @param seed the seed for the map grid
+	 * @param seed
+	 * @param length
+	 * @param height
 	 */
-	public Map(int seed){
-		this.seed = seed;
-		//grid = newMap(seed);
-		MapGenerator mGen = new MapGenerator();
-		Random rGen  = new Random(System.currentTimeMillis());
-		
-		ArrayList<int[][]> gridList =  new ArrayList<int[][]>();
-		for (int i = 0; i < 6; i++) {
-		    int[][] part = mGen.createMapMatrix(rGen);
-		    gridList.add(part);
-		}
-		grid = mGen.mergeTemplates(gridList, 3, 2);
-	}
-	
 	public Map(int seed, int length, int height){
         this.seed = seed;
         //grid = newMap(seed);
@@ -53,7 +42,6 @@ public class Map {
         ArrayList<int[][]> gridList =  new ArrayList<int[][]>();
         for (int i = 0; i < length * height; i++) {
             rGen.nextInt(10);
-            //System.out.println(rand);
             int[][] part = mGen.createMapMatrix(rGen);
             gridList.add(part);
         }
@@ -121,15 +109,6 @@ public class Map {
 
 	}
 	
-	/**
-	 * generates a grid given an integer seed
-	 * @param seed the seed for the map
-	 * @return a grid
-	 */
-	private int[][] newMap(int seed){
-		int[][] newGrid = new int[5][5];
-		return newGrid;
-	}
 
 	/**
 	 * returns the value of a grid space given its x and y coordinates
