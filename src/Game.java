@@ -30,45 +30,49 @@ public class Game extends JPanel {
 		height = m.getHeight();
 		grid = new JLabel[length][height];
 		
-		ImageIcon wall = resizedImage(Map.WALL, length, height);
-		ImageIcon empty = resizedImage(Map.EMPTY, length, height);
-	    ImageIcon player = resizedImage(Map.PLAYER, length, height);
-		ImageIcon box = resizedImage(Map.BOX, length, height);
-		ImageIcon goal = resizedImage(Map.GOAL, length, height);
-		ImageIcon goalBox = resizedImage(Map.GOALBOX, length, height);
-		ImageIcon goalPlayer = resizedImage(Map.GOALPLAYER, length, height);
+        double scaledLen = 800/length;
+        double scaledHgt = 500/height;
+        int proportion = (int) Math.min(scaledLen, scaledHgt);
+		
+		ImageIcon wall = resizedImage(Map.WALL, proportion);
+		ImageIcon empty = resizedImage(Map.EMPTY, proportion);
+	    ImageIcon player = resizedImage(Map.PLAYER, proportion);
+		ImageIcon box = resizedImage(Map.BOX, proportion);
+		ImageIcon goal = resizedImage(Map.GOAL, proportion);
+		ImageIcon goalBox = resizedImage(Map.GOALBOX, proportion);
+		ImageIcon goalPlayer = resizedImage(Map.GOALPLAYER, proportion);
 
 		
 
 		for (int y=0; y<height; y++){
 			for (int x=0; x<length; x++){
-				if (m.getTile(x, y) == Map.WALL){
-				    grid[x][y] = new JLabel("", wall, JLabel.CENTER);
-
-				} else if (m.getTile(x, y) == Map.EMPTY){
-					grid[x][y] = new JLabel("", empty, JLabel.CENTER);
-
-				} else if (m.getTile(x, y) == Map.PLAYER){
-					grid[x][y] = new JLabel("", player, JLabel.CENTER);
-
-				} else if (m.getTile(x, y) == Map.BOX){
-					grid[x][y] = new JLabel("", box, JLabel.CENTER);
-
-				} else if (m.getTile(x, y) == Map.GOAL){
-					grid[x][y] = new JLabel("", goal, JLabel.CENTER);
-
-				} else if (m.getTile(x, y) == Map.GOALBOX){
-					grid[x][y] = new JLabel("", goalBox, JLabel.CENTER);
-
-				} else if (m.getTile(x, y) == Map.GOALPLAYER){
-					grid[x][y] = new JLabel("", goalPlayer, JLabel.CENTER);
-				}
-				
-				double scaledLen = 800/length;
-		        double scaledHgt = 500/height;
-		        int proportion = (int) Math.min(scaledLen, scaledHgt);
+			    int tileItem = m.getTile(x, y);
+			    ImageIcon img = null;
+			    switch (tileItem) {
+    	            case Map.WALL:
+    	                img = wall;
+    	                break;
+    	            case Map.EMPTY:
+    	                img = empty;
+    	                break;
+    	            case Map.PLAYER:
+    	                img = player;
+    	                break;
+    	            case Map.BOX:
+    	                img = box;
+    	                break;
+    	            case Map.GOAL:
+    	                img = goal;
+    	                break;
+    	            case Map.GOALBOX:
+    	                img = goalBox;
+    	                break;
+    	            case Map.GOALPLAYER:
+    	                img = goalPlayer;
+    	                break;
+			    }
+			    grid[x][y] = new JLabel("", img, JLabel.CENTER);
 		        grid[x][y].setPreferredSize(new Dimension(proportion,proportion));
-				//grid[x][y].setPreferredSize(new Dimension(800/length,500/height));
 				add(grid[x][y]);
 			}
 		}
@@ -120,7 +124,7 @@ public class Game extends JPanel {
 		add(quitBtn);
 	}
 	
-	private ImageIcon resizedImage(int item, int length, int height) {
+	private ImageIcon resizedImage(int item, int size) {
 	    
 	    String imgLoc = null;
 	    switch (item) {
@@ -154,10 +158,7 @@ public class Game extends JPanel {
 	        return null;
 	    }
 	    
-	    double scaledLen = 800/length;
-	    double scaledHgt = 500/height;
-	    int proportion = (int) Math.min(scaledLen, scaledHgt);
-	    Image dimg = img.getScaledInstance(proportion, proportion, Image.SCALE_SMOOTH);
+	    Image dimg = img.getScaledInstance(size, size, Image.SCALE_SMOOTH);
 	    return new ImageIcon(dimg);
 	}
 }
