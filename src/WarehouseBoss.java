@@ -10,6 +10,7 @@ public class WarehouseBoss extends JFrame {
 	private static final long serialVersionUID = 1L;
 	JPanel mainPanel = new JPanel();
 	JPanel menuPanel = new JPanel();
+	JPanel lvlSelPanel = new JPanel();
 	JPanel gamePanel = new JPanel();
 	JPanel settingsPanel = new JPanel();
 	CardLayout views = new CardLayout();
@@ -32,10 +33,12 @@ public class WarehouseBoss extends JFrame {
 
 		mainPanel.setLayout(views);
 		menuPanel.add(new Menu(views, mainPanel));
+		lvlSelPanel.add(new LevelSelector(views, mainPanel));
 		gamePanel.add(new Game(views, mainPanel, map));
 		settingsPanel.add(new Settings(views, mainPanel));
 
 		mainPanel.add(menuPanel, "Menu");
+		mainPanel.add(lvlSelPanel, "Level");
 		mainPanel.add(gamePanel, "Game");
 		mainPanel.add(settingsPanel, "Settings");
 		views.show(mainPanel, "Menu");

@@ -55,7 +55,7 @@ public class Menu extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Play Game!");
-				views.show(mainPanel, "Game");
+				views.show(mainPanel, "Level");
 			}
 		});
 
