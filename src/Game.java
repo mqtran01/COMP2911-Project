@@ -1,10 +1,7 @@
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -14,7 +11,8 @@ public class Game extends JPanel {
 	private int height;
 
 	public Game(CardLayout views, JPanel mainPanel, Map m)  {
-		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		this.setPreferredSize(new Dimension(800,600));
 		length = m.getLength();
 		height = m.getHeight();
 		grid = new JLabel[length][height];
@@ -48,32 +46,32 @@ public class Game extends JPanel {
 		}
 
 
-		JButton saveBtn = new JButton("Save");
-		JButton hintBtn = new JButton("Hint");
-		JButton quitBtn = new JButton("Quit");
-		
-		saveBtn.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Clicked Save!");
-				//views.show(mainPanel, "Save");
-			}
-		});
-		
-		hintBtn.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Clicked Hint!");
-				//views.show(mainPanel, "Hint");
-			}
-		});
-		quitBtn.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Clicked Quit!");
-				System.exit(0);
-			}
-		});
+//		JButton saveBtn = new JButton("Save");
+//		JButton hintBtn = new JButton("Hint");
+//		JButton quitBtn = new JButton("Quit");
+//		
+//		saveBtn.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("Clicked Save!");
+//				//views.show(mainPanel, "Save");
+//			}
+//		});
+//		
+//		hintBtn.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("Clicked Hint!");
+//				//views.show(mainPanel, "Hint");
+//			}
+//		});
+//		quitBtn.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("Clicked Quit!");
+//				System.exit(0);
+//			}
+//		});
 		
 		//add(saveBtn);
 		//add(hintBtn);
