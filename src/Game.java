@@ -186,6 +186,7 @@ public class Game extends JPanel {
 	 * method for updating the sprites displayed by the grid
 	 */
 	public void update(){
+		System.out.println("updating");
 		double scaledLen = 800/length;
 		double scaledHgt = 500/height;
 		

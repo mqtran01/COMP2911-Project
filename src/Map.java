@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Map {
+public class Map implements Serializable {
 	int[][] grid;//note: 0,0 is upper left of grid
 	int seed;
 	int player_x;
