@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.*;
@@ -133,6 +134,32 @@ public class Game extends JPanel {
 
 		this.add(gridPanel);
 		this.add(btnPanel);
+		
+		//add in keyboard controls
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+            @Override
+            public boolean dispatchKeyEvent(KeyEvent key) {
+            	if (key.getID() == KeyEvent.KEY_PRESSED){
+            		System.out.println(key.getKeyCode());
+            		if (key.getKeyCode() == KeyEvent.VK_W){
+                		map.moveUp();
+                	}
+            		else if (key.getKeyCode() == KeyEvent.VK_S){
+                		map.moveDown();
+                	}
+            		if (key.getKeyCode() == KeyEvent.VK_A){
+                		map.moveLeft();
+                	}
+            		if (key.getKeyCode() == KeyEvent.VK_D){
+                		map.moveRight();
+                	}
+            		update();
+            	}
+                return false;
+            }
+        });
+		
+		
 	}
 
 	private ImageIcon resizedImage(int item, int size) {

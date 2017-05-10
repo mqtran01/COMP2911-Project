@@ -15,6 +15,10 @@ public class WarehouseBoss extends JFrame {
 	Game gamePanel;
 	JPanel settingsPanel = new JPanel();
 	CardLayout views = new CardLayout();
+	
+	Map map;
+	boolean enableMusic;
+	boolean enableSFX;
 
 	public static void main(String[] args){
 		new WarehouseBoss();
@@ -32,6 +36,8 @@ public class WarehouseBoss extends JFrame {
 
 		//Map map = new Map(0, 4, 3);
 		Map map = new Map('a');
+		enableMusic = true;
+		enableSFX = true;
 
 		mainPanel.setLayout(views);
 		menuPanel.add(new Menu(views, mainPanel));
@@ -60,9 +66,8 @@ public class WarehouseBoss extends JFrame {
 			}
 			System.out.print("\n");
 		}
-
-
-		Scanner sc = new Scanner(System.in);
+		
+		/*Scanner sc = new Scanner(System.in);
 		String input;
 		while(!(input = sc.next()).equals("x")){
 			System.out.println(input);
@@ -88,7 +93,7 @@ public class WarehouseBoss extends JFrame {
 			if (map.winState())break;
 		}
 		sc.close();
-		System.out.println("You win");
+		System.out.println("You win");*/
 
 	}
 	// End constructor
