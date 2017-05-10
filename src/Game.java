@@ -208,28 +208,54 @@ public class Game extends JPanel {
 	private ImageIcon resizedImage(int item, int size) {
 
 		String imgLoc = null;
-		switch (item) {
-		case Map.WALL:
-			imgLoc = "image/Wall.png";
-			break;
-		case Map.EMPTY:
-			imgLoc = "image/Empty.png";
-			break;
-		case Map.PLAYER:
-			imgLoc = "image/playerUp.png"; // TODO change player direction
-			break;
-		case Map.BOX:
-			imgLoc = "image/Box.png";
-			break;
-		case Map.GOAL:
-			imgLoc = "image/Goal.png";
-			break;
-		case Map.GOALBOX:
-			imgLoc = "image/GoalBox.png";
-			break;
-		case Map.GOALPLAYER:
-			imgLoc = "image/playerUpGoal.png"; // TODO change player direction
-			break;
+		if (settings.isCharacterColorRed()){
+			switch (item) {
+			case Map.WALL:
+				imgLoc = "image/Wall.png";
+				break;
+			case Map.EMPTY:
+				imgLoc = "image/Empty.png";
+				break;
+			case Map.PLAYER:
+				imgLoc = "image/playerDown.png"; // TODO change player direction
+				break;
+			case Map.BOX:
+				imgLoc = "image/Box.png";
+				break;
+			case Map.GOAL:
+				imgLoc = "image/Goal.png";
+				break;
+			case Map.GOALBOX:
+				imgLoc = "image/GoalBox.png";
+				break;
+			case Map.GOALPLAYER:
+				imgLoc = "image/playerDownGoal.png"; // TODO change player direction
+				break;
+			}
+		} else {
+			switch (item) {
+			case Map.WALL:
+				imgLoc = "image/Wall.png";
+				break;
+			case Map.EMPTY:
+				imgLoc = "image/Empty.png";
+				break;
+			case Map.PLAYER:
+				imgLoc = "image/player2Down.png"; // TODO change player direction
+				break;
+			case Map.BOX:
+				imgLoc = "image/Box.png";
+				break;
+			case Map.GOAL:
+				imgLoc = "image/Goal.png";
+				break;
+			case Map.GOALBOX:
+				imgLoc = "image/GoalBox.png";
+				break;
+			case Map.GOALPLAYER:
+				imgLoc = "image/player2DownGoal.png"; // TODO change player direction
+				break;
+			}
 		}
 
 		BufferedImage img = null;
