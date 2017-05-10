@@ -11,7 +11,8 @@ public class WarehouseBoss extends JFrame {
 	JPanel mainPanel = new JPanel();
 	JPanel menuPanel = new JPanel();
 	JPanel lvlSelPanel = new JPanel();
-	JPanel gamePanel = new JPanel();
+	//JPanel gamePanel = new JPanel();
+	Game gamePanel;
 	JPanel settingsPanel = new JPanel();
 	CardLayout views = new CardLayout();
 
@@ -29,12 +30,14 @@ public class WarehouseBoss extends JFrame {
 		this.setPreferredSize(new Dimension(800,600));
 		this.setResizable(false);			
 
-		Map map = new Map(0, 4, 3);
+		//Map map = new Map(0, 4, 3);
+		Map map = new Map('a');
 
 		mainPanel.setLayout(views);
 		menuPanel.add(new Menu(views, mainPanel));
 		lvlSelPanel.add(new LevelSelector(views, mainPanel));
-		gamePanel.add(new Game(views, mainPanel, map));
+		//gamePanel.add(new Game(views, mainPanel, map));
+		gamePanel = new Game(views, mainPanel, map);
 		settingsPanel.add(new Settings(views, mainPanel));
 
 		mainPanel.add(menuPanel, "Menu");
@@ -81,6 +84,7 @@ public class WarehouseBoss extends JFrame {
 				}
 				System.out.print("\n");
 			}
+			gamePanel.update();
 			if (map.winState())break;
 		}
 		sc.close();

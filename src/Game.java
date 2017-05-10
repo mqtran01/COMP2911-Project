@@ -1,37 +1,27 @@
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.io.*;
+import javax.imageio.*;
+import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
 
 public class Game extends JPanel {
 	private JLabel[][] grid;
 	private int length; 
 	private int height;
+	private Map map;
 
-	public Game(CardLayout views, JPanel mainPanel, Map m)  {
+	public Game(CardLayout views, JPanel mainPanel, Map map)  {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		//this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800,600));
-		length = m.getLength();
-		height = m.getHeight();
+		this.map = map;
+		length = map.getLength();
+		height = map.getHeight();
 		JPanel gridPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(0,0,0,0);
@@ -58,7 +48,7 @@ public class Game extends JPanel {
 			gbc.gridy = y;
 			for (int x=0; x<length; x++){
 				gbc.gridx = x;
-				int tileItem = m.getTile(x, y);
+				int tileItem = map.getTile(x, y);
 				ImageIcon img = null;
 				switch (tileItem) {
 				case Map.WALL:
@@ -113,7 +103,12 @@ public class Game extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Save!");
-				//views.show(mainPanel, "Save");
+				try {
+					SaveLoad.save(map);
+				} catch (IOException e1) {
+					System.out.println("Failed to save");
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -177,4 +172,62 @@ public class Game extends JPanel {
 		Image dimg = img.getScaledInstance(size, size, Image.SCALE_SMOOTH);
 		return new ImageIcon(dimg);
 	}
+	
+	/**
+	 * method for setting the map
+	 * @param map
+	 */
+	public void setMap(Map map){
+		this.map = map;
+		update();
+	}
+	
+	/**
+	 * method for updating the sprites displayed by the grid
+	 */
+	public void update(){
+		double scaledLen = 800/length;
+		double scaledHgt = 500/height;
+		
+		int proportion = (int) Math.min(scaledLen, scaledHgt);
+		ImageIcon wall = resizedImage(Map.WALL, proportion);
+		ImageIcon empty = resizedImage(Map.EMPTY, proportion);
+		ImageIcon player = resizedImage(Map.PLAYER, proportion);
+		ImageIcon box = resizedImage(Map.BOX, proportion);
+		ImageIcon goal = resizedImage(Map.GOAL, proportion);
+		ImageIcon goalBox = resizedImage(Map.GOALBOX, proportion);
+		ImageIcon goalPlayer = resizedImage(Map.GOALPLAYER, proportion);
+		
+		for (int y=0; y<height; y++){
+			for (int x=0; x<length; x++){
+				int tileItem = map.getTile(x, y);
+				ImageIcon img = null;
+				switch (tileItem) {
+				case Map.WALL:
+					img = wall;
+					break;
+				case Map.EMPTY:
+					img = empty;
+					break;
+				case Map.PLAYER:
+					img = player;
+					break;
+				case Map.BOX:
+					img = box;
+					break;
+				case Map.GOAL:
+					img = goal;
+					break;
+				case Map.GOALBOX:
+					img = goalBox;
+					break;
+				case Map.GOALPLAYER:
+					img = goalPlayer;
+					break;
+				}
+				grid[x][y].setIcon(img);
+			}
+		}
+	}
+	
 }

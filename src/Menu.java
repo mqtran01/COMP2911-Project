@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -63,6 +65,13 @@ public class Menu extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Load Game!");
+				try {
+					Map map = SaveLoad.load();
+					
+				} catch (IOException e1) {
+					System.out.println("Load failed!");
+					e1.printStackTrace();
+				}
 				//views.show(mainPanel, "Load");
 			}
 		});

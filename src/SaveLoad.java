@@ -15,14 +15,13 @@ public class SaveLoad {
 	 * 
 	 * @throws IOException
 	 */
-	private static Map Load() throws IOException {
+	public static Map load() throws IOException {
 		ObjectInputStream in = null;
 		Map map = null;
 		try {
 			FileInputStream inFile = new FileInputStream(filename);
 			in = new ObjectInputStream(inFile);
-			map = (Map) in.readObject();// cast the data from the input file to
-										// the user class
+			map = (Map) in.readObject();
 			System.out.println("Read from file");
 		} catch (FileNotFoundException e) {
 			return null;
@@ -34,7 +33,7 @@ public class SaveLoad {
 			if (in != null)
 				in.close();
 		}
-		return null;
+		return map;
 	}
 
 	/**
