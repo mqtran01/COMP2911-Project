@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.*;
-import javax.print.DocFlavor.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -148,20 +147,20 @@ public class Game extends JPanel {
             	if (key.getID() == KeyEvent.KEY_PRESSED){
             		System.out.println(key.getKeyCode());
             		if (key.getKeyCode() == KeyEvent.VK_W){
-                		map.moveUp();
+                		Game.this.map.moveUp();
                 		System.out.println("music is " + settings.isEnableMusic());
                 		playSound("assets/MusicFootsteps.wav");
                 	}
             		else if (key.getKeyCode() == KeyEvent.VK_S){
-                		map.moveDown();
+            			Game.this.map.moveDown();
                 		playSound("assets/MusicFootsteps.wav");
                 	}
             		if (key.getKeyCode() == KeyEvent.VK_A){
-                		map.moveLeft();
+            			Game.this.map.moveLeft();
                 		playSound("assets/MusicFootsteps.wav");
                 	}
             		if (key.getKeyCode() == KeyEvent.VK_D){
-                		map.moveRight();
+            			Game.this.map.moveRight();
                 		playSound("assets/MusicFootsteps.wav");
                 	}
             		update();
@@ -281,7 +280,9 @@ public class Game extends JPanel {
 					break;
 				}
 				grid[x][y].setIcon(img);
+				System.out.print(tileItem);
 			}
+			System.out.println();
 		}
 	}
 	

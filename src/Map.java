@@ -138,6 +138,8 @@ public class Map implements Serializable {
 		System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x-1, player_y));
 		if (moveTo(player_x, player_y, player_x-1, player_y)){
 			player_x--;
+			System.out.println("moveTo was successful");
+			printMap();
 		}
 	}
 	
@@ -146,6 +148,8 @@ public class Map implements Serializable {
 		System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x+1, player_y));
 		if (moveTo(player_x, player_y, player_x+1, player_y)){
 			player_x++;
+			System.out.println("moveTo was successful");
+			printMap();
 		}
 	}
 	
@@ -154,6 +158,8 @@ public class Map implements Serializable {
 		System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x, player_y+1));
 		if (moveTo(player_x, player_y, player_x, player_y-1)){
 			player_y--;
+			System.out.println("moveTo was successful");
+			printMap();
 		}
 	}
 	
@@ -162,6 +168,18 @@ public class Map implements Serializable {
 		System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x, player_y-1));
 		if (moveTo(player_x, player_y, player_x, player_y+1)){
 			player_y++;
+			System.out.println("moveTo was successful");
+			printMap();
+		}
+	}
+	
+	public void printMap(){
+		System.out.println("printing internal map");
+		for (int y=0;y<getHeight();y++){
+			for (int x = 0;x<getLength();x++){
+				System.out.print(getTile(x,y));
+			}
+			System.out.print("\n");
 		}
 	}
 	

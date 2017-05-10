@@ -15,13 +15,16 @@ import javax.swing.border.LineBorder;
 
 public class Menu extends JPanel{
 	private String[] buttonText = {"Start Game", "Load Game", "Settings", "Quit"};
-
+	private Game gamePanel;
+	
 	/**
 	 * Constructor for Menu Panel/View
 	 */
-	public Menu(final CardLayout views, final JPanel mainPanel) {
+	public Menu(final CardLayout views, final JPanel mainPanel, Game gamePanel) {
 		this.setLayout(new BorderLayout());
 
+		this.gamePanel = gamePanel;
+		
 		//Make new buttons
 		JButton startGameBtn = new JButton(buttonText[0]);
 		JButton loadGameBtn = new JButton(buttonText[1]);
@@ -67,11 +70,13 @@ public class Menu extends JPanel{
 				System.out.println("Clicked Load Game!");
 				try {
 					Map map = SaveLoad.load();
-					
+					map.printMap();
+					gamePanel.setMap(map);
 				} catch (IOException e1) {
 					System.out.println("Load failed!");
 					e1.printStackTrace();
 				}
+				views.show(mainPanel, "Game");
 				//views.show(mainPanel, "Load");
 			}
 		});

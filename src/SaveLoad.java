@@ -33,6 +33,7 @@ public class SaveLoad {
 			if (in != null)
 				in.close();
 		}
+		System.out.println("in load");
 		return map;
 	}
 
@@ -57,5 +58,6 @@ public class SaveLoad {
 			if (out != null)
 				out.close();
 		}
+		System.out.println("in save");
 	}
 }
