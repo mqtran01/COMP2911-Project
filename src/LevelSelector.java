@@ -13,9 +13,12 @@ import javax.swing.border.LineBorder;
 
 public class LevelSelector extends JPanel {
     private String[] levelText = {"Easy", "Medium", "Hard", "Back"};
+    private Game gamePanel;
 
-    public LevelSelector(final CardLayout views, final JPanel mainPanel) {
+    public LevelSelector(final CardLayout views, final JPanel mainPanel, Game gamePanel) {
         this.setLayout(new BorderLayout());
+        
+        this.gamePanel = gamePanel;
 
         // Make three buttons
         JButton easyBtn = new JButton(levelText[0]);
@@ -52,6 +55,7 @@ public class LevelSelector extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Easy Button!");
+                gamePanel.setMap(new Map('a'));
                 views.show(mainPanel, "Game");
             }
         });
