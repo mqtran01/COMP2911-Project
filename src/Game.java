@@ -176,6 +176,10 @@ public class Game extends JPanel {
 			            	System.out.println("Clicked Main Menu!");
 							views.show(mainPanel, "Menu");
 			            }
+			            if (n == JOptionPane.YES_OPTION){
+			            	System.out.println("Clicked Play Again!");
+							views.show(mainPanel, "Level");
+			            }
             		}
             	}
                 return false;
