@@ -5,7 +5,7 @@ public class GameSettings {
 	private boolean isCharacterRed; //Set character color: True for Red; False for Blue
 	private String spriteSet;//the location of the sprite set being used
 	
-	public void GameSetings(){
+	public GameSettings() {
 		enableMusic = true;
 		enableSFX = true;
 		isCharacterRed = true;
@@ -16,17 +16,16 @@ public class GameSettings {
 		return enableMusic;
 	}
 
-	public void setEnableMusic(boolean enableMusic) {
-		System.out.println("called set enable music");
-		this.enableMusic = enableMusic;
+	public void setEnableMusic() {
+		this.enableMusic = !this.enableMusic;
 	}
 
 	public boolean isEnableSFX() {
 		return enableSFX;
 	}
 
-	public void setEnableSFX(boolean enableSFX) {
-		this.enableSFX = enableSFX;
+	public void setEnableSFX() {
+		this.enableSFX = !this.enableSFX;
 	}
 
 	public String getSpriteSet() {

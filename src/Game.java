@@ -20,6 +20,11 @@ public class Game extends JPanel {
 	private Map map;
 	private GameSettings settings;
 
+	private final String m_background = "assets/MusicBackground.wav";
+	private final String m_footsteps = "assets/MusicFootsteps.wav";
+	private final String m_moveBox = "assets/MusicMoveBox.wav";
+	private final String m_winGame = "assets/MusicWinGame.wav";
+
 	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings)  {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		//this.setLayout(new BorderLayout());
@@ -139,6 +144,7 @@ public class Game extends JPanel {
 
 		this.add(gridPanel);
 		this.add(btnPanel);
+		playSound(m_background);
 		
 		//add in keyboard controls
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
@@ -149,22 +155,23 @@ public class Game extends JPanel {
             		if (key.getKeyCode() == KeyEvent.VK_W){
                 		Game.this.map.moveUp();
                 		System.out.println("music is " + settings.isEnableMusic());
-                		playSound("assets/MusicFootsteps.wav");
+                		playSound(m_footsteps);
                 	}
             		else if (key.getKeyCode() == KeyEvent.VK_S){
             			Game.this.map.moveDown();
-                		playSound("assets/MusicFootsteps.wav");
+                		playSound(m_footsteps);
                 	}
             		if (key.getKeyCode() == KeyEvent.VK_A){
             			Game.this.map.moveLeft();
-                		playSound("assets/MusicFootsteps.wav");
+                		playSound(m_footsteps);
                 	}
             		if (key.getKeyCode() == KeyEvent.VK_D){
             			Game.this.map.moveRight();
-                		playSound("assets/MusicFootsteps.wav");
+                		playSound(m_footsteps);
                 	}
             		update();
             		if (Game.this.map.winState()){
+            			playSound(m_winGame);
             			Object[] options = {"Play Again?", "Main Menu"};
 			            int n = JOptionPane.showOptionDialog(null, "Congratulations on winning!", 
 			            									 "You have won!", JOptionPane.YES_NO_CANCEL_OPTION, 
@@ -188,7 +195,43 @@ public class Game extends JPanel {
 		
 		
 	}
-	
+
+	private void playSound(String filename) {
+		Thread musicThread = new Thread() {
+			@Override
+			public void run() {
+				try{
+					// Open an audio input stream.
+					AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filename));
+					// Get a sound clip resource.
+					Clip clip = AudioSystem.getClip();
+					// Open audio clip and load samples from the audio input stream.
+					clip.open(audioIn);
+					clip.start();
+				} catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		};
+		if ((filename.equals(m_background)) && (settings.isEnableMusic())) {
+			System.out.println("Music enabled"); // TODO set music enabled to change music
+			musicThread.start();
+			//loopSound(m_background, musicThread); // TODO loop background music
+		} else if (settings.isEnableSFX()) {
+			System.out.println("SFX enabled");
+			musicThread.start();
+		}
+	}
+
+	/*private void loopSound(String filename, Thread musicThread) {
+		while (settings.isEnableMusic()) {
+				if (musicThread.getState() == Thread.State.TERMINATED) {
+					musicThread.start();
+				}
+		}
+	}*/
+
+	/*
 	private void playSound(String filename){
   		try{
 			// Open an audio input stream.
@@ -202,7 +245,7 @@ public class Game extends JPanel {
 		catch(Exception e){
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 
 	private ImageIcon resizedImage(int item, int size) {
