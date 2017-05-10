@@ -110,7 +110,7 @@ public class Game extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Save!");
 				try {
-					SaveLoad.save(map);
+					SaveLoad.save(Game.this.map);
 				} catch (IOException e1) {
 					System.out.println("Failed to save");
 					e1.printStackTrace();
