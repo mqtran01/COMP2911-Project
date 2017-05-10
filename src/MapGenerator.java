@@ -96,11 +96,12 @@ public class MapGenerator {
 	 */
 	public int[][] mergeTemplates(ArrayList<int[][]> maps, int length, int height) {
 		// TODO add border
-		int xOffset = 0;
-		int yOffset = 0;
+		int xOffset = 1;
+		int yOffset = 1;
 		Iterator<int[][]> iMaps = maps.iterator();
 
-		int[][] joined = new int[3*length][3*height];
+		//int[][] joined = new int[3*length][3*height];
+		int[][] joined = createOuterWall(3*length + 2, 3 * height + 2);
 		for (int y = 0; y < length; y++) {
 			for (int x = 0; x < height; x++) {
 				int[][] part = iMaps.next();
@@ -112,7 +113,7 @@ public class MapGenerator {
 				yOffset += 3;
 			}
 			xOffset += 3;
-			yOffset = 0;
+			yOffset = 1;
 
 		}
 		return joined;
@@ -213,6 +214,8 @@ public class MapGenerator {
 				if (checkSides(grid, xPos, yPos, objective)) {
 					grid[xPos][yPos] = objective;
 					placed = true;
+					if (objective == Map.PLAYER)
+					    return true;
 				} else {
 					retry++;
 					//System.out.println("Wrong " + retry);
@@ -274,5 +277,18 @@ public class MapGenerator {
 		if (grid[xPos][yPos] == EMPTY) 
 			return true;
 		return false;
+	}
+	
+	private int[][] createOuterWall(int length, int height) {
+	    int[][] grid = new int[length][height];
+	    for (int i = 0; i < length; i++) {
+	        grid[i][0] = Map.WALL;
+	        grid[i][height-1] = Map.WALL;
+	    }
+	    for (int i = 1; i < height-1; i++) {
+	        grid[0][i] = Map.WALL;
+	        grid[length-1][i] = Map.WALL;
+	    }
+	    return grid;
 	}
 }

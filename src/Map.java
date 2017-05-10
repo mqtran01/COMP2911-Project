@@ -48,6 +48,8 @@ public class Map implements Serializable {
             // Handle it
             System.out.println("Couldn't find a spot in time for box");
         }
+        
+        mGen.placeObjectives(grid, rGen, PLAYER);
             
     }
 	
