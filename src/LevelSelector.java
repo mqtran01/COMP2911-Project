@@ -31,8 +31,8 @@ public class LevelSelector extends JPanel {
         int btnHeight = 50;
         int startXPos = 400 - btnWidth/2;
         int startYPos = 150;
-        easyBtn.setBounds(startXPos, startYPos, btnWidth, btnHeight);
-        medBtn.setBounds(startXPos, startYPos + 90, btnWidth, btnHeight);
+        easyBtn.setBounds(startXPos, startYPos + 50, btnWidth, btnHeight);
+        medBtn.setBounds(startXPos, startYPos + 120, btnWidth, btnHeight);
         hardBtn.setBounds(startXPos, startYPos + 190, btnWidth, btnHeight);
         backBtn.setBounds(startXPos, startYPos + 290, btnWidth, btnHeight);
 
@@ -90,7 +90,7 @@ public class LevelSelector extends JPanel {
         this.add(hardBtn);
         this.add(backBtn);
 
-        ImageIcon titleImage = new ImageIcon("image/menu_back3.png");
+        ImageIcon titleImage = new ImageIcon("image/Level_Select_Background.png");
         JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
         this.add(titleLabel);
         titleLabel.setBounds(0, 0, 800, 600);
