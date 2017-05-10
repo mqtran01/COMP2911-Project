@@ -14,12 +14,15 @@ import javax.swing.border.LineBorder;
 
 public class Settings extends JPanel {
 	private String[] text = {"   Music", "   SFX", "Back"};
-
+	private GameSettings settings;
+	
 	/**
 	 * Constructor for Settings Panel/View
 	 */
-	public Settings(CardLayout views, JPanel mainPanel) {
+	public Settings(CardLayout views, JPanel mainPanel, GameSettings settings) {
 		this.setLayout(new BorderLayout());
+		
+		this.settings = settings;
 
 		//Make new check boxes and button
 		JCheckBox musicBox = new JCheckBox(text[0]);
@@ -54,6 +57,7 @@ public class Settings extends JPanel {
 		musicBox.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				settings.setEnableMusic(true);
 				//TODO
 			}
 		});

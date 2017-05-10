@@ -11,16 +11,6 @@ public class MapGenerator {
 	final int GOALBOX = 5;
 	final int GOALPLAYER = 6;
 
-	/*grid internal representation
-	 * 0: wall
-	 * 1: empty space
-	 * 2: player (and hence empty space once it has moved)
-	 * 3: box (and hence empty space once it is moved)
-	 * 4: goal (and hence space that can be moved into)
-	 * 5: goal+box
-	 * 6: player+goal
-	 */
-
 	/**
 	 * List of 3x3 modular templates based on seeds
 	 * @param seed

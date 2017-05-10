@@ -5,6 +5,10 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.*;
+import javax.print.DocFlavor.URL;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -15,12 +19,14 @@ public class Game extends JPanel {
 	private int length; 
 	private int height;
 	private Map map;
+	private GameSettings settings;
 
-	public Game(CardLayout views, JPanel mainPanel, Map map)  {
+	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings)  {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		//this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800,600));
 		this.map = map;
+		this.settings = settings;
 		length = map.getLength();
 		height = map.getHeight();
 		JPanel gridPanel = new JPanel(new GridBagLayout());
@@ -124,7 +130,7 @@ public class Game extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Main Menu!");
-				views.show(mainPanel, "Menu");;
+				views.show(mainPanel, "Menu");
 			}
 		});
 
@@ -143,15 +149,20 @@ public class Game extends JPanel {
             		System.out.println(key.getKeyCode());
             		if (key.getKeyCode() == KeyEvent.VK_W){
                 		map.moveUp();
+                		System.out.println("music is " + settings.isEnableMusic());
+                		playSound("assets/MusicFootsteps.wav");
                 	}
             		else if (key.getKeyCode() == KeyEvent.VK_S){
                 		map.moveDown();
+                		playSound("assets/MusicFootsteps.wav");
                 	}
             		if (key.getKeyCode() == KeyEvent.VK_A){
                 		map.moveLeft();
+                		playSound("assets/MusicFootsteps.wav");
                 	}
             		if (key.getKeyCode() == KeyEvent.VK_D){
                 		map.moveRight();
+                		playSound("assets/MusicFootsteps.wav");
                 	}
             		update();
             	}
@@ -161,6 +172,22 @@ public class Game extends JPanel {
 		
 		
 	}
+	
+	private void playSound(String filename){
+  		try{
+			// Open an audio input stream.
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filename));
+            // Get a sound clip resource.
+            Clip clip = AudioSystem.getClip();
+            // Open audio clip and load samples from the audio input stream.
+            clip.open(audioIn);
+            clip.start();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 
 	private ImageIcon resizedImage(int item, int size) {
 

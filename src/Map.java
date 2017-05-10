@@ -16,16 +16,6 @@ public class Map implements Serializable {
 	final static int GOALBOX = 5;
 	final static int GOALPLAYER = 6;
 	
-	/*grid internal representation
-	 * 0: wall
-	 * 1: empty space
-	 * 2: player (and hence empty space once it has moved)
-	 * 3: box (and hence empty space once it is moved)
-	 * 4: goal (and hence space that can be moved into)
-	 * 5: goal+box
-	 * 6: player+goal
-	 */
-	
 
 	/**
 	 * constructor
@@ -61,11 +51,8 @@ public class Map implements Serializable {
             
     }
 	
-	
-	
 	//pregenerated maps, accessed using characters
 	public Map(char seed){
-	    
 		this.grid = new int[6][8];
 		for (int x=0; x < 6; x++){
 			grid[x][0]=WALL;

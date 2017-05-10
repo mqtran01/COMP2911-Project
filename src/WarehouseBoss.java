@@ -13,16 +13,14 @@ public class WarehouseBoss extends JFrame {
 	JPanel lvlSelPanel = new JPanel();
 	//JPanel gamePanel = new JPanel();
 	Game gamePanel;
-	JPanel settingsPanel = new JPanel();
+	//JPanel settingsPanel = new JPanel();
+	Settings settingsPanel;
 	CardLayout views = new CardLayout();
 	
 	Map map;
-	boolean enableMusic;
-	boolean enableSFX;
 
 	public static void main(String[] args){
 		new WarehouseBoss();
-
 	}
 
 	WarehouseBoss(){
@@ -33,18 +31,20 @@ public class WarehouseBoss extends JFrame {
 		//To prevent window resizing
 		this.setPreferredSize(new Dimension(800,600));
 		this.setResizable(false);			
+		
+		GameSettings settings = new GameSettings();
 
 		//Map map = new Map(0, 4, 3);
 		Map map = new Map('a');
-		enableMusic = true;
-		enableSFX = true;
+		
 
 		mainPanel.setLayout(views);
 		menuPanel.add(new Menu(views, mainPanel));
 		lvlSelPanel.add(new LevelSelector(views, mainPanel));
 		//gamePanel.add(new Game(views, mainPanel, map));
-		gamePanel = new Game(views, mainPanel, map);
-		settingsPanel.add(new Settings(views, mainPanel));
+		gamePanel = new Game(views, mainPanel, map, settings);
+		//settingsPanel.add(new Settings(views, mainPanel));
+		settingsPanel = new Settings(views, mainPanel, settings);
 
 		mainPanel.add(menuPanel, "Menu");
 		mainPanel.add(lvlSelPanel, "Level");
@@ -60,40 +60,12 @@ public class WarehouseBoss extends JFrame {
 		this.setVisible(true);
 
 
-		for (int y=0; y < map.getHeight(); y++){
+		/*for (int y=0; y < map.getHeight(); y++){
 			for (int x=0; x < map.getLength(); x++){
 				System.out.print(map.getTile(x, y));
 			}
 			System.out.print("\n");
-		}
-		
-		/*Scanner sc = new Scanner(System.in);
-		String input;
-		while(!(input = sc.next()).equals("x")){
-			System.out.println(input);
-			if (input.equals("w")){
-				map.moveUp();
-			}
-			else if (input.equals("d")){
-				map.moveRight();
-			}
-			else if (input.equals("s")){
-				map.moveDown();
-			}
-			else if (input.equals("a")){
-				map.moveLeft();
-			}
-			for (int y=0; y < 8; y++){
-				for (int x=0; x < 6; x++){
-					System.out.print(map.getTile(x, y));
-				}
-				System.out.print("\n");
-			}
-			gamePanel.update();
-			if (map.winState())break;
-		}
-		sc.close();
-		System.out.println("You win");*/
+		}*/
 
 	}
 	// End constructor
