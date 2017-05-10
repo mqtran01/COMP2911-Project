@@ -164,6 +164,19 @@ public class Game extends JPanel {
                 		playSound("assets/MusicFootsteps.wav");
                 	}
             		update();
+            		if (Game.this.map.winState()){
+            			Object[] options = {"Play Again?", "Main Menu"};
+			            int n = JOptionPane.showOptionDialog(null, "Congratulations on winning!", 
+			            									 "You have won!", JOptionPane.YES_NO_CANCEL_OPTION, 
+			            									 JOptionPane.DEFAULT_OPTION, null,
+			            									 options,
+			            									 options[1]);
+			            JOptionPane.getRootFrame().dispose(); 
+			            if (n == JOptionPane.NO_OPTION){
+			            	System.out.println("Clicked Main Menu!");
+							views.show(mainPanel, "Menu");
+			            }
+            		}
             	}
                 return false;
             }
