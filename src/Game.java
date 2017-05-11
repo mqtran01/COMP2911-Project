@@ -20,6 +20,7 @@ public class Game extends JPanel {
 	private int height;
 	private Map map;
 	private GameSettings settings;
+	private KeyEventDispatcher keyDispatcher;
 
 	private final String m_background = "assets/MusicBackground.wav";
 	private final String m_footsteps = "assets/MusicFootsteps.wav";
@@ -145,6 +146,7 @@ public class Game extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Main Menu!");
+				disableKeys();
 				views.show(mainPanel, "Menu");
 			}
 		});
@@ -157,57 +159,59 @@ public class Game extends JPanel {
 		this.add(btnPanel);
 		playSound(m_background);
 		
-		//add in keyboard controls
-		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+		this.keyDispatcher = new KeyEventDispatcher() {
             @Override
             public boolean dispatchKeyEvent(KeyEvent key) {
-            	if (key.getID() == KeyEvent.KEY_PRESSED){
-            		String keyPressed = null;
-            		System.out.println(key.getKeyCode());
-            		if (key.getKeyCode() == KeyEvent.VK_W){
-                		Game.this.map.moveUp();
-                		System.out.println("music is " + settings.isEnableMusic());
-                		playSound(m_footsteps);
-                		keyPressed = "w";
-                	}
-            		if (key.getKeyCode() == KeyEvent.VK_S){
-            			Game.this.map.moveDown();
-                		playSound(m_footsteps);
-                		keyPressed = "s";
-                	}
-            		if (key.getKeyCode() == KeyEvent.VK_A){
-            			Game.this.map.moveLeft();
-                		playSound(m_footsteps);
-                		keyPressed = "a";
-                	}
-            		if (key.getKeyCode() == KeyEvent.VK_D){
-            			Game.this.map.moveRight();
-                		playSound(m_footsteps);
-                		keyPressed = "d";
-                	}
-            		update(keyPressed);
-            		if (Game.this.map.winState()){
-            			playSound(m_winGame);
-            			Object[] options = {"Play Again?", "Main Menu"};
-			            int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!", 
-			            									 "You have won!", JOptionPane.YES_NO_CANCEL_OPTION, 
-			            									 JOptionPane.DEFAULT_OPTION, null,
-			            									 options,
-			            									 options[1]);
-			            JOptionPane.getRootFrame().dispose(); 
-			            if (n == JOptionPane.NO_OPTION){
-			            	System.out.println("Clicked Main Menu!");
-							views.show(mainPanel, "Menu");
-			            }
-			            if (n == JOptionPane.YES_OPTION){
-			            	System.out.println("Clicked Play Again!");
-							views.show(mainPanel, "Level");
-			            }
-            		}
-            	}
+                if (key.getID() == KeyEvent.KEY_PRESSED){
+                    String keyPressed = null;
+                    System.out.println(key.getKeyCode());
+                    if (key.getKeyCode() == KeyEvent.VK_W){
+                        Game.this.map.moveUp();
+                        System.out.println("music is " + settings.isEnableMusic());
+                        playSound(m_footsteps);
+                        keyPressed = "w";
+                    }
+                    if (key.getKeyCode() == KeyEvent.VK_S){
+                        Game.this.map.moveDown();
+                        playSound(m_footsteps);
+                        keyPressed = "s";
+                    }
+                    if (key.getKeyCode() == KeyEvent.VK_A){
+                        Game.this.map.moveLeft();
+                        playSound(m_footsteps);
+                        keyPressed = "a";
+                    }
+                    if (key.getKeyCode() == KeyEvent.VK_D){
+                        Game.this.map.moveRight();
+                        playSound(m_footsteps);
+                        keyPressed = "d";
+                    }
+                    update(keyPressed);
+                    if (Game.this.map.winState()){
+                        playSound(m_winGame);
+                        Object[] options = {"Play Again?", "Main Menu"};
+                        int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!", 
+                                                             "You have won!", JOptionPane.YES_NO_CANCEL_OPTION, 
+                                                             JOptionPane.DEFAULT_OPTION, null,
+                                                             options,
+                                                             options[1]);
+                        JOptionPane.getRootFrame().dispose(); 
+                        if (n == JOptionPane.NO_OPTION){
+                            System.out.println("Clicked Main Menu!");
+                            views.show(mainPanel, "Menu");
+                        }
+                        if (n == JOptionPane.YES_OPTION){
+                            System.out.println("Clicked Play Again!");
+                            views.show(mainPanel, "Level");
+                        }
+                    }
+                }
                 return false;
             }
-        });
+        };
+		
+		//add in keyboard controls
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyDispatcher);
 		
 		
 	}
@@ -428,6 +432,11 @@ public class Game extends JPanel {
 			break;
 		}
 		return imgLoc;
+	}
+	
+	public void disableKeys() {
+	    System.out.println("Disabled the keys");
+	    KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyDispatcher);
 	}
 	
 }

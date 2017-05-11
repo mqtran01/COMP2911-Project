@@ -14,11 +14,13 @@ import javax.swing.border.LineBorder;
 public class LevelSelector extends JPanel {
     private String[] levelText = {"Easy", "Medium", "Hard", "Back"};
     private Game gamePanel;
+    private GameSettings settings;
 
-    public LevelSelector(final CardLayout views, final JPanel mainPanel, Game gamePanel) {
+    public LevelSelector(final CardLayout views, final JPanel mainPanel, GameSettings settings) {
         this.setLayout(new BorderLayout());
         
-        this.gamePanel = gamePanel;
+        this.settings = settings;
+        this.gamePanel = null;
 
         // Make three buttons
         JButton easyBtn = new JButton(levelText[0]);
@@ -55,8 +57,20 @@ public class LevelSelector extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Easy Button!");
-                gamePanel.setMap(new Map('a'));
+                //gamePanel.setMap(new Map('a'));
+                Map newMap = new Map('a');
+                // TODO ADD THIS
+                Game newGame = new Game(views, mainPanel, newMap, settings);
+                try {
+                    gamePanel.disableKeys();
+                    mainPanel.remove(gamePanel);
+                } catch (Exception g) {
+                    System.out.println("Nothing to remove");
+                }
+                gamePanel = newGame;
+                mainPanel.add(newGame, "Game");
                 views.show(mainPanel, "Game");
+                
             }
         });
 
@@ -64,6 +78,16 @@ public class LevelSelector extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Medium Button!");
+                // TODO ADD THIS
+                Map newMap = new Map(0,3,2);
+                Game newGame = new Game(views, mainPanel, newMap, settings);
+                try {
+                    mainPanel.remove(gamePanel);
+                } catch (Exception g) {
+                    System.out.println("Nothing to remove");
+                }
+                gamePanel = newGame;
+                mainPanel.add(newGame, "Game");
                 views.show(mainPanel, "Game");
             }
         });
@@ -72,6 +96,16 @@ public class LevelSelector extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Hard Button!");
+                // TODO ADD THIS
+                Map newMap = new Map(0,10,5);
+                Game newGame = new Game(views, mainPanel, newMap, settings);
+                try {
+                    mainPanel.remove(gamePanel);
+                } catch (Exception g) {
+                    System.out.println("Nothing to remove");
+                }
+                gamePanel = newGame;
+                mainPanel.add(newGame, "Game");
                 views.show(mainPanel, "Game");
             }
         });

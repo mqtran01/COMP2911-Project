@@ -35,13 +35,13 @@ public class WarehouseBoss extends JFrame {
 		GameSettings settings = new GameSettings();
 
 		//Map map = new Map(0, 4, 3);
-		Map map = new Map('a');
+		//Map map = new Map('a');
 		
 
 		mainPanel.setLayout(views);
 		
-		gamePanel = new Game(views, mainPanel, map, settings);
-		lvlSelPanel.add(new LevelSelector(views, mainPanel, gamePanel));
+		//gamePanel = new Game(views, mainPanel, map, settings);
+		lvlSelPanel.add(new LevelSelector(views, mainPanel, settings));
 		//gamePanel.add(new Game(views, mainPanel, map));
 		//settingsPanel.add(new Settings(views, mainPanel));
 		settingsPanel.add(new Settings(views, mainPanel, settings));
@@ -49,7 +49,7 @@ public class WarehouseBoss extends JFrame {
 		
 		mainPanel.add(menuPanel, "Menu");
 		mainPanel.add(lvlSelPanel, "Level");
-		mainPanel.add(gamePanel, "Game");
+		//mainPanel.add(gamePanel, "Game");
 		mainPanel.add(settingsPanel, "Settings");
 		views.show(mainPanel, "Menu");
 
