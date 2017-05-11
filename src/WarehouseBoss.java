@@ -45,7 +45,7 @@ public class WarehouseBoss extends JFrame {
 		//gamePanel.add(new Game(views, mainPanel, map));
 		//settingsPanel.add(new Settings(views, mainPanel));
 		settingsPanel.add(new Settings(views, mainPanel, settings));
-		menuPanel.add(new Menu(views, mainPanel, gamePanel));
+		menuPanel.add(new Menu(views, mainPanel, gamePanel, settings));
 		
 		mainPanel.add(menuPanel, "Menu");
 		mainPanel.add(lvlSelPanel, "Level");

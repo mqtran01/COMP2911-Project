@@ -22,7 +22,7 @@ public class Game extends JPanel {
 	private GameSettings settings;
 	private KeyEventDispatcher keyDispatcher;
 
-	private final String m_background = "assets/MusicBackground.wav";
+	
 	private final String m_footsteps = "assets/MusicFootsteps.wav";
 	private final String m_moveBox = "assets/MusicMoveBox.wav";
 	private final String m_winGame = "assets/MusicWinGame.wav";
@@ -157,7 +157,7 @@ public class Game extends JPanel {
 
 		this.add(gridPanel);
 		this.add(btnPanel);
-		playSound(m_background);
+		
 		
 		this.keyDispatcher = new KeyEventDispatcher() {
             @Override
@@ -233,27 +233,10 @@ public class Game extends JPanel {
 				}
 			}
 		};
-		if ((filename.equals(m_background)) && (settings.isEnableMusic())) {
-			System.out.println("Music enabled"); // TODO settings can stop music
-			musicThread.start();
-			loopSound(filename, musicThread);
-		} else if (settings.isEnableSFX()) {
+		if (settings.isEnableSFX()) {
 			System.out.println("SFX enabled");
 			musicThread.start();
 		}
-	}
-
-	private void loopSound(String filename, Thread musicThread) {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                System.out.println("Looping sound");
-                if (settings.isEnableMusic()) {
-                    playSound(filename);
-                }
-            }
-        }, 165*1000);
 	}
 
 	/*

@@ -4,8 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,15 +21,21 @@ import javax.swing.border.LineBorder;
 
 public class Menu extends JPanel{
 	private String[] buttonText = {"Start Game", "Load Game", "Settings", "Quit"};
-	private Game gamePanel;
+	//private Game gamePanel;
+	//private GameSettings settings;
+	private final String m_background = "assets/MusicBackground.wav";
+	GameSettings settings;
 	
 	/**
 	 * Constructor for Menu Panel/View
 	 */
-	public Menu(final CardLayout views, final JPanel mainPanel, Game gamePanel) {
+	public Menu(final CardLayout views, final JPanel mainPanel, Game gamePanel, GameSettings settings) {
 		this.setLayout(new BorderLayout());
+		this.settings = settings;
+		
 
-		this.gamePanel = gamePanel;
+		//this.gamePanel = gamePanel;
+		//this.settings = settings;
 		
 		//Make new buttons
 		JButton startGameBtn = new JButton(buttonText[0]);
@@ -70,14 +82,21 @@ public class Menu extends JPanel{
 				System.out.println("Clicked Load Game!");
 				try {
 					Map map = SaveLoad.load();
+					Game newGame = new Game(views, mainPanel, map, settings);
+	                try {
+	                    gamePanel.disableKeys();
+	                    mainPanel.remove(gamePanel);
+	                } catch (Exception g) {
+	                    System.out.println("Nothing to remove");
+	                }
+	                mainPanel.add(newGame, "Game");
 					map.printMap();
-					gamePanel.setMap(map);
 				} catch (IOException e1) {
 					System.out.println("Load failed!");
 					e1.printStackTrace();
 				}
+				
 				views.show(mainPanel, "Game");
-				//views.show(mainPanel, "Load");
 			}
 		});
 
@@ -107,5 +126,43 @@ public class Menu extends JPanel{
 		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
 		this.add(titleLabel);
 		titleLabel.setBounds(0, 0, 800, 600);
+		playSound(m_background);
 	}
+	
+	private void playSound(String filename) {
+        Thread musicThread = new Thread() {
+            @Override
+            public void run() {
+                try{
+                    // Open an audio input stream.
+                    AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filename));
+                    // Get a sound clip resource.
+                    Clip clip = AudioSystem.getClip();
+                    // Open audio clip and load samples from the audio input stream.
+                    clip.open(audioIn);
+                    clip.start();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        };
+        if (settings.isEnableMusic()) {
+            System.out.println("Music enabled"); // TODO settings can stop music
+            musicThread.start();
+            loopSound(filename, musicThread);
+        }
+    }
+
+    private void loopSound(String filename, Thread musicThread) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Looping sound");
+                if (settings.isEnableMusic()) {
+                    playSound(filename);
+                }
+            }
+        }, 165*1000);
+    }
 }

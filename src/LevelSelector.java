@@ -59,7 +59,6 @@ public class LevelSelector extends JPanel {
                 System.out.println("Clicked Easy Button!");
                 //gamePanel.setMap(new Map('a'));
                 Map newMap = new Map('a');
-                // TODO ADD THIS
                 Game newGame = new Game(views, mainPanel, newMap, settings);
                 try {
                     gamePanel.disableKeys();
