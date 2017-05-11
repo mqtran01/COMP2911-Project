@@ -1,3 +1,5 @@
+import java.util.Timer;
+import java.util.TimerTask;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +13,6 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
 
 public class Game extends JPanel {
 	private JLabel[][] grid;
@@ -229,22 +230,27 @@ public class Game extends JPanel {
 			}
 		};
 		if ((filename.equals(m_background)) && (settings.isEnableMusic())) {
-			System.out.println("Music enabled"); // TODO set music enabled to change music
+			System.out.println("Music enabled"); // TODO settings can stop music
 			musicThread.start();
-			//loopSound(m_background, musicThread); // TODO loop background music
+			loopSound(filename, musicThread);
 		} else if (settings.isEnableSFX()) {
 			System.out.println("SFX enabled");
 			musicThread.start();
 		}
 	}
 
-	/*private void loopSound(String filename, Thread musicThread) {
-		while (settings.isEnableMusic()) {
-				if (musicThread.getState() == Thread.State.TERMINATED) {
-					musicThread.start();
-				}
-		}
-	}*/
+	private void loopSound(String filename, Thread musicThread) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Looping sound");
+                if (settings.isEnableMusic()) {
+                    playSound(filename);
+                }
+            }
+        }, 165*1000);
+	}
 
 	/*
 	private void playSound(String filename){
@@ -381,10 +387,11 @@ public class Game extends JPanel {
 			imgLoc = "image/Empty.png";
 			break;
 		case Map.PLAYER:
-			imgLoc = "image/" + player + "Down.png";
+		    imgLoc = "image/" + player + "Down.png";
 			break;
 		case Map.BOX:
-			imgLoc = "image/Box.png";
+            imgLoc = "image/Box.png";
+            //imgLoc = "image/james.png";
 			break;
 		case Map.GOAL:
 			imgLoc = "image/Goal.png";
