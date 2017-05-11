@@ -60,14 +60,17 @@ public class Settings extends JPanel {
 		musicBox.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				settings.setEnableMusic();
+				if (musicBox.isSelected()){settings.setEnableMusic(true);}
+				else{settings.setEnableMusic(false);}
 			}
 		});
 
 		SFXBox.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				settings.setEnableSFX();
+				if (SFXBox.isSelected()){settings.setEnableSFX(true);}
+				else{settings.setEnableSFX(false);}
+				
 			}
 		});
 

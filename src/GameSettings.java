@@ -16,16 +16,16 @@ public class GameSettings {
 		return enableMusic;
 	}
 
-	public void setEnableMusic() {
-		this.enableMusic = !this.enableMusic;
+	public void setEnableMusic(boolean b) {
+		this.enableMusic = b;
 	}
 
 	public boolean isEnableSFX() {
 		return enableSFX;
 	}
 
-	public void setEnableSFX() {
-		this.enableSFX = !this.enableSFX;
+	public void setEnableSFX(boolean b) {
+		this.enableSFX = b;
 	}
 
 	public String getSpriteSet() {
