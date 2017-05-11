@@ -24,6 +24,16 @@ public class Game extends JPanel {
 	private final String m_footsteps = "assets/MusicFootsteps.wav";
 	private final String m_moveBox = "assets/MusicMoveBox.wav";
 	private final String m_winGame = "assets/MusicWinGame.wav";
+	
+	final static int PLAYER_UP = 7;
+	final static int PLAYER_DOWN = 8;
+	final static int PLAYER_LEFT = 9;
+	final static int PLAYER_RIGHT = 10;
+	final static int GOALPLAYER_UP = 11;
+	final static int GOALPLAYER_DOWN = 12;
+	final static int GOALPLAYER_LEFT = 13;
+	final static int GOALPLAYER_RIGHT = 14;
+	
 
 	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings)  {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -151,29 +161,34 @@ public class Game extends JPanel {
             @Override
             public boolean dispatchKeyEvent(KeyEvent key) {
             	if (key.getID() == KeyEvent.KEY_PRESSED){
+            		String keyPressed = null;
             		System.out.println(key.getKeyCode());
             		if (key.getKeyCode() == KeyEvent.VK_W){
                 		Game.this.map.moveUp();
                 		System.out.println("music is " + settings.isEnableMusic());
                 		playSound(m_footsteps);
+                		keyPressed = "w";
                 	}
-            		else if (key.getKeyCode() == KeyEvent.VK_S){
+            		if (key.getKeyCode() == KeyEvent.VK_S){
             			Game.this.map.moveDown();
                 		playSound(m_footsteps);
+                		keyPressed = "s";
                 	}
             		if (key.getKeyCode() == KeyEvent.VK_A){
             			Game.this.map.moveLeft();
                 		playSound(m_footsteps);
+                		keyPressed = "a";
                 	}
             		if (key.getKeyCode() == KeyEvent.VK_D){
             			Game.this.map.moveRight();
                 		playSound(m_footsteps);
+                		keyPressed = "d";
                 	}
-            		update();
+            		update(keyPressed);
             		if (Game.this.map.winState()){
             			playSound(m_winGame);
             			Object[] options = {"Play Again?", "Main Menu"};
-			            int n = JOptionPane.showOptionDialog(null, "Congratulations on winning!", 
+			            int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!", 
 			            									 "You have won!", JOptionPane.YES_NO_CANCEL_OPTION, 
 			            									 JOptionPane.DEFAULT_OPTION, null,
 			            									 options,
@@ -252,53 +267,9 @@ public class Game extends JPanel {
 
 		String imgLoc = null;
 		if (settings.isCharacterColorRed()){
-			switch (item) {
-			case Map.WALL:
-				imgLoc = "image/Wall.png";
-				break;
-			case Map.EMPTY:
-				imgLoc = "image/Empty.png";
-				break;
-			case Map.PLAYER:
-				imgLoc = "image/playerDown.png"; // TODO change player direction
-				break;
-			case Map.BOX:
-				imgLoc = "image/Box.png";
-				break;
-			case Map.GOAL:
-				imgLoc = "image/Goal.png";
-				break;
-			case Map.GOALBOX:
-				imgLoc = "image/GoalBox.png";
-				break;
-			case Map.GOALPLAYER:
-				imgLoc = "image/playerDownGoal.png"; // TODO change player direction
-				break;
-			}
+			imgLoc = characterImageSelector("player", item);
 		} else {
-			switch (item) {
-			case Map.WALL:
-				imgLoc = "image/Wall.png";
-				break;
-			case Map.EMPTY:
-				imgLoc = "image/Empty.png";
-				break;
-			case Map.PLAYER:
-				imgLoc = "image/player2Down.png"; // TODO change player direction
-				break;
-			case Map.BOX:
-				imgLoc = "image/Box.png";
-				break;
-			case Map.GOAL:
-				imgLoc = "image/Goal.png";
-				break;
-			case Map.GOALBOX:
-				imgLoc = "image/GoalBox.png";
-				break;
-			case Map.GOALPLAYER:
-				imgLoc = "image/player2DownGoal.png"; // TODO change player direction
-				break;
-			}
+			imgLoc = characterImageSelector("player2", item);
 		}
 
 		BufferedImage img = null;
@@ -318,13 +289,14 @@ public class Game extends JPanel {
 	 */
 	public void setMap(Map map){
 		this.map = map;
-		update();
+		String s = null;
+		update(s);
 	}
 	
 	/**
 	 * method for updating the sprites displayed by the grid
 	 */
-	public void update(){
+	public void update(String direction){
 		System.out.println("updating");
 		double scaledLen = 800/length;
 		double scaledHgt = 500/height;
@@ -332,11 +304,32 @@ public class Game extends JPanel {
 		int proportion = (int) Math.min(scaledLen, scaledHgt);
 		ImageIcon wall = resizedImage(Map.WALL, proportion);
 		ImageIcon empty = resizedImage(Map.EMPTY, proportion);
-		ImageIcon player = resizedImage(Map.PLAYER, proportion);
 		ImageIcon box = resizedImage(Map.BOX, proportion);
 		ImageIcon goal = resizedImage(Map.GOAL, proportion);
 		ImageIcon goalBox = resizedImage(Map.GOALBOX, proportion);
 		ImageIcon goalPlayer = resizedImage(Map.GOALPLAYER, proportion);
+		ImageIcon player = resizedImage(Map.PLAYER, proportion);
+		
+		if (direction != null) {
+			switch (direction) {
+			case "w":
+				player = resizedImage(PLAYER_UP, proportion);
+				goalPlayer = resizedImage(GOALPLAYER_UP, proportion);
+				break;
+			case "s":
+				player = resizedImage(PLAYER_DOWN, proportion);
+				goalPlayer = resizedImage(GOALPLAYER_DOWN, proportion);
+				break;
+			case "a":
+				player = resizedImage(PLAYER_LEFT, proportion);
+				goalPlayer = resizedImage(GOALPLAYER_LEFT, proportion);
+				break;
+			case "d":
+				player = resizedImage(PLAYER_RIGHT, proportion);
+				goalPlayer = resizedImage(GOALPLAYER_RIGHT, proportion);
+				break;
+			}
+		}
 		
 		for (int y=0; y<height; y++){
 			for (int x=0; x<length; x++){
@@ -370,6 +363,64 @@ public class Game extends JPanel {
 			}
 			System.out.println();
 		}
+	}
+	
+	/**
+	 * Method to select images according to player type
+	 * @param player
+	 * @param item
+	 * @return String
+	 */
+	private String characterImageSelector(String player, int item) {
+		String imgLoc = null;
+		switch (item) {
+		case Map.WALL:
+			imgLoc = "image/Wall.png";
+			break;
+		case Map.EMPTY:
+			imgLoc = "image/Empty.png";
+			break;
+		case Map.PLAYER:
+			imgLoc = "image/" + player + "Down.png";
+			break;
+		case Map.BOX:
+			imgLoc = "image/Box.png";
+			break;
+		case Map.GOAL:
+			imgLoc = "image/Goal.png";
+			break;
+		case Map.GOALBOX:
+			imgLoc = "image/GoalBox.png";
+			break;
+		case Map.GOALPLAYER:
+			imgLoc = "image/" + player + "DownGoal.png";
+			break;
+		case PLAYER_UP:
+			imgLoc = "image/" + player + "Up.png";
+			break;
+		case PLAYER_DOWN:
+			imgLoc = "image/" + player + "Down.png";
+			break;
+		case PLAYER_LEFT:
+			imgLoc = "image/" + player + "Left.png";
+			break;
+		case PLAYER_RIGHT:
+			imgLoc = "image/" + player + "Right.png";
+			break;
+		case GOALPLAYER_UP:
+			imgLoc = "image/" + player + "UpGoal.png";
+			break;
+		case GOALPLAYER_DOWN:
+			imgLoc = "image/" + player + "DownGoal.png";
+			break;
+		case GOALPLAYER_LEFT:
+			imgLoc = "image/" + player + "LeftGoal.png";
+			break;
+		case GOALPLAYER_RIGHT:
+			imgLoc = "image/" + player + "RightGoal.png";
+			break;
+		}
+		return imgLoc;
 	}
 	
 }
