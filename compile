@@ -1,0 +1,4 @@
+#!/bin/sh
+javac src/*.java #compile everything in the src folder
+mkdir -p bin #create the bin directory if it does not already exist
+mv src/*.class `pwd` #move every .class file from src folder to here
