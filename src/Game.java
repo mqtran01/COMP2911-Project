@@ -165,23 +165,23 @@ public class Game extends JPanel {
                 if (key.getID() == KeyEvent.KEY_PRESSED){
                     String keyPressed = null;
                     System.out.println(key.getKeyCode());
-                    if (key.getKeyCode() == KeyEvent.VK_W){
+                    if (key.getKeyCode() == KeyEvent.VK_W || key.getKeyCode() == KeyEvent.VK_UP){
                         Game.this.map.moveUp();
                         System.out.println("music is " + settings.isEnableMusic());
                         playSound(m_footsteps);
                         keyPressed = "w";
                     }
-                    if (key.getKeyCode() == KeyEvent.VK_S){
+                    if (key.getKeyCode() == KeyEvent.VK_S || key.getKeyCode() == KeyEvent.VK_DOWN){
                         Game.this.map.moveDown();
                         playSound(m_footsteps);
                         keyPressed = "s";
                     }
-                    if (key.getKeyCode() == KeyEvent.VK_A){
+                    if (key.getKeyCode() == KeyEvent.VK_A || key.getKeyCode() == KeyEvent.VK_LEFT){
                         Game.this.map.moveLeft();
                         playSound(m_footsteps);
                         keyPressed = "a";
                     }
-                    if (key.getKeyCode() == KeyEvent.VK_D){
+                    if (key.getKeyCode() == KeyEvent.VK_D || key.getKeyCode() == KeyEvent.VK_RIGHT){
                         Game.this.map.moveRight();
                         playSound(m_footsteps);
                         keyPressed = "d";
