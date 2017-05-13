@@ -188,6 +188,7 @@ public class Game extends JPanel {
                     }
                     update(keyPressed);
                     if (Game.this.map.winState()){
+                    	disableKeys();
                         playSound(m_winGame);
                         Object[] options = {"Play Again?", "Main Menu"};
                         int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!", 

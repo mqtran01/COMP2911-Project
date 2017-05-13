@@ -82,6 +82,7 @@ public class LevelSelector extends JPanel {
                 Map newMap = new Map(1);
                 Game newGame = new Game(views, mainPanel, newMap, settings);
                 try {
+                	gamePanel.disableKeys();
                     mainPanel.remove(gamePanel);
                 } catch (Exception g) {
                     System.out.println("Nothing to remove");
@@ -101,6 +102,7 @@ public class LevelSelector extends JPanel {
                 Map newMap = new Map(2);
                 Game newGame = new Game(views, mainPanel, newMap, settings);
                 try {
+                	gamePanel.disableKeys();
                     mainPanel.remove(gamePanel);
                 } catch (Exception g) {
                     System.out.println("Nothing to remove");
