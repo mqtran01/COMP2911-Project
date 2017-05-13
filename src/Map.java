@@ -160,7 +160,27 @@ public class Map implements Serializable {
 	    
 	}
 	
-
+	/**
+	 * empty constuctor to be used in the clone method
+	 */
+	private Map(){
+	}
+	
+	public Map clone(){
+		System.out.println("clonign");
+		Map clonedMap = new Map();
+		clonedMap.grid = new int[getLength()][getHeight()];
+		for (int y=0; y< getHeight();y++){
+			for (int x=0; x< getLength();x++){
+				clonedMap.grid[x][y] = this.grid[x][y];
+			}
+		}
+		clonedMap.seed = this.seed;
+		clonedMap.player_x = this.player_x;
+		clonedMap.player_y = this.player_y;
+		return clonedMap;
+	}
+	
 	/**
 	 * returns the value of a grid space given its x and y coordinates
 	 * @param x

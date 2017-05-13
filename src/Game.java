@@ -19,6 +19,7 @@ public class Game extends JPanel {
 	private int length; 
 	private int height;
 	private Map map;
+	private Map previousMap;//i.e. the map used for undo
 	private GameSettings settings;
 	private KeyEventDispatcher keyDispatcher;
 
@@ -111,10 +112,10 @@ public class Game extends JPanel {
 		saveBtn.setBorder(buttonBorder);
 		saveBtn.setPreferredSize(new Dimension((800-3)/3, 71));
 
-		JButton hintBtn = new JButton("Hint");
-		hintBtn.setFont(gameFont);
-		hintBtn.setBorder(buttonBorder);
-		hintBtn.setPreferredSize(new Dimension((800-3)/3, 71));
+		JButton undoBtn = new JButton("Undo");
+		undoBtn.setFont(gameFont);
+		undoBtn.setBorder(buttonBorder);
+		undoBtn.setPreferredSize(new Dimension((800-3)/3, 71));
 
 		JButton quitBtn = new JButton("Main Menu");
 		quitBtn.setFont(gameFont);
@@ -135,11 +136,14 @@ public class Game extends JPanel {
 			}
 		});
 
-		hintBtn.addActionListener(new ActionListener(){
+		undoBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Clicked Hint!");
-				//views.show(mainPanel, "Hint");
+				System.out.println("Clicked Undo!");
+				if (previousMap != null){
+					setMap(Game.this.previousMap);
+					update("w");
+				}
 			}
 		});
 		quitBtn.addActionListener(new ActionListener(){
@@ -152,7 +156,7 @@ public class Game extends JPanel {
 		});
 
 		btnPanel.add(saveBtn);
-		btnPanel.add(hintBtn);
+		btnPanel.add(undoBtn);
 		btnPanel.add(quitBtn);
 
 		this.add(gridPanel);
@@ -166,22 +170,26 @@ public class Game extends JPanel {
                     String keyPressed = null;
                     System.out.println(key.getKeyCode());
                     if (key.getKeyCode() == KeyEvent.VK_W || key.getKeyCode() == KeyEvent.VK_UP){
+                    	Game.this.previousMap = Game.this.map.clone();
                         Game.this.map.moveUp();
                         System.out.println("music is " + settings.isEnableMusic());
                         playSound(m_footsteps);
                         keyPressed = "w";
                     }
                     if (key.getKeyCode() == KeyEvent.VK_S || key.getKeyCode() == KeyEvent.VK_DOWN){
+                    	Game.this.previousMap = Game.this.map.clone();
                         Game.this.map.moveDown();
                         playSound(m_footsteps);
                         keyPressed = "s";
                     }
                     if (key.getKeyCode() == KeyEvent.VK_A || key.getKeyCode() == KeyEvent.VK_LEFT){
+                    	Game.this.previousMap = Game.this.map.clone();
                         Game.this.map.moveLeft();
                         playSound(m_footsteps);
                         keyPressed = "a";
                     }
                     if (key.getKeyCode() == KeyEvent.VK_D || key.getKeyCode() == KeyEvent.VK_RIGHT){
+                    	Game.this.previousMap = Game.this.map.clone();
                         Game.this.map.moveRight();
                         playSound(m_footsteps);
                         keyPressed = "d";
@@ -214,7 +222,7 @@ public class Game extends JPanel {
 		//add in keyboard controls
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyDispatcher);
 		
-		
+		previousMap = null;
 	}
 
 	private void playSound(String filename) {
