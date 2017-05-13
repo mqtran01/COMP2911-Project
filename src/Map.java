@@ -1,5 +1,8 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 public class Map implements Serializable {
@@ -16,6 +19,10 @@ public class Map implements Serializable {
 	final static int GOALBOX = 5;
 	final static int GOALPLAYER = 6;
 	
+	final static int EASY = 0;
+	final static int MEDIUM = 1;
+	final static int HARD = 2;
+	
 
 	/**
 	 * constructor
@@ -25,7 +32,6 @@ public class Map implements Serializable {
 	 */
 	public Map(int seed, int length, int height){
         this.seed = seed;
-        //grid = newMap(seed);
         MapGenerator mGen = new MapGenerator();
         // TODO change to random by seed rather than by system time
         Random rGen  = new Random(System.currentTimeMillis());
@@ -97,6 +103,61 @@ public class Map implements Serializable {
 		player_x=1;
 		player_y=2;
 
+	}
+	
+	public Map(int difficulty) {
+	    // TODO not seeding right now
+	    this.seed  = -1;
+	    int length;
+	    int height;
+	    int objectives;
+	    switch (difficulty) {
+	        case EASY:
+	            length = 2;
+	            height = 3;
+	            objectives = 2;
+	            break;
+	        case MEDIUM:
+	            length = 4;
+	            height = 3;
+	            objectives = 3;
+	            break;
+	        case HARD:
+	            length = 6;
+	            height = 4;
+	            objectives = 5;
+	            break;
+	        default:
+	            length = 10;
+                height = 10;
+                objectives = 10;
+	    }
+	    
+	    Random rGen  = new Random(System.currentTimeMillis());
+        
+	    boolean success = false;
+	    while (!success) {
+            ArrayList<int[][]> gridList =  new ArrayList<int[][]>();
+            for (int i = 0; i < length * height; i++) {
+                rGen.nextInt(10);
+                int[][] part = createMapMatrix(rGen);
+                gridList.add(part);
+            }
+            this.grid = mergeTemplates(gridList, length, height);
+            success = addMapElements(GOAL, objectives ,rGen);
+            if (!success)
+                continue;
+            success = addMapElements(BOX, objectives ,rGen);
+            if (!success)
+                continue;
+            success = addMapElements(PLAYER, 1 ,rGen);
+            if (!success)
+                continue;
+            success = connectedMap(objectives);
+	    }
+        
+	    
+	    
 	}
 	
 
@@ -290,4 +351,332 @@ public class Map implements Serializable {
 	        return grid[0].length;
 	    return 0;
 	}
+	
+	
+	private String createTemplate(int seed) {
+        switch (seed) {
+        case 0:
+            return "111" + 
+            "111" +
+            "111";
+        case 1:
+            return "011" + 
+            "111" + 
+            "111";
+        case 2:
+            return "001" + 
+            "111" + 
+            "111";
+        case 3:
+            return "000" + 
+            "111" + 
+            "111";
+        case 4:
+            return "010" + 
+            "111" + 
+            "111";
+        case 5:
+            return "111" + 
+            "101" + 
+            "111";
+        case 6:
+            return "011" + 
+            "101" + 
+            "111";
+        case 7:
+            return "011" + 
+            "101" + 
+            "110";
+        case 8:
+            return "011" + 
+            "110" + 
+            "110";
+        case 9:
+            return "010" + 
+            "111" + 
+            "101";
+        default: // For debugging purposes ONLY
+            return "123" + 
+            "456" + 
+            "789";
+        }
+    }
+
+    /**
+     * Creates a matrix based on modular template
+     * @param seed
+     * @return
+     */
+    public int[][] createMapMatrix(Random rGen) {
+        int[][] grid = new int[3][3];
+        int item = rGen.nextInt(10);
+        String mapString = createTemplate(item);
+        int rotation = rGen.nextInt(4);
+        if (rotation == 0) {
+            grid = rotate0(mapString);
+        } else if (rotation == 1) {
+            grid = rotate90(mapString);
+        } else if (rotation == 2) {
+            grid = rotate180(mapString);
+        } else { // 4
+            grid = rotate270(mapString);
+        }
+        return grid;
+    }
+
+    /**
+     * Creates 3x3 templates together to form a larger map
+     * @param maps
+     * @param length
+     * @param height
+     * @return
+     */
+    public int[][] mergeTemplates(ArrayList<int[][]> maps, int length, int height) {
+        int xOffset = 1;
+        int yOffset = 1;
+        Iterator<int[][]> iMaps = maps.iterator();
+
+        int[][] joined = createOuterWall(3*length + 2, 3 * height + 2);
+        for (int y = 0; y < length; y++) {
+            for (int x = 0; x < height; x++) {
+                int[][] part = iMaps.next();
+                for (int k = 0; k < 3; k++) {
+                    for (int j = 0; j < 3; j++) {
+                        joined[xOffset + j][yOffset + k] = part[j][k];
+                    }
+                }
+                yOffset += 3;
+            }
+            xOffset += 3;
+            yOffset = 1;
+
+        }
+        return joined;
+    }
+
+    /**
+     * Creates the map out of the template string without rotating
+     * @param template
+     * @return
+     */
+    private int[][] rotate0(String template) {
+        int[][] grid = new int[3][3];
+        int i = 0;
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                grid[x][y] = Character.getNumericValue(template.charAt(i));
+                i++;
+            }
+
+        }
+        return grid;
+    }
+
+    /**
+     * Creates the map out of the template string rotate 90 degrees clockwise
+     * @param template
+     * @return
+     */
+    private int[][] rotate90(String template) {
+        int[][] grid = new int[3][3];
+        int i = 0;
+        for (int x = 2; x >= 0; x--) {
+            for (int y = 0; y < 3; y++) {
+                grid[x][y] = Character.getNumericValue(template.charAt(i));
+                i++;
+            }
+        }
+        return grid;
+    }
+
+
+    /**
+     * Creates the map out of the template string rotate 180 degrees clockwise
+     * @param template
+     * @return
+     */
+    private int[][] rotate180(String template) {
+        int[][] grid = new int[3][3];
+        int i = 0;
+        for (int y = 2; y >= 0; y--) {
+            for (int x = 2; x >= 0; x--) {
+                grid[x][y] = Character.getNumericValue(template.charAt(i));
+                i++;
+            }
+        }
+        return grid;
+    }
+
+    /**
+     * Creates the map out of the template string rotate 270 degrees clockwise
+     * @param template
+     * @return
+     */
+    private int[][] rotate270(String template) {
+        int[][] grid = new int[3][3];
+        int i = 0;
+        for (int x = 0; x < 3; x++) {
+            for (int y = 2; y >= 0; y--) {
+                grid[x][y] = Character.getNumericValue(template.charAt(i));
+                i++;
+            }
+        }
+        return grid;
+    }
+
+    /**
+     * Checks that at least 3 adjacent sides are free before placing
+     * @param grid
+     * @param xPos
+     * @param yPos
+     * @return
+     */
+    private boolean checkSides(int xPos, int yPos, int objective) {
+        int i = 0;
+        // Check self is empty
+        if (isClear(xPos, yPos)) {
+            // Box has an additional restriction cannot be placed on edge
+            if (objective == Map.BOX) {
+                if (xPos <= 1 || xPos >= grid.length - 2 || yPos <= 1 || yPos >= grid[0].length - 2)
+                    return false;
+            }
+            // Checks the 4 adjacent spots
+            if (isClear(xPos, yPos - 1))
+                i++;
+            if (isClear(xPos, yPos + 1))
+                i++;
+            if (isClear(xPos - 1, yPos))
+                i++;
+            if (isClear(xPos + 1, yPos))
+                i++;
+        }
+        if (i >= 3)
+            return true;
+        return false;
+    }
+
+    /**
+     * Check if the spot is empty
+     * @param grid
+     * @param xPos
+     * @param yPos
+     * @return
+     */
+    private boolean isClear(int xPos, int yPos) {
+        // Out of bounds check
+        if (xPos < 0 || xPos >= grid.length || yPos < 0 || yPos >= grid[0].length)
+            return false;
+        // Check if spot is empty
+        if (grid[xPos][yPos] == EMPTY) 
+            return true;
+        return false;
+    }
+    
+    private int[][] createOuterWall(int length, int height) {
+        int[][] grid = new int[length][height];
+        for (int i = 0; i < length; i++) {
+            grid[i][0] = WALL;
+            grid[i][height-1] = WALL;
+        }
+        for (int i = 1; i < height-1; i++) {
+            grid[0][i] = WALL;
+            grid[length-1][i] = WALL;
+        }
+        return grid;
+    }
+    
+    private boolean addMapElements(int element, int count, Random rGen) {
+        int size  = grid.length * grid[0].length;
+        int cap = (int) Math.pow(size, 2);
+
+        for (int i = 0; i < count; i++) {
+            boolean placed = false;
+            int retry = 0;
+            while (!placed) {
+                // Finds a random place
+                int num = rGen.nextInt(size);
+                int xPos = num / grid.length;
+                int yPos = num % grid[0].length;
+                // Special case for player
+                if (element == PLAYER) {
+                     if (isClear(xPos, yPos)) {
+                         grid[xPos][yPos] = element;
+                         this.player_x = xPos;
+                         this.player_y = yPos;
+                         return true;
+                     } else {
+                         retry++;
+                     }
+                } else {
+                    // Box and goals
+                    if (checkSides(xPos, yPos, element)) {
+                        grid[xPos][yPos] = element;
+                        placed = true;
+                        
+                    } else {
+                        retry++;
+                    }
+                }
+                if (retry > cap) {
+                    return false;
+                }
+
+            }
+        }
+        return true;
+    }
+    
+    private boolean connectedMap(int objectives) {
+        Queue<Coordinate> frontier = new LinkedList<Coordinate>();
+        int[][] wallMap = copyWalls();
+        int numGoals = 0;
+        int numBoxes = 0;
+        frontier.add(new Coordinate(player_x, player_y));
+        wallMap[player_x][player_y] = 1;
+        while (!frontier.isEmpty()) {
+            Coordinate curr = frontier.poll();
+            int currX = curr.getX();
+            int currY = curr.getY();
+            int target = grid[currX][currY];
+            if (target == GOAL)
+                numGoals++;
+            else if (target == BOX)
+                numBoxes++;
+            
+            if (numGoals == objectives && numBoxes == objectives)
+                return true;
+            
+            if (wallMap[currX - 1][currY] == 0) {
+                frontier.add(new Coordinate(currX - 1,currY));
+                wallMap[currX - 1][currY] = 1;
+            }
+            if (wallMap[currX + 1][currY] == 0) {
+                frontier.add(new Coordinate(currX + 1,currY));
+                wallMap[currX + 1][currY] = 1;
+            }
+            if (wallMap[currX][currY - 1] == 0) {
+                frontier.add(new Coordinate(currX,currY - 1));
+                wallMap[currX][currY - 1] = 1;
+            }
+            if (wallMap[currX][currY + 1] == 0) {
+                frontier.add(new Coordinate(currX,currY + 1));
+                wallMap[currX][currY + 1] = 1;
+            }
+        }
+        return false;
+    }
+    
+    private int[][] copyWalls() {
+        int[][] wallMap = new int[grid.length][grid[0].length];
+        for (int y = 0; y < getHeight(); y++) {
+            for (int x = 0; x < getLength(); x++) {
+                if (grid[x][y] == WALL) {
+                    wallMap[x][y] = -1;
+                } else {
+                    wallMap[x][y] = 0;
+                }
+            }
+        }
+        return wallMap;
+    }
 }

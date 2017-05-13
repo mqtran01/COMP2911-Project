@@ -78,7 +78,8 @@ public class LevelSelector extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Medium Button!");
                 // TODO ADD THIS
-                Map newMap = new Map(0,3,2);
+                // Map newMap = new Map(0,3,2);
+                Map newMap = new Map(1);
                 Game newGame = new Game(views, mainPanel, newMap, settings);
                 try {
                     mainPanel.remove(gamePanel);
@@ -96,7 +97,8 @@ public class LevelSelector extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Hard Button!");
                 // TODO ADD THIS
-                Map newMap = new Map(0,10,5);
+                //Map newMap = new Map(0,10,5);
+                Map newMap = new Map(2);
                 Game newGame = new Game(views, mainPanel, newMap, settings);
                 try {
                     mainPanel.remove(gamePanel);

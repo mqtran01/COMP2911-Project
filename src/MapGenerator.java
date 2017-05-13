@@ -3,13 +3,6 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class MapGenerator {
-	final int WALL = 0;
-	final int EMPTY = 1;
-	final int PLAYER = 2;
-	final int BOX = 3;
-	final int GOAL = 4;
-	final int GOALBOX = 5;
-	final int GOALPLAYER = 6;
 
 	/**
 	 * List of 3x3 modular templates based on seeds
@@ -95,7 +88,6 @@ public class MapGenerator {
 	 * @return
 	 */
 	public int[][] mergeTemplates(ArrayList<int[][]> maps, int length, int height) {
-		// TODO add border
 		int xOffset = 1;
 		int yOffset = 1;
 		Iterator<int[][]> iMaps = maps.iterator();
@@ -274,7 +266,7 @@ public class MapGenerator {
 		if (xPos < 0 || xPos >= grid.length || yPos < 0 || yPos >= grid[0].length)
 			return false;
 		// Check if spot is empty
-		if (grid[xPos][yPos] == EMPTY) 
+		if (grid[xPos][yPos] == Map.EMPTY) 
 			return true;
 		return false;
 	}
@@ -291,4 +283,7 @@ public class MapGenerator {
 	    }
 	    return grid;
 	}
+	
+	
+
 }
