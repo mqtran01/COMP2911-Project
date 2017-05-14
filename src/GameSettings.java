@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class GameSettings {
+public class GameSettings implements Serializable{
 	private boolean enableMusic;
 	private boolean enableSFX;
 	private boolean isCharacterRed; //Set character color: True for Red; False for Blue

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -32,9 +33,9 @@ public class Settings extends JPanel {
 		JCheckBox SFXBox = new JCheckBox(text[1]);
 		JButton backBtn = new JButton(text[2]);
 
-		//Make checkBox selected initially
-		musicBox.setSelected(true);
-		SFXBox.setSelected(true);
+		//Make checkBox selected initially if settings say it is
+		musicBox.setSelected(settings.isEnableMusic());
+		SFXBox.setSelected(settings.isEnableSFX());
 		
 		//Set the location of each button
 		int btnWidth = 200;
@@ -77,6 +78,11 @@ public class Settings extends JPanel {
 		backBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try {
+					SaveLoad.saveSettings(Settings.this.settings);
+				} catch (IOException e1) {
+					System.out.println("save failed");
+				}
 				views.show(mainPanel, "Menu");
 			}
 		});

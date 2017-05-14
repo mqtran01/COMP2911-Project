@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -32,7 +33,16 @@ public class WarehouseBoss extends JFrame {
 		this.setPreferredSize(new Dimension(800,600));
 		this.setResizable(false);			
 		
-		GameSettings settings = new GameSettings();
+		//GameSettings settings = new GameSettings();
+		GameSettings settings;
+		try {
+			settings = SaveLoad.loadSettings();
+			if (settings == null){
+				settings = new GameSettings();//if it failed, just create a new one
+			}
+		} catch (IOException e) {
+			settings = new GameSettings();//if it failed, just create a new one
+		}
 
 		//Map map = new Map(0, 4, 3);
 		//Map map = new Map('a');

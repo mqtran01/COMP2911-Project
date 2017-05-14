@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 
 public class SaveLoad {
 	private static final String filename = "savefile";
+	private static final String settingsfilename = "savedsettings";
 
 	/**
 	 * method for loading a saved game returns a Map object that is saved in
@@ -58,6 +59,46 @@ public class SaveLoad {
 			if (out != null)
 				out.close();
 		}
-		System.out.println("in save");
+	}
+	
+	
+	public static GameSettings loadSettings() throws IOException{
+		ObjectInputStream in = null;
+		GameSettings settings = null;
+		try {
+			FileInputStream inFile = new FileInputStream(settingsfilename);
+			in = new ObjectInputStream(inFile);
+			settings = (GameSettings) in.readObject();
+			System.out.println("Read from file");
+		} catch (FileNotFoundException e) {
+			return null;
+		} catch (IOException e) {
+			return null;
+		} catch (ClassNotFoundException e) {
+			return null;
+		} finally { // if the file exists then close it
+			if (in != null)
+				in.close();
+		}
+		System.out.println("in load");
+		return settings;
+	}
+	
+	public static void saveSettings(GameSettings settings) throws IOException{
+		ObjectOutputStream out = null;
+		// will create the file only if it does not exist
+		File f = new File(settingsfilename);
+		f.createNewFile();
+		try {
+			FileOutputStream outFile = new FileOutputStream(settingsfilename);
+			out = new ObjectOutputStream(outFile);
+			out.writeObject(settings);
+			System.out.println("Stored to file");
+		} catch (IOException e) {
+			System.out.println(e.toString());
+		} finally {
+			if (out != null)
+				out.close();
+		}
 	}
 }
