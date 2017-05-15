@@ -38,7 +38,7 @@ public class Game extends JPanel {
 	final static int GOALPLAYER_RIGHT = 14;
 
 
-	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings)  {
+	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings, Boolean isRandomLevel)  {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		//this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800,600));

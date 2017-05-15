@@ -14,6 +14,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -32,8 +33,7 @@ public class Menu extends JPanel{
 	public Menu(final CardLayout views, final JPanel mainPanel, GameSettings settings) {
 		this.setLayout(new BorderLayout());
 		this.settings = settings;
-
-
+		
 		//this.gamePanel = gamePanel;
 		//this.settings = settings;
 
@@ -82,15 +82,20 @@ public class Menu extends JPanel{
 				System.out.println("Clicked Load Game!");
 				try {
 					Map map = SaveLoad.load();
-					Game newGame = new Game(views, mainPanel, map, settings);
+					if (map != null) {
+						Game newGame = new Game(views, mainPanel, map, settings, false);
 //					try {
 //						gamePanel.disableKeys();
 //						mainPanel.remove(gamePanel);
 //					} catch (Exception g) {
 //						System.out.println("Nothing to remove");
 //					}
-					mainPanel.add(newGame, "Game");
-					map.printMap();
+						mainPanel.add(newGame, "Game");
+						map.printMap();
+					} else {
+						//Direct to level select when save file is null
+						views.show(mainPanel, "Level");
+					}
 				} catch (IOException e1) {
 					System.out.println("Load failed!");
 					e1.printStackTrace();
