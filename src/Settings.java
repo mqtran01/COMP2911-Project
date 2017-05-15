@@ -4,12 +4,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -18,14 +22,15 @@ import javax.swing.border.LineBorder;
 
 public class Settings extends JPanel {
 	private String[] text = {"   Music", "   SFX", "Back"};
+	private String[] skins = {"StarWarHouse", "PokeManGo"};
 	private GameSettings settings;
-	
+
 	/**
 	 * Constructor for Settings Panel/View
 	 */
 	public Settings(CardLayout views, JPanel mainPanel, GameSettings settings) {
 		this.setLayout(new BorderLayout());
-		
+
 		this.settings = settings;
 
 		//Make new check boxes and button
@@ -36,7 +41,7 @@ public class Settings extends JPanel {
 		//Make checkBox selected initially if settings say it is
 		musicBox.setSelected(settings.isEnableMusic());
 		SFXBox.setSelected(settings.isEnableSFX());
-		
+
 		//Set the location of each button
 		int btnWidth = 200;
 		int btnHeight = 50;
@@ -71,7 +76,7 @@ public class Settings extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (SFXBox.isSelected()){settings.setEnableSFX(true);}
 				else{settings.setEnableSFX(false);}
-				
+
 			}
 		});
 
@@ -91,55 +96,72 @@ public class Settings extends JPanel {
 		this.add(musicBox);
 		this.add(SFXBox);
 		this.add(backBtn);
-		
-		ButtonGroup costumes = new ButtonGroup();
-		
-		JRadioButton redRobot = new JRadioButton("Red Robot");
-		redRobot.setBounds(startXPos, startYPos + 130, 100, 25);
-		
-		JRadioButton blueRobot = new JRadioButton("Blue Robot");
-		blueRobot.setBounds(startXPos + 100, startYPos + 130, 100, 25);
-		
-		if(settings.isCharacterColorRed()){
-			//Red character selected
-			redRobot.setSelected(true);
+
+		JComboBox<String> skinList = new JComboBox<String>(skins);
+		skinList.setBounds(startXPos, startYPos + 130, btnWidth, 25);
+
+		if(settings.getSpriteSet().equals("image/StarWarHouse/")){
+			skinList.setSelectedIndex(0);
 		} else {
-			blueRobot.setSelected(true);
+			skinList.setSelectedIndex(1);
 		}
-		
-		redRobot.addActionListener(new ActionListener(){
+
+		skinList.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				settings.setIsCharacterRed(true);
+				JComboBox<String> combo = (JComboBox<String>)e.getSource();
+				String selectedSkin = (String) combo.getSelectedItem();
+
+				if (selectedSkin.equals(skins[0])) {
+					settings.setSpriteSet("image/StarWarHouse/");
+					//TODO Update
+				} else if (selectedSkin.equals(skins[1])) {
+					settings.setSpriteSet("image/PokeManGo/");
+					//TODO Update
+				}
 			}
 		});
-		blueRobot.addActionListener(new ActionListener(){
+
+		this.add(skinList);
+
+
+		String spriteSet = settings.getSpriteSet();
+
+		//Display player skins
+		ImageIcon skin1Image = new ImageIcon(spriteSet + "Player1.png");
+		JLabel  skin1Label = new JLabel("", skin1Image, JLabel.CENTER);
+		skin1Label.setBounds(startXPos, startYPos + 175, 100, 100);
+		skin1Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
+
+		ImageIcon skin2Image = new ImageIcon(spriteSet + "Player2.png");
+		JLabel  skin2Label = new JLabel("", skin2Image, JLabel.CENTER);
+		skin2Label.setBounds(startXPos + 100, startYPos + 175, 100, 100);
+
+		skin1Label.addMouseListener(new MouseAdapter(){
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				settings.setIsCharacterRed(false);
+			public void mousePressed(MouseEvent e) {
+				skin1Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
+				skin2Label.setBorder(null);
+				settings.setSkin(true);
 			}
 		});
-		costumes.add(redRobot);
-		costumes.add(blueRobot);
-		this.add(redRobot);
-		this.add(blueRobot);
-		
-		
-		ImageIcon redRobotImage = new ImageIcon("image/Player1.png");
-		JLabel  redRobotLabel = new JLabel("", redRobotImage, JLabel.CENTER);
-		redRobotLabel.setFont(gameFont);
-		this.add(redRobotLabel);
-		redRobotLabel.setBounds(startXPos, startYPos + 175, 100, 100);
-		
-		ImageIcon blueRobotImage = new ImageIcon("image/Player2.png");
-		JLabel  blueRobotLabel = new JLabel("", blueRobotImage, JLabel.CENTER);
-		blueRobotLabel.setFont(gameFont);
-		this.add(blueRobotLabel);
-		blueRobotLabel.setBounds(startXPos + 100, startYPos + 175, 100, 100);
-		
-		ImageIcon titleImage = new ImageIcon("image/menu_back3.png");
+
+		skin2Label.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mousePressed(MouseEvent e) {
+				skin2Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
+				skin1Label.setBorder(null);
+				settings.setSkin(false);
+			}
+		});
+
+		this.add(skin1Label);
+		this.add(skin2Label);
+
+		ImageIcon titleImage = new ImageIcon(spriteSet+ "Menu_Bg.png");
 		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
 		this.add(titleLabel);
 		titleLabel.setBounds(0, 0, 800, 600);
 	}
+
 }

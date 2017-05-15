@@ -23,11 +23,11 @@ public class Game extends JPanel {
 	private GameSettings settings;
 	private KeyEventDispatcher keyDispatcher;
 
-	
+
 	private final String m_footsteps = "assets/MusicFootsteps.wav";
 	private final String m_moveBox = "assets/MusicMoveBox.wav";
 	private final String m_winGame = "assets/MusicWinGame.wav";
-	
+
 	final static int PLAYER_UP = 7;
 	final static int PLAYER_DOWN = 8;
 	final static int PLAYER_LEFT = 9;
@@ -36,7 +36,7 @@ public class Game extends JPanel {
 	final static int GOALPLAYER_DOWN = 12;
 	final static int GOALPLAYER_LEFT = 13;
 	final static int GOALPLAYER_RIGHT = 14;
-	
+
 
 	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings)  {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -161,67 +161,67 @@ public class Game extends JPanel {
 
 		this.add(gridPanel);
 		this.add(btnPanel);
-		
-		
+
+
 		this.keyDispatcher = new KeyEventDispatcher() {
-            @Override
-            public boolean dispatchKeyEvent(KeyEvent key) {
-                if (key.getID() == KeyEvent.KEY_PRESSED){
-                    String keyPressed = null;
-                    System.out.println(key.getKeyCode());
-                    if (key.getKeyCode() == KeyEvent.VK_W || key.getKeyCode() == KeyEvent.VK_UP){
-                    	Game.this.previousMap = Game.this.map.clone();
-                        Game.this.map.moveUp();
-                        System.out.println("music is " + settings.isEnableMusic());
-                        playSound(m_footsteps);
-                        keyPressed = "w";
-                    }
-                    if (key.getKeyCode() == KeyEvent.VK_S || key.getKeyCode() == KeyEvent.VK_DOWN){
-                    	Game.this.previousMap = Game.this.map.clone();
-                        Game.this.map.moveDown();
-                        playSound(m_footsteps);
-                        keyPressed = "s";
-                    }
-                    if (key.getKeyCode() == KeyEvent.VK_A || key.getKeyCode() == KeyEvent.VK_LEFT){
-                    	Game.this.previousMap = Game.this.map.clone();
-                        Game.this.map.moveLeft();
-                        playSound(m_footsteps);
-                        keyPressed = "a";
-                    }
-                    if (key.getKeyCode() == KeyEvent.VK_D || key.getKeyCode() == KeyEvent.VK_RIGHT){
-                    	Game.this.previousMap = Game.this.map.clone();
-                        Game.this.map.moveRight();
-                        playSound(m_footsteps);
-                        keyPressed = "d";
-                    }
-                    update(keyPressed);
-                    if (Game.this.map.winState()){
-                    	disableKeys();
-                        playSound(m_winGame);
-                        Object[] options = {"Play Again?", "Main Menu"};
-                        int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!", 
-                                                             "You have won!", JOptionPane.YES_NO_CANCEL_OPTION, 
-                                                             JOptionPane.DEFAULT_OPTION, null,
-                                                             options,
-                                                             options[1]);
-                        JOptionPane.getRootFrame().dispose(); 
-                        if (n == JOptionPane.NO_OPTION){
-                            System.out.println("Clicked Main Menu!");
-                            views.show(mainPanel, "Menu");
-                        }
-                        if (n == JOptionPane.YES_OPTION){
-                            System.out.println("Clicked Play Again!");
-                            views.show(mainPanel, "Level");
-                        }
-                    }
-                }
-                return false;
-            }
-        };
-		
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent key) {
+				if (key.getID() == KeyEvent.KEY_PRESSED){
+					String keyPressed = null;
+					System.out.println(key.getKeyCode());
+					if (key.getKeyCode() == KeyEvent.VK_W || key.getKeyCode() == KeyEvent.VK_UP){
+						Game.this.previousMap = Game.this.map.clone();
+						Game.this.map.moveUp();
+						System.out.println("music is " + settings.isEnableMusic());
+						playSound(m_footsteps);
+						keyPressed = "w";
+					}
+					if (key.getKeyCode() == KeyEvent.VK_S || key.getKeyCode() == KeyEvent.VK_DOWN){
+						Game.this.previousMap = Game.this.map.clone();
+						Game.this.map.moveDown();
+						playSound(m_footsteps);
+						keyPressed = "s";
+					}
+					if (key.getKeyCode() == KeyEvent.VK_A || key.getKeyCode() == KeyEvent.VK_LEFT){
+						Game.this.previousMap = Game.this.map.clone();
+						Game.this.map.moveLeft();
+						playSound(m_footsteps);
+						keyPressed = "a";
+					}
+					if (key.getKeyCode() == KeyEvent.VK_D || key.getKeyCode() == KeyEvent.VK_RIGHT){
+						Game.this.previousMap = Game.this.map.clone();
+						Game.this.map.moveRight();
+						playSound(m_footsteps);
+						keyPressed = "d";
+					}
+					update(keyPressed);
+					if (Game.this.map.winState()){
+						disableKeys();
+						playSound(m_winGame);
+						Object[] options = {"Play Again?", "Main Menu"};
+						int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!", 
+								"You have won!", JOptionPane.YES_NO_CANCEL_OPTION, 
+								JOptionPane.DEFAULT_OPTION, null,
+								options,
+								options[1]);
+						JOptionPane.getRootFrame().dispose(); 
+						if (n == JOptionPane.NO_OPTION){
+							System.out.println("Clicked Main Menu!");
+							views.show(mainPanel, "Menu");
+						}
+						if (n == JOptionPane.YES_OPTION){
+							System.out.println("Clicked Play Again!");
+							views.show(mainPanel, "Level");
+						}
+					}
+				}
+				return false;
+			}
+		};
+
 		//add in keyboard controls
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyDispatcher);
-		
+
 		previousMap = null;
 	}
 
@@ -263,12 +263,12 @@ public class Game extends JPanel {
 			e.printStackTrace();
 		}
 	}*/
-	
+
 
 	private ImageIcon resizedImage(int item, int size) {
 
 		String imgLoc = null;
-		if (settings.isCharacterColorRed()){
+		if (settings.isSkin1()){
 			imgLoc = characterImageSelector("player", item);
 		} else {
 			imgLoc = characterImageSelector("player2", item);
@@ -284,7 +284,7 @@ public class Game extends JPanel {
 		Image dimg = img.getScaledInstance(size, size, Image.SCALE_SMOOTH);
 		return new ImageIcon(dimg);
 	}
-	
+
 	/**
 	 * method for setting the map
 	 * @param map
@@ -294,7 +294,7 @@ public class Game extends JPanel {
 		String s = null;
 		update(s);
 	}
-	
+
 	/**
 	 * method for updating the sprites displayed by the grid
 	 */
@@ -302,7 +302,7 @@ public class Game extends JPanel {
 		System.out.println("updating");
 		double scaledLen = 800/length;
 		double scaledHgt = 500/height;
-		
+
 		int proportion = (int) Math.min(scaledLen, scaledHgt);
 		ImageIcon wall = resizedImage(Map.WALL, proportion);
 		ImageIcon empty = resizedImage(Map.EMPTY, proportion);
@@ -311,7 +311,7 @@ public class Game extends JPanel {
 		ImageIcon goalBox = resizedImage(Map.GOALBOX, proportion);
 		ImageIcon goalPlayer = resizedImage(Map.GOALPLAYER, proportion);
 		ImageIcon player = resizedImage(Map.PLAYER, proportion);
-		
+
 		if (direction != null) {
 			switch (direction) {
 			case "w":
@@ -332,7 +332,7 @@ public class Game extends JPanel {
 				break;
 			}
 		}
-		
+
 		for (int y=0; y<height; y++){
 			for (int x=0; x<length; x++){
 				int tileItem = map.getTile(x, y);
@@ -366,7 +366,7 @@ public class Game extends JPanel {
 			System.out.println();
 		}
 	}
-	
+
 	/**
 	 * Method to select images according to player type
 	 * @param player
@@ -374,61 +374,62 @@ public class Game extends JPanel {
 	 * @return String
 	 */
 	private String characterImageSelector(String player, int item) {
+		String path = settings.getSpriteSet();
 		String imgLoc = null;
 		switch (item) {
 		case Map.WALL:
-			imgLoc = "image/Wall.png";
+			imgLoc = path + "Wall.png";
 			break;
 		case Map.EMPTY:
-			imgLoc = "image/Empty.png";
+			imgLoc = path + "Empty.png";
 			break;
 		case Map.PLAYER:
-		    imgLoc = "image/" + player + "Down.png";
+			imgLoc = path + player + "Down.png";
 			break;
 		case Map.BOX:
-            imgLoc = "image/Box.png";
-            //imgLoc = "image/james.png";
+			imgLoc = path + "Box.png";
+			//imgLoc = "image/james.png";
 			break;
 		case Map.GOAL:
-			imgLoc = "image/Goal.png";
+			imgLoc = path + "Goal.png";
 			break;
 		case Map.GOALBOX:
-			imgLoc = "image/GoalBox.png";
+			imgLoc = path + "GoalBox.png";
 			break;
 		case Map.GOALPLAYER:
-			imgLoc = "image/" + player + "DownGoal.png";
+			imgLoc = path + player + "DownGoal.png";
 			break;
 		case PLAYER_UP:
-			imgLoc = "image/" + player + "Up.png";
+			imgLoc = path + player + "Up.png";
 			break;
 		case PLAYER_DOWN:
-			imgLoc = "image/" + player + "Down.png";
+			imgLoc = path + player + "Down.png";
 			break;
 		case PLAYER_LEFT:
-			imgLoc = "image/" + player + "Left.png";
+			imgLoc = path + player + "Left.png";
 			break;
 		case PLAYER_RIGHT:
-			imgLoc = "image/" + player + "Right.png";
+			imgLoc = path + player + "Right.png";
 			break;
 		case GOALPLAYER_UP:
-			imgLoc = "image/" + player + "UpGoal.png";
+			imgLoc = path + player + "UpGoal.png";
 			break;
 		case GOALPLAYER_DOWN:
-			imgLoc = "image/" + player + "DownGoal.png";
+			imgLoc = path + player + "DownGoal.png";
 			break;
 		case GOALPLAYER_LEFT:
-			imgLoc = "image/" + player + "LeftGoal.png";
+			imgLoc = path + player + "LeftGoal.png";
 			break;
 		case GOALPLAYER_RIGHT:
-			imgLoc = "image/" + player + "RightGoal.png";
+			imgLoc = path + player + "RightGoal.png";
 			break;
 		}
 		return imgLoc;
 	}
-	
+
 	public void disableKeys() {
-	    System.out.println("Disabled the keys");
-	    KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyDispatcher);
+		System.out.println("Disabled the keys");
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyDispatcher);
 	}
-	
+
 }

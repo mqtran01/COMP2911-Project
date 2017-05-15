@@ -3,16 +3,16 @@ import java.io.Serializable;
 public class GameSettings implements Serializable{
 	private boolean enableMusic;
 	private boolean enableSFX;
-	private boolean isCharacterRed; //Set character color: True for Red; False for Blue
-	private String spriteSet;//the location of the sprite set being used
-	
+	private boolean isSkin1; //Set Skin skin: True for 1; False for 2
+	private String spriteSet; //the location of the sprite set being used
+
 	public GameSettings() {
 		enableMusic = true;
 		enableSFX = true;
-		isCharacterRed = true;
-		spriteSet = "images/";
+		isSkin1 = true;
+		spriteSet = "image/StarWarHouse/";
 	}
-	
+
 	public boolean isEnableMusic() {
 		return enableMusic;
 	}
@@ -36,13 +36,13 @@ public class GameSettings implements Serializable{
 	public void setSpriteSet(String spriteSet) {
 		this.spriteSet = spriteSet;
 	}
-	
-	public boolean isCharacterColorRed(){
-		return isCharacterRed;
+
+	public boolean isSkin1(){
+		return isSkin1;
 	}
-	
-	public void setIsCharacterRed(boolean enableRed){
-		isCharacterRed = enableRed;
+
+	public void setSkin(boolean enable){
+		isSkin1 = enable;
 	}
-	
+
 }

@@ -25,18 +25,18 @@ public class Menu extends JPanel{
 	//private GameSettings settings;
 	private final String m_background = "assets/MusicBackground.wav";
 	GameSettings settings;
-	
+
 	/**
 	 * Constructor for Menu Panel/View
 	 */
 	public Menu(final CardLayout views, final JPanel mainPanel, Game gamePanel, GameSettings settings) {
 		this.setLayout(new BorderLayout());
 		this.settings = settings;
-		
+
 
 		//this.gamePanel = gamePanel;
 		//this.settings = settings;
-		
+
 		//Make new buttons
 		JButton startGameBtn = new JButton(buttonText[0]);
 		JButton loadGameBtn = new JButton(buttonText[1]);
@@ -83,19 +83,19 @@ public class Menu extends JPanel{
 				try {
 					Map map = SaveLoad.load();
 					Game newGame = new Game(views, mainPanel, map, settings);
-	                try {
-	                    gamePanel.disableKeys();
-	                    mainPanel.remove(gamePanel);
-	                } catch (Exception g) {
-	                    System.out.println("Nothing to remove");
-	                }
-	                mainPanel.add(newGame, "Game");
+					try {
+						gamePanel.disableKeys();
+						mainPanel.remove(gamePanel);
+					} catch (Exception g) {
+						System.out.println("Nothing to remove");
+					}
+					mainPanel.add(newGame, "Game");
 					map.printMap();
 				} catch (IOException e1) {
 					System.out.println("Load failed!");
 					e1.printStackTrace();
 				}
-				
+
 				views.show(mainPanel, "Game");
 			}
 		});
@@ -122,47 +122,47 @@ public class Menu extends JPanel{
 		this.add(settingsBtn);
 		this.add(quitBtn);
 
-		ImageIcon titleImage = new ImageIcon("image/menu_back3.png");
+		ImageIcon titleImage = new ImageIcon(settings.getSpriteSet() + "Menu_Bg.png");
 		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
 		this.add(titleLabel);
 		titleLabel.setBounds(0, 0, 800, 600);
 		playSound(m_background);
 	}
-	
-	private void playSound(String filename) {
-        Thread musicThread = new Thread() {
-            @Override
-            public void run() {
-                try{
-                    // Open an audio input stream.
-                    AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filename));
-                    // Get a sound clip resource.
-                    Clip clip = AudioSystem.getClip();
-                    // Open audio clip and load samples from the audio input stream.
-                    clip.open(audioIn);
-                    clip.start();
-                } catch(Exception e){
-                    e.printStackTrace();
-                }
-            }
-        };
-        if (settings.isEnableMusic()) {
-            System.out.println("Music enabled"); // TODO settings can stop music
-            musicThread.start();
-            loopSound(filename, musicThread);
-        }
-    }
 
-    private void loopSound(String filename, Thread musicThread) {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                System.out.println("Looping sound");
-                if (settings.isEnableMusic()) {
-                    playSound(filename);
-                }
-            }
-        }, 165*1000);
-    }
+	private void playSound(String filename) {
+		Thread musicThread = new Thread() {
+			@Override
+			public void run() {
+				try{
+					// Open an audio input stream.
+					AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filename));
+					// Get a sound clip resource.
+					Clip clip = AudioSystem.getClip();
+					// Open audio clip and load samples from the audio input stream.
+					clip.open(audioIn);
+					clip.start();
+				} catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		};
+		if (settings.isEnableMusic()) {
+			System.out.println("Music enabled"); // TODO settings can stop music
+			musicThread.start();
+			loopSound(filename, musicThread);
+		}
+	}
+
+	private void loopSound(String filename, Thread musicThread) {
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				System.out.println("Looping sound");
+				if (settings.isEnableMusic()) {
+					playSound(filename);
+				}
+			}
+		}, 165*1000);
+	}
 }
