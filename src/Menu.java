@@ -24,7 +24,6 @@ public class Menu extends JPanel{
 	private String[] buttonText = {"Start Game", "Load Game", "Settings", "Quit"};
 	//private Game gamePanel;
 	//private GameSettings settings;
-	private final String m_background = "assets/MusicBackground.wav";
 	GameSettings settings;
 
 	/**
@@ -131,43 +130,5 @@ public class Menu extends JPanel{
 		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
 		this.add(titleLabel);
 		titleLabel.setBounds(0, 0, 800, 600);
-		playSound(m_background);
-	}
-
-	private void playSound(String filename) {
-		Thread musicThread = new Thread() {
-			@Override
-			public void run() {
-				try{
-					// Open an audio input stream.
-					AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filename));
-					// Get a sound clip resource.
-					Clip clip = AudioSystem.getClip();
-					// Open audio clip and load samples from the audio input stream.
-					clip.open(audioIn);
-					clip.start();
-				} catch(Exception e){
-					e.printStackTrace();
-				}
-			}
-		};
-		if (settings.isEnableMusic()) {
-			System.out.println("Music enabled"); // TODO settings can stop music
-			musicThread.start();
-			loopSound(filename, musicThread);
-		}
-	}
-
-	private void loopSound(String filename, Thread musicThread) {
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				System.out.println("Looping sound");
-				if (settings.isEnableMusic()) {
-					playSound(filename);
-				}
-			}
-		}, 165*1000);
 	}
 }

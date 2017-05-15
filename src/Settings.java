@@ -6,8 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -24,6 +30,7 @@ public class Settings extends JPanel {
 	private String[] text = {"   Music", "   SFX", "Back"};
 	private String[] skins = {"StarWarHouse", "PokeManGo"};
 	private GameSettings settings;
+	private final String m_background = "assets/MusicBackground.wav";
 
 	/**
 	 * Constructor for Settings Panel/View
@@ -66,8 +73,13 @@ public class Settings extends JPanel {
 		musicBox.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (musicBox.isSelected()){settings.setEnableMusic(true);}
-				else{settings.setEnableMusic(false);}
+				if (musicBox.isSelected()){
+					settings.setEnableMusic(true);
+					WarehouseBoss.clip.start();
+				} else {
+					settings.setEnableMusic(false);
+					WarehouseBoss.clip.stop();
+				}
 			}
 		});
 
@@ -171,5 +183,4 @@ public class Settings extends JPanel {
 		mainPanel.add(new JPanel().add(new Settings(views, mainPanel, settings)), "Settings");
 		views.show(mainPanel, "Settings");
 	}
-
 }

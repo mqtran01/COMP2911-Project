@@ -1,8 +1,15 @@
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -19,6 +26,9 @@ public class WarehouseBoss extends JFrame {
 	CardLayout views = new CardLayout();
 	
 	Map map;
+	
+	private final String m_background = "assets/MusicBackground.wav";
+	public static Clip clip;
 
 	public static void main(String[] args){
 		new WarehouseBoss();
@@ -64,7 +74,10 @@ public class WarehouseBoss extends JFrame {
 		views.show(mainPanel, "Menu");
 
 		this.add(mainPanel);
-
+		
+		//Play BGM
+		playSound(m_background, settings);
+		
 		//Display the window.
 		this.pack();
 		this.setLocationRelativeTo(null);
@@ -80,4 +93,40 @@ public class WarehouseBoss extends JFrame {
 
 	}
 	// End constructor
+	private void playSound(String filename, GameSettings settings) {
+		Thread musicThread = new Thread() {
+			@Override
+			public void run() {
+				try{
+					// Open an audio input stream.
+					AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filename));
+					// Get a sound clip resource.
+					clip = AudioSystem.getClip();
+					// Open audio clip and load samples from the audio input stream.
+					clip.open(audioIn);
+					clip.start();
+				} catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		};
+		if (settings.isEnableMusic()) {
+			System.out.println("Music enabled"); // TODO settings can stop music
+			musicThread.start();
+			loopSound(filename, musicThread, settings);
+		}
+	}
+
+	private void loopSound(String filename, Thread musicThread, GameSettings settings) {
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				System.out.println("Looping sound");
+				if (settings.isEnableMusic()) {
+					playSound(filename, settings);
+				}
+			}
+		}, 165*1000);
+	}
 }
