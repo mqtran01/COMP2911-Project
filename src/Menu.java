@@ -29,7 +29,7 @@ public class Menu extends JPanel{
 	/**
 	 * Constructor for Menu Panel/View
 	 */
-	public Menu(final CardLayout views, final JPanel mainPanel, Game gamePanel, GameSettings settings) {
+	public Menu(final CardLayout views, final JPanel mainPanel, GameSettings settings) {
 		this.setLayout(new BorderLayout());
 		this.settings = settings;
 
@@ -83,12 +83,12 @@ public class Menu extends JPanel{
 				try {
 					Map map = SaveLoad.load();
 					Game newGame = new Game(views, mainPanel, map, settings);
-					try {
-						gamePanel.disableKeys();
-						mainPanel.remove(gamePanel);
-					} catch (Exception g) {
-						System.out.println("Nothing to remove");
-					}
+//					try {
+//						gamePanel.disableKeys();
+//						mainPanel.remove(gamePanel);
+//					} catch (Exception g) {
+//						System.out.println("Nothing to remove");
+//					}
 					mainPanel.add(newGame, "Game");
 					map.printMap();
 				} catch (IOException e1) {

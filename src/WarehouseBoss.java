@@ -13,7 +13,7 @@ public class WarehouseBoss extends JFrame {
 	JPanel menuPanel = new JPanel();
 	JPanel lvlSelPanel = new JPanel();
 	//JPanel gamePanel = new JPanel();
-	Game gamePanel;
+	//Game gamePanel;
 	JPanel settingsPanel = new JPanel();
 	//Settings settingsPanel;
 	CardLayout views = new CardLayout();
@@ -55,7 +55,7 @@ public class WarehouseBoss extends JFrame {
 		//gamePanel.add(new Game(views, mainPanel, map));
 		//settingsPanel.add(new Settings(views, mainPanel));
 		settingsPanel.add(new Settings(views, mainPanel, settings));
-		menuPanel.add(new Menu(views, mainPanel, gamePanel, settings));
+		menuPanel.add(new Menu(views, mainPanel, settings));
 		
 		mainPanel.add(menuPanel, "Menu");
 		mainPanel.add(lvlSelPanel, "Level");

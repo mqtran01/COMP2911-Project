@@ -114,11 +114,10 @@ public class Settings extends JPanel {
 
 				if (selectedSkin.equals(skins[0])) {
 					settings.setSpriteSet("image/StarWarHouse/");
-					//TODO Update
 				} else if (selectedSkin.equals(skins[1])) {
 					settings.setSpriteSet("image/PokeManGo/");
-					//TODO Update
 				}
+				update(views, mainPanel);
 			}
 		});
 
@@ -162,6 +161,15 @@ public class Settings extends JPanel {
 		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
 		this.add(titleLabel);
 		titleLabel.setBounds(0, 0, 800, 600);
+	}
+	
+	private void update(CardLayout views, JPanel mainPanel) {
+		mainPanel.removeAll();
+		
+		mainPanel.add(new JPanel().add(new Menu(views, mainPanel, settings)), "Menu");
+		mainPanel.add(new JPanel().add(new LevelSelector(views, mainPanel, settings)), "Level");
+		mainPanel.add(new JPanel().add(new Settings(views, mainPanel, settings)), "Settings");
+		views.show(mainPanel, "Settings");
 	}
 
 }
