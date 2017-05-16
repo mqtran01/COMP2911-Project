@@ -3,7 +3,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class MapGenerator {
-
+    // TODO REMOVE THIS CLASS
 	/**
 	 * List of 3x3 modular templates based on seeds
 	 * @param seed

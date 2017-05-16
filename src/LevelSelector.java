@@ -65,8 +65,13 @@ public class LevelSelector extends JPanel {
 		randomBox.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (randomBox.isSelected()){isRandomLevel = true;}
-				else{isRandomLevel = false;}
+				if (randomBox.isSelected()){
+				    isRandomLevel = true;
+				    System.out.println("Enabled random");
+				} else {
+				    isRandomLevel = false;
+				    System.out.println("Disabled random");
+				}
 			}
 		});
 		
@@ -75,8 +80,12 @@ public class LevelSelector extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Easy Button!");
-				//gamePanel.setMap(new Map('a'));
-				Map newMap = new Map('a');
+				Map newMap;
+				if (isRandomLevel) {
+				    newMap = new Map(0);
+				} else {
+				    newMap = new Map('a');
+				}
 				Game newGame = new Game(views, mainPanel, newMap, settings, isRandomLevel);
 				try {
 					gamePanel.disableKeys();
@@ -95,9 +104,13 @@ public class LevelSelector extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Medium Button!");
-				// TODO ADD THIS
-				// Map newMap = new Map(0,3,2);
-				Map newMap = new Map(1);
+				
+				Map newMap;
+                if (isRandomLevel) {
+                    newMap = new Map(1);
+                } else {
+                    newMap = new Map('a');
+                }
 				Game newGame = new Game(views, mainPanel, newMap, settings, isRandomLevel);
 				try {
 					gamePanel.disableKeys();
@@ -115,9 +128,13 @@ public class LevelSelector extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Hard Button!");
-				// TODO ADD THIS
-				//Map newMap = new Map(0,10,5);
-				Map newMap = new Map(2);
+				
+				Map newMap;
+                if (isRandomLevel) {
+                    newMap = new Map(2);
+                } else {
+                    newMap = new Map('a');
+                }
 				Game newGame = new Game(views, mainPanel, newMap, settings, isRandomLevel);
 				try {
 					gamePanel.disableKeys();
