@@ -142,12 +142,19 @@ public class Settings extends JPanel {
 		ImageIcon skin1Image = new ImageIcon(spriteSet + "Player1.png");
 		JLabel  skin1Label = new JLabel("", skin1Image, JLabel.CENTER);
 		skin1Label.setBounds(startXPos, startYPos + 175, 100, 100);
-		skin1Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
 
 		ImageIcon skin2Image = new ImageIcon(spriteSet + "Player2.png");
 		JLabel  skin2Label = new JLabel("", skin2Image, JLabel.CENTER);
 		skin2Label.setBounds(startXPos + 100, startYPos + 175, 100, 100);
 
+		//Determine which skin is selected
+		if (settings.isSkin1()) {
+			skin1Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
+		} else {
+			skin2Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
+		}
+		
+		//Add listener
 		skin1Label.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent e) {
