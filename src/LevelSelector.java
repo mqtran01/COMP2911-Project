@@ -30,7 +30,7 @@ public class LevelSelector extends JPanel {
 		JButton medBtn = new JButton(levelText[1]);
 		JButton hardBtn = new JButton(levelText[2]);
 		JButton backBtn = new JButton(levelText[3]);
-		JCheckBox randomBox = new JCheckBox("Random");
+		JCheckBox randomBox = new JCheckBox(" Random");
 
 		//Set the location of each button
 		int btnWidth = 200;
@@ -50,7 +50,7 @@ public class LevelSelector extends JPanel {
 		hardBtn.setFont(gameFont);
 		backBtn.setFont(gameFont);
 		randomBox.setFont(gameFont);
-		randomBox.setForeground(Color.BLUE);
+		randomBox.setForeground(Color.WHITE);
 
 		//Set button border
 		Border buttonBorder = new LineBorder(Color.BLUE, 2);
