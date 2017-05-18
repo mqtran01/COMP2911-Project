@@ -19,6 +19,7 @@ public class Game extends JPanel {
 	private int length; 
 	private int height;
 	private Map map;
+	private Map originalMap;
 	private Map previousMap;//i.e. the map used for undo
 	private GameSettings settings;
 	private KeyEventDispatcher keyDispatcher;
@@ -43,7 +44,10 @@ public class Game extends JPanel {
 		//this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800,600));
 		this.map = map;
+		this.originalMap = map.clone();
+		this.previousMap = null;
 		this.settings = settings;
+		
 		length = map.getLength();
 		height = map.getHeight();
 		JPanel gridPanel = new JPanel(new GridBagLayout());
@@ -110,17 +114,22 @@ public class Game extends JPanel {
 		JButton saveBtn = new JButton("Save");
 		saveBtn.setFont(gameFont);
 		saveBtn.setBorder(buttonBorder);
-		saveBtn.setPreferredSize(new Dimension((800-3)/3, 71));
+		saveBtn.setPreferredSize(new Dimension((800-3)/4, 71));
 
 		JButton undoBtn = new JButton("Undo");
 		undoBtn.setFont(gameFont);
 		undoBtn.setBorder(buttonBorder);
-		undoBtn.setPreferredSize(new Dimension((800-3)/3, 71));
+		undoBtn.setPreferredSize(new Dimension((800-3)/4, 71));
+		
+		JButton resetBtn = new JButton("Reset");
+		resetBtn.setFont(gameFont);
+		resetBtn.setBorder(buttonBorder);
+		resetBtn.setPreferredSize(new Dimension((800-3)/4, 71));
 
 		JButton quitBtn = new JButton("Main Menu");
 		quitBtn.setFont(gameFont);
 		quitBtn.setBorder(buttonBorder);
-		quitBtn.setPreferredSize(new Dimension((800-3)/3, 71));
+		quitBtn.setPreferredSize(new Dimension((800-3)/4, 71));
 
 
 		saveBtn.addActionListener(new ActionListener(){
@@ -146,6 +155,17 @@ public class Game extends JPanel {
 				}
 			}
 		});
+		
+		resetBtn.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Clicked Reset!");
+                Map resetMap = Game.this.originalMap.clone();
+                setMap(resetMap);
+                update("s");
+            }
+        });
+		
 		quitBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -157,6 +177,7 @@ public class Game extends JPanel {
 
 		btnPanel.add(saveBtn);
 		btnPanel.add(undoBtn);
+		btnPanel.add(resetBtn);
 		btnPanel.add(quitBtn);
 
 		this.add(gridPanel);
@@ -191,7 +212,7 @@ public class Game extends JPanel {
 						Game.this.map.moveUp();
 						System.out.println("music is " + settings.isEnableMusic());
 						//if (footsteps) {
-							playSound(m_footsteps);
+						playSound(m_footsteps);
 						//}
 						keyPressed = "w";
 					}
@@ -199,7 +220,7 @@ public class Game extends JPanel {
 						Game.this.previousMap = Game.this.map.clone();
 						Game.this.map.moveDown();
 						//if (footsteps) {
-							playSound(m_footsteps);
+						playSound(m_footsteps);
 						//}
 						keyPressed = "s";
 					}
@@ -215,7 +236,7 @@ public class Game extends JPanel {
 						Game.this.previousMap = Game.this.map.clone();
 						Game.this.map.moveRight();
 						//if (footsteps) {
-							playSound(m_footsteps);
+						playSound(m_footsteps);
 						//}
 						keyPressed = "d";
 					}
@@ -248,7 +269,7 @@ public class Game extends JPanel {
 		//add in keyboard controls
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyDispatcher);
 
-		previousMap = null;
+		
 	}
 
 	private void playSound(String filename) {
@@ -317,8 +338,10 @@ public class Game extends JPanel {
 	 */
 	public void setMap(Map map){
 		this.map = map;
-		String s = null;
-		update(s);
+		//String s = null;
+		//update(s);
+		update((String) null);
+		
 	}
 
 	/**
