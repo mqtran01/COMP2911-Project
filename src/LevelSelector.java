@@ -109,7 +109,7 @@ public class LevelSelector extends JPanel {
                 if (isRandomLevel) {
                     newMap = new Map(1);
                 } else {
-                    newMap = new Map('a');
+                    newMap = new Map('b');
                 }
 				Game newGame = new Game(views, mainPanel, newMap, settings, isRandomLevel);
 				try {
@@ -133,7 +133,7 @@ public class LevelSelector extends JPanel {
                 if (isRandomLevel) {
                     newMap = new Map(2);
                 } else {
-                    newMap = new Map('a');
+                    newMap = new Map('c');
                 }
 				Game newGame = new Game(views, mainPanel, newMap, settings, isRandomLevel);
 				try {
