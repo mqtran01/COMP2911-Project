@@ -112,10 +112,11 @@ public class Settings extends JPanel {
 		JComboBox<String> skinList = new JComboBox<String>(skins);
 		skinList.setBounds(startXPos, startYPos + 130, btnWidth, 25);
 
-		if(settings.getSpriteSet().equals("StarWarHouse/")){
-			skinList.setSelectedIndex(0);
-		} else {
-			skinList.setSelectedIndex(1);
+		int i = 0;
+		for (String s : skins) {
+			if (settings.getSpriteSet().equals(s + "/"))
+				skinList.setSelectedIndex(i);
+			i++;
 		}
 
 		skinList.addActionListener(new ActionListener(){
@@ -123,16 +124,9 @@ public class Settings extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				JComboBox<String> combo = (JComboBox<String>)e.getSource();
 				String selectedSkin = (String) combo.getSelectedItem();
-
-				if (selectedSkin.equals(skins[0])) {
-					settings.setSpriteSet("StarWarHouse/");
-					WarehouseBoss.clip.stop();
-					WarehouseBoss.changeSound("StarWarHouse/", settings);
-				} else if (selectedSkin.equals(skins[1])) {
-					settings.setSpriteSet("PokeManGo/");
-					WarehouseBoss.clip.stop();
-					WarehouseBoss.changeSound("PokeManGo/", settings);
-				}
+				settings.setSpriteSet(selectedSkin + "/");
+				WarehouseBoss.clip.stop();
+				WarehouseBoss.changeSound(selectedSkin + "/", settings);
 				update(views, mainPanel);
 			}
 		});
