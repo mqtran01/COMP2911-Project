@@ -120,6 +120,13 @@ public class WarehouseBoss extends JFrame {
 	}
 
 	static private void loopSound(String filename, Thread musicThread, GameSettings settings) {
+		String skin = settings.getSpriteSet();
+		int delay;
+		if (skin.equals("StarWarHouse/")) {
+			delay = 165*1000;
+		} else {
+			delay = 110*1000;
+		}
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
 			@Override
@@ -129,7 +136,7 @@ public class WarehouseBoss extends JFrame {
 					playSound(filename, settings);
 				}
 			}
-		}, 165*1000);
+		}, delay);
 	}
 
 	static public void changeSound(String skin, GameSettings settings) {
