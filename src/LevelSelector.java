@@ -163,7 +163,7 @@ public class LevelSelector extends JPanel {
 		this.add(backBtn);
 		this.add(randomBox);
 
-		ImageIcon titleImage = new ImageIcon(settings.getSpriteSet() + "Level_Select_Bg.png");
+		ImageIcon titleImage = new ImageIcon("image/" + settings.getSpriteSet() + "Level_Select_Bg.png");
 		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
 		this.add(titleLabel);
 		titleLabel.setBounds(0, 0, 800, 600);

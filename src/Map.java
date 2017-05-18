@@ -901,6 +901,18 @@ public class Map implements Serializable {
 		}
 		return true;
 	}
+
+	public int numBoxes(){
+		int numBoxes = 0;
+		for (int x=0; x < grid.length; x++){
+			for (int y=0; y < grid[0].length; y++){
+				if (grid[x][y]==BOX){//if box not on goal then it is not a win state
+					numBoxes += 1;
+				}
+			}
+		}
+		return numBoxes;
+	}
 	
 	public int getLength() {
 	    if (grid != null)

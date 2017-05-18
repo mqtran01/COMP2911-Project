@@ -23,10 +23,9 @@ public class Game extends JPanel {
 	private GameSettings settings;
 	private KeyEventDispatcher keyDispatcher;
 
-
-	private final String m_footsteps = "assets/MusicFootsteps.wav";
-	private final String m_moveBox = "assets/MusicMoveBox.wav";
-	private final String m_winGame = "assets/MusicWinGame.wav";
+	private String m_footsteps = "MusicFootsteps.wav";
+	private String m_moveBox = "MusicMoveBox.wav";
+	private String m_winGame = "MusicWinGame.wav";
 
 	final static int PLAYER_UP = 7;
 	final static int PLAYER_DOWN = 8;
@@ -37,6 +36,7 @@ public class Game extends JPanel {
 	final static int GOALPLAYER_LEFT = 13;
 	final static int GOALPLAYER_RIGHT = 14;
 
+	//private int numBoxes = 0;
 
 	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings, Boolean isRandomLevel)  {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -162,6 +162,12 @@ public class Game extends JPanel {
 		this.add(gridPanel);
 		this.add(btnPanel);
 
+		//numBoxes = Game.this.map.numBoxes();
+		String path = settings.getSpriteSet();
+		path = "assets/" + path;
+		m_footsteps = path + m_footsteps;
+		m_moveBox = path + m_moveBox;
+		m_winGame = path + m_winGame;
 
 		this.keyDispatcher = new KeyEventDispatcher() {
 			@Override
@@ -169,32 +175,52 @@ public class Game extends JPanel {
 				if (key.getID() == KeyEvent.KEY_PRESSED){
 					String keyPressed = null;
 					System.out.println(key.getKeyCode());
+
+					/*
+					boolean footsteps = true;
+					System.out.println("Goals Met: " + Game.this.map.numBoxes());
+					System.out.println("Record: " + numBoxes);
+					if (Game.this.map.numBoxes() != numBoxes) {
+						playSound(m_moveBox);
+						numBoxes = Game.this.map.numBoxes();
+						footsteps = false;
+					}*/
+
 					if (key.getKeyCode() == KeyEvent.VK_W || key.getKeyCode() == KeyEvent.VK_UP){
 						Game.this.previousMap = Game.this.map.clone();
 						Game.this.map.moveUp();
 						System.out.println("music is " + settings.isEnableMusic());
-						playSound(m_footsteps);
+						//if (footsteps) {
+							playSound(m_footsteps);
+						//}
 						keyPressed = "w";
 					}
 					if (key.getKeyCode() == KeyEvent.VK_S || key.getKeyCode() == KeyEvent.VK_DOWN){
 						Game.this.previousMap = Game.this.map.clone();
 						Game.this.map.moveDown();
-						playSound(m_footsteps);
+						//if (footsteps) {
+							playSound(m_footsteps);
+						//}
 						keyPressed = "s";
 					}
 					if (key.getKeyCode() == KeyEvent.VK_A || key.getKeyCode() == KeyEvent.VK_LEFT){
 						Game.this.previousMap = Game.this.map.clone();
 						Game.this.map.moveLeft();
-						playSound(m_footsteps);
+						//if (footsteps) {
+							playSound(m_footsteps);
+						//}
 						keyPressed = "a";
 					}
 					if (key.getKeyCode() == KeyEvent.VK_D || key.getKeyCode() == KeyEvent.VK_RIGHT){
 						Game.this.previousMap = Game.this.map.clone();
 						Game.this.map.moveRight();
-						playSound(m_footsteps);
+						//if (footsteps) {
+							playSound(m_footsteps);
+						//}
 						keyPressed = "d";
 					}
 					update(keyPressed);
+
 					if (Game.this.map.winState()){
 						disableKeys();
 						playSound(m_winGame);
@@ -375,6 +401,7 @@ public class Game extends JPanel {
 	 */
 	private String characterImageSelector(String player, int item) {
 		String path = settings.getSpriteSet();
+		path = "image/" + path;
 		String imgLoc = null;
 		switch (item) {
 		case Map.WALL:
@@ -388,7 +415,7 @@ public class Game extends JPanel {
 			break;
 		case Map.BOX:
 			imgLoc = path + "Box.png";
-			//imgLoc = "image/james.png";
+			//imgLoc = "path + james.png";
 			break;
 		case Map.GOAL:
 			imgLoc = path + "Goal.png";

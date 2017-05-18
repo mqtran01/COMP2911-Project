@@ -27,7 +27,7 @@ public class WarehouseBoss extends JFrame {
 	
 	Map map;
 	
-	private final String m_background = "assets/MusicBackground.wav";
+	//private final String m_background = "assets/MusicBackground.wav";
 	public static Clip clip;
 
 	public static void main(String[] args){
@@ -74,10 +74,12 @@ public class WarehouseBoss extends JFrame {
 		views.show(mainPanel, "Menu");
 
 		this.add(mainPanel);
-		
+
 		//Play BGM
-		playSound(m_background, settings);
-		
+		String path = settings.getSpriteSet();
+		playSound("assets/" + path + "/MusicBackground.wav", settings);
+
+
 		//Display the window.
 		this.pack();
 		this.setLocationRelativeTo(null);
@@ -93,7 +95,7 @@ public class WarehouseBoss extends JFrame {
 
 	}
 	// End constructor
-	private void playSound(String filename, GameSettings settings) {
+	static private void playSound(String filename, GameSettings settings) {
 		Thread musicThread = new Thread() {
 			@Override
 			public void run() {
@@ -111,13 +113,13 @@ public class WarehouseBoss extends JFrame {
 			}
 		};
 		if (settings.isEnableMusic()) {
-			System.out.println("Music enabled"); // TODO settings can stop music
+			System.out.println("Music enabled");
 			musicThread.start();
 			loopSound(filename, musicThread, settings);
 		}
 	}
 
-	private void loopSound(String filename, Thread musicThread, GameSettings settings) {
+	static private void loopSound(String filename, Thread musicThread, GameSettings settings) {
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
 			@Override
@@ -128,5 +130,11 @@ public class WarehouseBoss extends JFrame {
 				}
 			}
 		}, 165*1000);
+	}
+
+	static public void changeSound(String skin, GameSettings settings) {
+		String path = "assets/" + skin + "MusicBackground.wav";
+		System.out.println("changeSound!" + path);
+		playSound(path, settings);
 	}
 }

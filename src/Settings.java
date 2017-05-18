@@ -112,7 +112,7 @@ public class Settings extends JPanel {
 		JComboBox<String> skinList = new JComboBox<String>(skins);
 		skinList.setBounds(startXPos, startYPos + 130, btnWidth, 25);
 
-		if(settings.getSpriteSet().equals("image/StarWarHouse/")){
+		if(settings.getSpriteSet().equals("StarWarHouse/")){
 			skinList.setSelectedIndex(0);
 		} else {
 			skinList.setSelectedIndex(1);
@@ -125,9 +125,13 @@ public class Settings extends JPanel {
 				String selectedSkin = (String) combo.getSelectedItem();
 
 				if (selectedSkin.equals(skins[0])) {
-					settings.setSpriteSet("image/StarWarHouse/");
+					settings.setSpriteSet("StarWarHouse/");
+					WarehouseBoss.clip.stop();
+					WarehouseBoss.changeSound("StarWarHouse/", settings);
 				} else if (selectedSkin.equals(skins[1])) {
-					settings.setSpriteSet("image/PokeManGo/");
+					settings.setSpriteSet("PokeManGo/");
+					WarehouseBoss.clip.stop();
+					WarehouseBoss.changeSound("PokeManGo/", settings);
 				}
 				update(views, mainPanel);
 			}
@@ -137,6 +141,7 @@ public class Settings extends JPanel {
 
 
 		String spriteSet = settings.getSpriteSet();
+		spriteSet = "image/" + spriteSet;
 
 		//Display player skins
 		ImageIcon skin1Image = new ImageIcon(spriteSet + "Player1.png");

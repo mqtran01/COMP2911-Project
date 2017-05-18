@@ -126,7 +126,7 @@ public class Menu extends JPanel{
 		this.add(settingsBtn);
 		this.add(quitBtn);
 
-		ImageIcon titleImage = new ImageIcon(settings.getSpriteSet() + "Menu_Bg.png");
+		ImageIcon titleImage = new ImageIcon("image/" + settings.getSpriteSet() + "Menu_Bg.png");
 		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
 		this.add(titleLabel);
 		titleLabel.setBounds(0, 0, 800, 600);
