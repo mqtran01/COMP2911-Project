@@ -122,7 +122,7 @@ public class WarehouseBoss extends JFrame {
 	static private void loopSound(String filename, Thread musicThread, GameSettings settings) {
 		String skin = settings.getSpriteSet();
 		int delay;
-		if (skin.equals("StarWarHouse/")) {
+		if (skin.equals("Star Warehouse/")) {
 			delay = 165*1000;
 		} else {
 			delay = 110*1000;

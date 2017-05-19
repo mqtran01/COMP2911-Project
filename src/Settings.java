@@ -28,7 +28,7 @@ import javax.swing.border.LineBorder;
 
 public class Settings extends JPanel {
 	private String[] text = {"   Music", "   SFX", "Back"};
-	private String[] skins = {"StarWarHouse", "PokeManGo"};
+	private String[] skins = {"Star Warehouse", "PokeManGo"};
 	private GameSettings settings;
 	private final String m_background = "assets/MusicBackground.wav";
 
