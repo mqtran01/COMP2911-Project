@@ -5,12 +5,19 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
+/**
+ * The map class which contains details of all elements
+ * of a single instance of the map.
+ * @author Group 1 Tutorial H14A
+ *
+ */
 public class Map implements Serializable {
 	int[][] grid;//note: 0,0 is upper left of grid
-	int seed;
+	//int seed;
 	int player_x;
 	int player_y;
 	
+	// Map elements
 	final static int WALL = 0;
 	final static int EMPTY = 1;
 	final static int PLAYER = 2;
@@ -19,21 +26,22 @@ public class Map implements Serializable {
 	final static int GOALBOX = 5;
 	final static int GOALPLAYER = 6;
 	
+	// Difficulty settings
 	final static int EASY = 0;
 	final static int MEDIUM = 1;
 	final static int HARD = 2;
 	
 
 	/**
-	 * constructor
+	 * *** DEPRECATED ***
+	 * constructor of a random generated map
 	 * @param seed
 	 * @param length
 	 * @param height
 	 */
+	/*
 	public Map(int seed, int length, int height){
-        this.seed = seed;
         MapGenerator mGen = new MapGenerator();
-        // TODO change to random by seed rather than by system time
         Random rGen  = new Random(System.currentTimeMillis());
         
         ArrayList<int[][]> gridList =  new ArrayList<int[][]>();
@@ -58,10 +66,14 @@ public class Map implements Serializable {
         mGen.placeObjectives(grid, rGen, PLAYER);
             
     }
+    */
 	
-	//pregenerated maps, accessed using characters
+	/**
+	 * Constructor is a pre-generated map based on a seed.
+	 * @param seed as a letter 'a', 'b', or 'c'
+	 */
 	public Map(char seed){
-		Random rand = new Random();
+		Random rand = new Random(System.currentTimeMillis());
 		int randMapNum = rand.nextInt((10 - 1) + 1) + 1;
 		///////////////
 		//EASY MAPS://
@@ -1257,9 +1269,11 @@ public class Map implements Serializable {
 		
 	}
 	
+	/**
+	 * Constructor of a randomly generated map
+	 * @param difficulty as the difficulty
+	 */
 	public Map(int difficulty) {
-	    // TODO not seeding right now
-	    this.seed  = -1;
 	    int length;
 	    int height;
 	    int objectives;
@@ -1277,7 +1291,7 @@ public class Map implements Serializable {
 	        case HARD:
 	            length = 6;
 	            height = 4;
-	            objectives = 5;
+	            objectives = 7;
 	            break;
 	        default:
 	            length = 10;
@@ -1310,11 +1324,15 @@ public class Map implements Serializable {
 	}
 	
 	/**
-	 * empty constuctor to be used in the clone method
+	 * Empty constructor to be used in the clone method
 	 */
 	private Map(){
 	}
 	
+	/**
+	 * Deep clones the current Map
+	 * @return the new clone Map object
+	 */
 	public Map clone(){
 		System.out.println("clonign");
 		Map clonedMap = new Map();
@@ -1324,27 +1342,26 @@ public class Map implements Serializable {
 				clonedMap.grid[x][y] = this.grid[x][y];
 			}
 		}
-		clonedMap.seed = this.seed;
 		clonedMap.player_x = this.player_x;
 		clonedMap.player_y = this.player_y;
 		return clonedMap;
 	}
 	
 	/**
-	 * returns the value of a grid space given its x and y coordinates
-	 * @param x
-	 * @param y
-	 * @return
+	 * Gets the value of a grid space given its x and y coordinates
+	 * @param x as the x coord
+	 * @param y as the y coord
+	 * @return the element at the tile
 	 */
 	public int getTile(int x, int y){
 		return grid[x][y];
 	}
 
 	/**
-	 * helper function to change a grid tile to a value where the box or player is no longer there
-	 * @param x
-	 * @param y
-	 * @return
+	 * Helper function to change a grid tile to a value where the box or player is no longer there
+	 * @param x as the x coord
+	 * @param y as the y coord
+	 * @return the to change the coordinate into after moving
 	 */
 	private int removeObject(int x, int y){
 		if (grid[x][y]==PLAYER){
@@ -1365,6 +1382,9 @@ public class Map implements Serializable {
 		}
 	}
 	
+	/**
+	 * Moves the player to the left
+	 */
 	public void moveLeft(){
 		System.out.println("left");
 		System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x-1, player_y));
@@ -1375,6 +1395,9 @@ public class Map implements Serializable {
 		}
 	}
 	
+	/**
+	 * Moves the player to the right
+	 */
 	public void moveRight(){
 		System.out.println("right");
 		System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x+1, player_y));
@@ -1385,6 +1408,9 @@ public class Map implements Serializable {
 		}
 	}
 	
+	/**
+	 * Moves the player upwards
+	 */
 	public void moveUp(){
 		System.out.println("up");
 		System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x, player_y+1));
@@ -1395,6 +1421,9 @@ public class Map implements Serializable {
 		}
 	}
 	
+	/**
+	 * Moves the player downwards
+	 */
 	public void moveDown(){
 		System.out.println("down");
 		System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x, player_y-1));
@@ -1405,6 +1434,9 @@ public class Map implements Serializable {
 		}
 	}
 	
+	/**
+	 * Prints the map on console
+	 */
 	public void printMap(){
 		System.out.println("printing internal map");
 		for (int y=0;y<getHeight();y++){
@@ -1416,7 +1448,7 @@ public class Map implements Serializable {
 	}
 	
 	/**
-	 * attempts to move the player from one spot to another
+	 * Attempts to move the player from one spot to another
 	 * @param from_x
 	 * @param from_y
 	 * @param to_x
@@ -1495,8 +1527,8 @@ public class Map implements Serializable {
 	}
 	
 	/**
-	 * returns true if the map is in a win state
-	 * @return
+	 * Determines if the game has been won
+	 * @return true if the game is won
 	 */
 	public boolean winState(){
 		for (int x=0; x < grid.length; x++){
@@ -1509,6 +1541,10 @@ public class Map implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Counts the number of boxes in the game
+	 * @return number of boxes
+	 */
 	public int numBoxes(){
 		int numBoxes = 0;
 		for (int x=0; x < grid.length; x++){
@@ -1521,19 +1557,31 @@ public class Map implements Serializable {
 		return numBoxes;
 	}
 	
+	/**
+	 * Gets the length of the map.
+	 * @return length
+	 */
 	public int getLength() {
 	    if (grid != null)
 	        return grid.length;
 	    return 0;
 	}
 	
+	/**
+	 * Gets the height of the map
+	 * @return height
+	 */
 	public int getHeight() {
 	    if (grid != null && grid[0] != null)
 	        return grid[0].length;
 	    return 0;
 	}
 	
-	
+	/**
+	 * Gets a 3x3 template string
+	 * @param seed as the seed to choose from
+	 * @return a 9 character string
+	 */
 	private String createTemplate(int seed) {
         switch (seed) {
         case 0:
@@ -1584,9 +1632,9 @@ public class Map implements Serializable {
     }
 
     /**
-     * Creates a matrix based on modular template
-     * @param seed
-     * @return
+     * Creates a 3x3 grid based on modular template string
+     * @param rGen as the random number generator 
+     * @return the map as a map matrix
      */
     public int[][] createMapMatrix(Random rGen) {
         int[][] grid = new int[3][3];
@@ -1610,7 +1658,7 @@ public class Map implements Serializable {
      * @param maps
      * @param length
      * @param height
-     * @return
+     * @return the map as an int matrix
      */
     public int[][] mergeTemplates(ArrayList<int[][]> maps, int length, int height) {
         int xOffset = 1;
@@ -1637,8 +1685,8 @@ public class Map implements Serializable {
 
     /**
      * Creates the map out of the template string without rotating
-     * @param template
-     * @return
+     * @param template as the String template to rotate
+     * @return the 3x3 grid
      */
     private int[][] rotate0(String template) {
         int[][] grid = new int[3][3];
@@ -1655,8 +1703,8 @@ public class Map implements Serializable {
 
     /**
      * Creates the map out of the template string rotate 90 degrees clockwise
-     * @param template
-     * @return
+     * @param template as the String template to rotate
+     * @return the 3x3 grid
      */
     private int[][] rotate90(String template) {
         int[][] grid = new int[3][3];
@@ -1673,8 +1721,8 @@ public class Map implements Serializable {
 
     /**
      * Creates the map out of the template string rotate 180 degrees clockwise
-     * @param template
-     * @return
+     * @param template as the String template to rotate
+     * @return the 3x3 grid
      */
     private int[][] rotate180(String template) {
         int[][] grid = new int[3][3];
@@ -1690,8 +1738,8 @@ public class Map implements Serializable {
 
     /**
      * Creates the map out of the template string rotate 270 degrees clockwise
-     * @param template
-     * @return
+     * @param template as the String template to rotate
+     * @return the 3x3 grid
      */
     private int[][] rotate270(String template) {
         int[][] grid = new int[3][3];
@@ -1707,9 +1755,9 @@ public class Map implements Serializable {
 
     /**
      * Checks that at least 3 adjacent sides are free before placing
-     * @param grid
-     * @param xPos
-     * @param yPos
+     * @param xPos as the x coord
+     * @param yPos as the y coord
+     * @param objective as the element to with
      * @return
      */
     private boolean checkSides(int xPos, int yPos, int objective) {
@@ -1738,7 +1786,6 @@ public class Map implements Serializable {
 
     /**
      * Check if the spot is empty
-     * @param grid
      * @param xPos
      * @param yPos
      * @return
@@ -1753,6 +1800,13 @@ public class Map implements Serializable {
         return false;
     }
     
+    /**
+     * Creates a grid that add a wall on the outer edge so
+     * player cannot go out of bounds
+     * @param length of the grid
+     * @param height of the grid
+     * @return a grid with all the outer walls initialised
+     */
     private int[][] createOuterWall(int length, int height) {
         int[][] grid = new int[length][height];
         for (int i = 0; i < length; i++) {
@@ -1766,6 +1820,13 @@ public class Map implements Serializable {
         return grid;
     }
     
+    /**
+     * Adds the map element specified
+     * @param element as the map element
+     * @param count how many to add in
+     * @param rGen as the random number generator
+     * @return true if all elements were successfully added
+     */
     private boolean addMapElements(int element, int count, Random rGen) {
         int size  = grid.length * grid[0].length;
         int cap = (int) Math.pow(size, 2);
@@ -1807,6 +1868,11 @@ public class Map implements Serializable {
         return true;
     }
     
+    /**
+     * A search to determine that all map elements are connected to the player
+     * @param objectives as number of objects on the map
+     * @return true if all objects can be reached by the player
+     */
     private boolean connectedMap(int objectives) {
         Queue<Coordinate> frontier = new LinkedList<Coordinate>();
         int[][] wallMap = copyWalls();
@@ -1847,6 +1913,10 @@ public class Map implements Serializable {
         return false;
     }
     
+    /**
+     * Copies the walls. Used for the connectedMap search
+     * @return the grid with all walls drawn.
+     */
     private int[][] copyWalls() {
         int[][] wallMap = new int[grid.length][grid[0].length];
         for (int y = 0; y < getHeight(); y++) {

@@ -14,6 +14,11 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+/**
+ * Game class which contains the gameplay visuals and controller
+ * @author Group 1 Tutorial H14A
+ *
+ */
 public class Game extends JPanel {
 	private JLabel[][] grid;
 	private int length; 
@@ -24,10 +29,12 @@ public class Game extends JPanel {
 	private GameSettings settings;
 	private KeyEventDispatcher keyDispatcher;
 
+	// Music assets
 	private String m_footsteps = "MusicFootsteps.wav";
 	private String m_moveBox = "MusicMoveBox.wav";
 	private String m_winGame = "MusicWinGame.wav";
 
+	// Additional assets for player facing direction
 	final static int PLAYER_UP = 7;
 	final static int PLAYER_DOWN = 8;
 	final static int PLAYER_LEFT = 9;
@@ -37,11 +44,15 @@ public class Game extends JPanel {
 	final static int GOALPLAYER_LEFT = 13;
 	final static int GOALPLAYER_RIGHT = 14;
 
-	//private int numBoxes = 0;
-
-	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings, Boolean isRandomLevel)  {
+	/**
+	 * Constructor of the Game object
+	 * @param viewsas the card view collection
+	 * @param mainPanel as the main visible panel
+	 * @param map as the map to play
+	 * @param settings as the application settings
+	 */
+	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings)  {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		//this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800,600));
 		this.map = map;
 		this.originalMap = map.clone();
@@ -71,7 +82,7 @@ public class Game extends JPanel {
 		ImageIcon goalPlayer = resizedImage(Map.GOALPLAYER, proportion);
 
 
-
+		// Draws the map visually
 		for (int y=0; y<height; y++){
 			gbc.gridy = y;
 			for (int x=0; x<length; x++){
@@ -107,6 +118,7 @@ public class Game extends JPanel {
 			}
 		}
 
+		// Creation of button elements
 		JPanel btnPanel = new JPanel(new GridLayout(1,3));
 		Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
 		Border buttonBorder = new LineBorder(Color.BLUE, 2);
@@ -131,7 +143,7 @@ public class Game extends JPanel {
 		quitBtn.setBorder(buttonBorder);
 		quitBtn.setPreferredSize(new Dimension((800-3)/4, 71));
 
-
+		// Creation of button action
 		saveBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -175,6 +187,7 @@ public class Game extends JPanel {
 			}
 		});
 
+		// Add buttons onto visual page
 		btnPanel.add(saveBtn);
 		btnPanel.add(undoBtn);
 		btnPanel.add(resetBtn);
@@ -183,7 +196,7 @@ public class Game extends JPanel {
 		this.add(gridPanel);
 		this.add(btnPanel);
 
-		//numBoxes = Game.this.map.numBoxes();
+		// Gets the file names of sounds
 		String path = settings.getSpriteSet();
 		path = "assets/" + path;
 		m_footsteps = path + m_footsteps;
@@ -272,6 +285,10 @@ public class Game extends JPanel {
 		
 	}
 
+	/**
+	 * Plays the movement sound file
+	 * @param filename as the file path of the sound file
+	 */
 	private void playSound(String filename) {
 		Thread musicThread = new Thread() {
 			@Override
@@ -295,23 +312,13 @@ public class Game extends JPanel {
 		}
 	}
 
-	/*
-	private void playSound(String filename){
-  		try{
-			// Open an audio input stream.
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filename));
-            // Get a sound clip resource.
-            Clip clip = AudioSystem.getClip();
-            // Open audio clip and load samples from the audio input stream.
-            clip.open(audioIn);
-            clip.start();
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-	}*/
 
-
+	/**
+	 * Resizes the image based on the map size to fit on window
+	 * @param item as the map element
+	 * @param size as the size to scale to
+	 * @return the rescaled image
+	 */
 	private ImageIcon resizedImage(int item, int size) {
 
 		String imgLoc = null;
@@ -333,19 +340,18 @@ public class Game extends JPanel {
 	}
 
 	/**
-	 * method for setting the map
+	 * Method for setting the map
 	 * @param map
 	 */
 	public void setMap(Map map){
 		this.map = map;
-		//String s = null;
-		//update(s);
 		update((String) null);
 		
 	}
 
 	/**
-	 * method for updating the sprites displayed by the grid
+	 * Method for updating the sprites displayed by the grid
+	 * @param direction as the direction the sprite is facing
 	 */
 	public void update(String direction){
 		System.out.println("updating");
@@ -418,9 +424,9 @@ public class Game extends JPanel {
 
 	/**
 	 * Method to select images according to player type
-	 * @param player
-	 * @param item
-	 * @return String
+	 * @param player as the player facing direction
+	 * @param item as the item
+	 * @return String as the path for the image object
 	 */
 	private String characterImageSelector(String player, int item) {
 		String path = settings.getSpriteSet();
@@ -477,6 +483,9 @@ public class Game extends JPanel {
 		return imgLoc;
 	}
 
+	/**
+	 * Disables the key controller
+	 */
 	public void disableKeys() {
 		System.out.println("Disabled the keys");
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyDispatcher);

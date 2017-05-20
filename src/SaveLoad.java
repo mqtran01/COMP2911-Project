@@ -6,14 +6,19 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * Class to handle save and loading of various assets
+ * @author Group 1 Tutorial H14A
+ *
+ */
 public class SaveLoad {
 	private static final String filename = "savefile";
 	private static final String settingsfilename = "savedsettings";
 
 	/**
-	 * method for loading a saved game returns a Map object that is saved in
-	 * savefile
-	 * 
+	 * Method for loading a saved game returns a Map object that is saved in
+	 * 'savefile'
+	 * @return the saved Map
 	 * @throws IOException
 	 */
 	public static Map load() throws IOException {
@@ -39,8 +44,8 @@ public class SaveLoad {
 	}
 
 	/**
-	 * method for saving a game
-	 * 
+	 * Saves the game writing it into the file 'savefile'
+	 * @param map as the map to save
 	 * @throws IOException
 	 */
 	public static void save(Map map) throws IOException {
@@ -61,7 +66,11 @@ public class SaveLoad {
 		}
 	}
 	
-	
+	/**
+	 * Loads the GameSettings stores in 'savesettings' if it exists
+	 * @return the loaded GameSettings
+	 * @throws IOException
+	 */
 	public static GameSettings loadSettings() throws IOException{
 		ObjectInputStream in = null;
 		GameSettings settings = null;
@@ -84,6 +93,11 @@ public class SaveLoad {
 		return settings;
 	}
 	
+	/**
+	 * Saves the settings into 'savesettings'
+	 * @param settings as the settings to save
+	 * @throws IOException
+	 */
 	public static void saveSettings(GameSettings settings) throws IOException{
 		ObjectOutputStream out = null;
 		// will create the file only if it does not exist

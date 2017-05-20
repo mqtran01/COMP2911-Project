@@ -26,6 +26,12 @@ import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+/**
+ * Settings class which contains the layout and controls for
+ * the game settings
+ * @author Group 1 Tutorial H14A
+ *
+ */
 public class Settings extends JPanel {
 	private String[] text = {"   Music", "   SFX", "Back"};
 	private String[] skins = {"Star Warehouse", "PokeManGo"};
@@ -181,6 +187,11 @@ public class Settings extends JPanel {
 		titleLabel.setBounds(0, 0, 800, 600);
 	}
 	
+	/**
+	 * Updates all panels tot he new skin set
+	 * @param views as the list of panels
+	 * @param mainPanel as the main control panel
+	 */
 	private void update(CardLayout views, JPanel mainPanel) {
 		mainPanel.removeAll();
 		

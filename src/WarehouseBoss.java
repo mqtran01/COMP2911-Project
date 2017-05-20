@@ -13,27 +13,34 @@ import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * Main class to operate the Warehouse Boss game.
+ * @author Group 1 Tutorial H14A
+ *
+ */
 public class WarehouseBoss extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	JPanel mainPanel = new JPanel();
 	JPanel menuPanel = new JPanel();
 	JPanel lvlSelPanel = new JPanel();
-	//JPanel gamePanel = new JPanel();
-	//Game gamePanel;
 	JPanel settingsPanel = new JPanel();
-	//Settings settingsPanel;
 	CardLayout views = new CardLayout();
-	
-	Map map;
-	
-	//private final String m_background = "assets/MusicBackground.wav";
+
 	public static Clip clip;
 
+	/**
+	 * Main entry point for the Warehouse Boss game.
+	 * @param args is irrelevant
+	 */
 	public static void main(String[] args){
 		new WarehouseBoss();
 	}
 
+	/**
+	 * Constructor of the overall game container.
+	 * Also controls the background music of the game.
+	 */
 	WarehouseBoss(){
 		//Create and set up the window.
 		super("Warehouse Boss");
@@ -43,7 +50,6 @@ public class WarehouseBoss extends JFrame {
 		this.setPreferredSize(new Dimension(800,600));
 		this.setResizable(false);			
 		
-		//GameSettings settings = new GameSettings();
 		GameSettings settings;
 		try {
 			settings = SaveLoad.loadSettings();
@@ -54,22 +60,14 @@ public class WarehouseBoss extends JFrame {
 			settings = new GameSettings();//if it failed, just create a new one
 		}
 
-		//Map map = new Map(0, 4, 3);
-		//Map map = new Map('a');
-		
-
 		mainPanel.setLayout(views);
 		
-		//gamePanel = new Game(views, mainPanel, map, settings);
 		lvlSelPanel.add(new LevelSelector(views, mainPanel, settings));
-		//gamePanel.add(new Game(views, mainPanel, map));
-		//settingsPanel.add(new Settings(views, mainPanel));
 		settingsPanel.add(new Settings(views, mainPanel, settings));
 		menuPanel.add(new Menu(views, mainPanel, settings));
 		
 		mainPanel.add(menuPanel, "Menu");
 		mainPanel.add(lvlSelPanel, "Level");
-		//mainPanel.add(gamePanel, "Game");
 		mainPanel.add(settingsPanel, "Settings");
 		views.show(mainPanel, "Menu");
 
@@ -84,17 +82,13 @@ public class WarehouseBoss extends JFrame {
 		this.pack();
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-
-
-		/*for (int y=0; y < map.getHeight(); y++){
-			for (int x=0; x < map.getLength(); x++){
-				System.out.print(map.getTile(x, y));
-			}
-			System.out.print("\n");
-		}*/
-
 	}
-	// End constructor
+
+	/**
+	 * Plays the sound of the specific sound file.
+	 * @param filename as the file path of the sound file
+	 * @param settings as the settings controller
+	 */
 	static private void playSound(String filename, GameSettings settings) {
 		Thread musicThread = new Thread() {
 			@Override
@@ -119,6 +113,12 @@ public class WarehouseBoss extends JFrame {
 		}
 	}
 
+	/**
+	 * Creates a delay to loop the sound file after it is complete
+	 * @param filename as the specified file name
+	 * @param musicThread as the thread playing the music
+	 * @param settings as the settings controller
+	 */
 	static private void loopSound(String filename, Thread musicThread, GameSettings settings) {
 		String skin = settings.getSpriteSet();
 		int delay;
@@ -138,7 +138,12 @@ public class WarehouseBoss extends JFrame {
 			}
 		}, delay);
 	}
-
+	
+	/**
+	 * Changes the background music based on skin
+	 * @param skin as the skin set
+	 * @param settings as the settings controller
+	 */
 	static public void changeSound(String skin, GameSettings settings) {
 		String path = "assets/" + skin + "MusicBackground.wav";
 		System.out.println("changeSound!" + path);

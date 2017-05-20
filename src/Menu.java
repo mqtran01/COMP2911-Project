@@ -20,10 +20,14 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+/**
+ * Class of the Main Menu with layout and controller
+ * Used to navigate to other panels
+ * @author Group 1 Tutorial H14A
+ *
+ */
 public class Menu extends JPanel{
 	private String[] buttonText = {"Start Game", "Load Game", "Settings", "Quit"};
-	//private Game gamePanel;
-	//private GameSettings settings;
 	GameSettings settings;
 
 	/**
@@ -33,9 +37,6 @@ public class Menu extends JPanel{
 		this.setLayout(new BorderLayout());
 		this.settings = settings;
 		
-		//this.gamePanel = gamePanel;
-		//this.settings = settings;
-
 		//Make new buttons
 		JButton startGameBtn = new JButton(buttonText[0]);
 		JButton loadGameBtn = new JButton(buttonText[1]);
@@ -82,7 +83,7 @@ public class Menu extends JPanel{
 				try {
 					Map map = SaveLoad.load();
 					if (map != null) {
-						Game newGame = new Game(views, mainPanel, map, settings, false);
+						Game newGame = new Game(views, mainPanel, map, settings);
 //					try {
 //						gamePanel.disableKeys();
 //						mainPanel.remove(gamePanel);

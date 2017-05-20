@@ -12,25 +12,35 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+/**
+ * Level Selector class which contains layout and controller
+ * Used to choose a stage
+ * @author Group 1 Tutorial H14A
+ *
+ */
 public class LevelSelector extends JPanel {
-	private String[] levelText = {"Easy", "Medium", "Hard", "Back"};
+	private String[] levelText = {"Easy", "Medium", "Hard", "Back", " Random"};
 	private Game gamePanel;
-	private GameSettings settings;
 	private boolean isRandomLevel;
 
+	/**
+	 * Constructor of the Level Selector object
+	 * @param views as the layout collection
+	 * @param mainPanel as the main visible panel
+	 * @param settings as the application settings
+	 */
 	public LevelSelector(final CardLayout views, final JPanel mainPanel, GameSettings settings) {
 		this.setLayout(new BorderLayout());
 
-		this.settings = settings;
 		this.gamePanel = null;
 		this.isRandomLevel = false;
 		
-		// Make three buttons
+		// Make selection buttons
 		JButton easyBtn = new JButton(levelText[0]);
 		JButton medBtn = new JButton(levelText[1]);
 		JButton hardBtn = new JButton(levelText[2]);
 		JButton backBtn = new JButton(levelText[3]);
-		JCheckBox randomBox = new JCheckBox(" Random");
+		JCheckBox randomBox = new JCheckBox(levelText[4]);
 
 		//Set the location of each button
 		int btnWidth = 200;
@@ -86,7 +96,7 @@ public class LevelSelector extends JPanel {
 				} else {
 				    newMap = new Map('a');
 				}
-				Game newGame = new Game(views, mainPanel, newMap, settings, isRandomLevel);
+				Game newGame = new Game(views, mainPanel, newMap, settings);
 				try {
 					gamePanel.disableKeys();
 					mainPanel.remove(gamePanel);
@@ -111,7 +121,7 @@ public class LevelSelector extends JPanel {
                 } else {
                     newMap = new Map('b');
                 }
-				Game newGame = new Game(views, mainPanel, newMap, settings, isRandomLevel);
+				Game newGame = new Game(views, mainPanel, newMap, settings);
 				try {
 					gamePanel.disableKeys();
 					mainPanel.remove(gamePanel);
@@ -135,7 +145,7 @@ public class LevelSelector extends JPanel {
                 } else {
                     newMap = new Map('c');
                 }
-				Game newGame = new Game(views, mainPanel, newMap, settings, isRandomLevel);
+				Game newGame = new Game(views, mainPanel, newMap, settings);
 				try {
 					gamePanel.disableKeys();
 					mainPanel.remove(gamePanel);
