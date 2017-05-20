@@ -18,7 +18,7 @@ public class GameSettings implements Serializable{
 	public GameSettings() {
 		enableMusic = true;
 		enableSFX = true;
-		//isSkin1 = true;
+		isSkin1 = true;
 		spriteSet = "Star Warehouse/";
 	}
 
