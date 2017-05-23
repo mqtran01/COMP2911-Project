@@ -1,9 +1,7 @@
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 

@@ -1,7 +1,9 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
 
@@ -1267,6 +1269,7 @@ public class Map implements Serializable {
 			}
 		}
 		
+		//System.out.println(isSolvable(this));
 	}
 	
 	/**
@@ -1334,7 +1337,7 @@ public class Map implements Serializable {
 	 * @return the new clone Map object
 	 */
 	public Map clone(){
-		System.out.println("clonign");
+		//System.out.println("clonign");
 		Map clonedMap = new Map();
 		clonedMap.grid = new int[getLength()][getHeight()];
 		for (int y=0; y< getHeight();y++){
@@ -1385,53 +1388,65 @@ public class Map implements Serializable {
 	/**
 	 * Moves the player to the left
 	 */
-	public void moveLeft(){
-		System.out.println("left");
-		System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x-1, player_y));
+	public boolean moveLeft(){
+		//System.out.println("left");
+		//System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x-1, player_y));
 		if (moveTo(player_x, player_y, player_x-1, player_y)){
 			player_x--;
-			System.out.println("moveTo was successful");
-			printMap();
+			//System.out.println("moveTo was successful");
+			//printMap();
+			//System.out.println(hManhattan());
+			return true;
 		}
+		return false;
 	}
 	
 	/**
 	 * Moves the player to the right
 	 */
-	public void moveRight(){
-		System.out.println("right");
-		System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x+1, player_y));
+	public boolean moveRight(){
+		//System.out.println("right");
+		//System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x+1, player_y));
 		if (moveTo(player_x, player_y, player_x+1, player_y)){
 			player_x++;
-			System.out.println("moveTo was successful");
-			printMap();
+			//System.out.println("moveTo was successful");
+			//printMap();
+			//System.out.println(hManhattan());
+			return true;
 		}
+		return false;
 	}
 	
 	/**
 	 * Moves the player upwards
 	 */
-	public void moveUp(){
-		System.out.println("up");
-		System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x, player_y+1));
+	public boolean moveUp(){
+		//System.out.println("up");
+		//System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x, player_y+1));
 		if (moveTo(player_x, player_y, player_x, player_y-1)){
 			player_y--;
-			System.out.println("moveTo was successful");
-			printMap();
+			//System.out.println("moveTo was successful");
+			//printMap();
+			//System.out.println(hManhattan());
+			return true;
 		}
+		return false;
 	}
 	
 	/**
 	 * Moves the player downwards
 	 */
-	public void moveDown(){
-		System.out.println("down");
-		System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x, player_y-1));
+	public boolean moveDown(){
+		//System.out.println("down");
+		//System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x, player_y, player_x, player_y-1));
 		if (moveTo(player_x, player_y, player_x, player_y+1)){
 			player_y++;
-			System.out.println("moveTo was successful");
-			printMap();
+			//System.out.println("moveTo was successful");
+			//printMap();
+			//System.out.println(hManhattan());
+			return true;
 		}
+		return false;
 	}
 	
 	/**
@@ -1538,6 +1553,7 @@ public class Map implements Serializable {
 				}
 			}
 		}
+		System.out.println("in win state");
 		return true;
 	}
 
@@ -1929,5 +1945,138 @@ public class Map implements Serializable {
             }
         }
         return wallMap;
+    }
+    
+    private boolean isSolvable(Map map){
+		PriorityQueue<aStarNode> pq = new PriorityQueue<aStarNode>(10, new Comparator<aStarNode>(){
+			public int compare(aStarNode x, aStarNode y){
+				return x.compareTo(y);
+			}
+		}); 
+		
+		int i=0;
+		LinkedList<Map> visited = new LinkedList<Map>();
+		int initH = map.hManhattan();
+		pq.add(new aStarNode(initH,initH,map));
+		while (!pq.isEmpty()){
+			aStarNode node = pq.poll();
+			System.out.println(i + " heuristic is " + node.getH() + " f is " + node.getF());
+			i++;
+			node.getMap().printMap();
+			if (node.getMap().winState()){
+				return true;
+			}
+			
+			//using .contains() doesn't use the custom .equals method
+			for (Map m: visited){
+				if (m.equals(node.getMap())){
+					//System.out.println("found a copy");
+					continue;
+				}
+			}
+			visited.add(node.getMap());
+			
+			//add successors to pq
+			Map clone = node.getMap().clone();
+			if (clone.moveDown()){
+				int newH = clone.hManhattan();
+				pq.add(new aStarNode(newH,node.getF()-node.getH()+1+newH,clone));
+				System.out.println("	move down is possible");
+			}
+			clone = node.getMap().clone();
+			if (clone.moveUp()){
+				int newH = clone.hManhattan();
+				pq.add(new aStarNode(newH,node.getF()-node.getH()+1+newH,clone));
+				System.out.println("	move up is possible");
+			}
+			clone = node.getMap().clone();
+			if (clone.moveLeft()){
+				int newH = clone.hManhattan();
+				pq.add(new aStarNode(newH,node.getF()-node.getH()+1+newH,clone));
+				System.out.println("	move left is possible");
+			}
+			clone = node.getMap().clone();
+			if (clone.moveRight()){
+				int newH = clone.hManhattan();
+				pq.add(new aStarNode(newH,node.getF()-node.getH()+1+newH,clone));
+				System.out.println("	move right is possible");
+			}
+		}
+		return false;
+	}
+    
+    /**
+     * returns the manhtan distance heuristic for this map
+     * @return
+     */
+    private int hManhattan(){
+    	//get the list of boxes and goals in the map
+    	//does not include boxes on goals
+    	ArrayList<Coordinates> boxes = new ArrayList<Coordinates>();
+    	ArrayList<Coordinates> goals = new ArrayList<Coordinates>();
+    	for (int y=0;y<grid[0].length;y++){
+    		for(int x=0;x<grid.length;x++){
+    			if (grid[x][y]==BOX){
+    				boxes.add(new Coordinates(x,y));
+    			}
+    			else if (grid[x][y]==GOAL || grid[x][y]==GOALPLAYER){
+    				goals.add(new Coordinates(x,y));
+    			}
+    		}
+    	}
+    	//totalDistance is sum of minimum dist between each box and any goal
+    	int totalDistance = 0;
+    	for (Coordinates box: boxes){
+    		int min = 9999999;
+    		for(Coordinates goal: goals){
+    			//manhattan distance
+    			int dist = (Math.abs(box.getX()-goal.getX()) + Math.abs(box.getY()-goal.getY()));
+    			if (dist < min){
+    				min = dist;
+    			}
+    		}
+    		totalDistance += min;
+    	}
+    	return totalDistance;
+    }
+
+    private class Coordinates {
+    	private int x;
+    	private int y;
+    	
+    	public int getX() {
+    		return x;
+    	}
+
+    	public void setX(int x) {
+    		this.x = x;
+    	}
+
+    	public int getY() {
+    		return y;
+    	}
+
+    	public void setY(int y) {
+    		this.y = y;
+    	}
+
+    	public Coordinates(int x, int y){
+    		this.x=x;
+    		this.y=y;
+    	}
+    }
+    
+    public boolean equals(Map o){
+    	if (this.player_x != o.player_x)return false;
+    	if (this.player_y != o.player_y)return false;
+    	for (int y=0;y<this.grid[0].length;y++){
+    		for(int x=0;x<this.grid.length;x++){
+    			if (this.grid[x][y] != o.grid[x][y]){
+    				//System.out.println("found an elem that differs");
+    				return false;
+    			}
+    		}
+    	}
+    	return true;
     }
 }

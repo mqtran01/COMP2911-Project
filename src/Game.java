@@ -1,5 +1,3 @@
-import java.util.Timer;
-import java.util.TimerTask;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
