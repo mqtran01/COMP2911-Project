@@ -33,43 +33,6 @@ public class Map implements Serializable {
 	final static int MEDIUM = 1;
 	final static int HARD = 2;
 	
-
-	/**
-	 * *** DEPRECATED ***
-	 * constructor of a random generated map
-	 * @param seed
-	 * @param length
-	 * @param height
-	 */
-	/*
-	public Map(int seed, int length, int height){
-        MapGenerator mGen = new MapGenerator();
-        Random rGen  = new Random(System.currentTimeMillis());
-        
-        ArrayList<int[][]> gridList =  new ArrayList<int[][]>();
-        for (int i = 0; i < length * height; i++) {
-            rGen.nextInt(10);
-            int[][] part = mGen.createMapMatrix(rGen);
-            gridList.add(part);
-        }
-        grid = mGen.mergeTemplates(gridList, length, height);
-        boolean success = mGen.placeObjectives(grid, rGen, GOAL);
-        if (!success) {
-            // Handle it
-            System.out.println("Couldn't find a spot in time for goal");
-        }
-        
-        success = mGen.placeObjectives(grid, rGen, BOX);
-        if (!success) {
-            // Handle it
-            System.out.println("Couldn't find a spot in time for box");
-        }
-        
-        mGen.placeObjectives(grid, rGen, PLAYER);
-            
-    }
-    */
-	
 	/**
 	 * Constructor is a pre-generated map based on a seed.
 	 * @param seed as a letter 'a', 'b', or 'c'
@@ -1535,7 +1498,6 @@ public class Map implements Serializable {
 	 * @return the new clone Map object
 	 */
 	public Map clone(){
-		//System.out.println("clonign");
 		Map clonedMap = new Map();
 		clonedMap.grid = new int[getLength()][getHeight()];
 		for (int y=0; y< getHeight();y++){
@@ -1754,22 +1716,6 @@ public class Map implements Serializable {
 		System.out.println("in win state");
 		return true;
 	}
-
-	/**
-	 * Counts the number of boxes in the game
-	 * @return number of boxes
-	 */
-	public int numBoxes(){
-		int numBoxes = 0;
-		for (int x=0; x < grid.length; x++){
-			for (int y=0; y < grid[0].length; y++){
-				if (grid[x][y]==BOX){//if box not on goal then it is not a win state
-					numBoxes += 1;
-				}
-			}
-		}
-		return numBoxes;
-	}
 	
 	/**
 	 * Gets the length of the map.
@@ -1850,7 +1796,7 @@ public class Map implements Serializable {
      * @param rGen as the random number generator 
      * @return the map as a map matrix
      */
-    public int[][] createMapMatrix(Random rGen) {
+    private int[][] createMapMatrix(Random rGen) {
         int[][] grid = new int[3][3];
         int item = rGen.nextInt(10);
         String mapString = createTemplate(item);
@@ -1874,7 +1820,7 @@ public class Map implements Serializable {
      * @param height
      * @return the map as an int matrix
      */
-    public int[][] mergeTemplates(ArrayList<int[][]> maps, int length, int height) {
+    private int[][] mergeTemplates(ArrayList<int[][]> maps, int length, int height) {
         int xOffset = 1;
         int yOffset = 1;
         Iterator<int[][]> iMaps = maps.iterator();
@@ -2225,7 +2171,7 @@ public class Map implements Serializable {
     	//totalDistance is sum of minimum dist between each box and any goal
     	int totalDistance = 0;
     	for (Coordinates box: boxes){
-    		int min = 9999999;
+    		int min = Integer.MAX_VALUE;
     		for(Coordinates goal: goals){
     			//manhattan distance
     			int dist = (Math.abs(box.getX()-goal.getX()) + Math.abs(box.getY()-goal.getY()));

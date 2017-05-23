@@ -213,47 +213,29 @@ public class Game extends JPanel {
 					String keyPressed = null;
 					System.out.println(key.getKeyCode());
 
-					/*
-					boolean footsteps = true;
-					System.out.println("Goals Met: " + Game.this.map.numBoxes());
-					System.out.println("Record: " + numBoxes);
-					if (Game.this.map.numBoxes() != numBoxes) {
-						playSound(m_moveBox);
-						numBoxes = Game.this.map.numBoxes();
-						footsteps = false;
-					}*/
-
 					if (key.getKeyCode() == KeyEvent.VK_W || key.getKeyCode() == KeyEvent.VK_UP){
 						Game.this.previousMap = Game.this.map.clone();
 						Game.this.map.moveUp();
 						System.out.println("music is " + settings.isEnableMusic());
-						//if (footsteps) {
 						playSound(m_footsteps);
-						//}
 						keyPressed = "w";
 					}
 					if (key.getKeyCode() == KeyEvent.VK_S || key.getKeyCode() == KeyEvent.VK_DOWN){
 						Game.this.previousMap = Game.this.map.clone();
 						Game.this.map.moveDown();
-						//if (footsteps) {
 						playSound(m_footsteps);
-						//}
 						keyPressed = "s";
 					}
 					if (key.getKeyCode() == KeyEvent.VK_A || key.getKeyCode() == KeyEvent.VK_LEFT){
 						Game.this.previousMap = Game.this.map.clone();
 						Game.this.map.moveLeft();
-						//if (footsteps) {
 						playSound(m_footsteps);
-						//}
 						keyPressed = "a";
 					}
 					if (key.getKeyCode() == KeyEvent.VK_D || key.getKeyCode() == KeyEvent.VK_RIGHT){
 						Game.this.previousMap = Game.this.map.clone();
 						Game.this.map.moveRight();
-						//if (footsteps) {
 						playSound(m_footsteps);
-						//}
 						keyPressed = "d";
 					}
 					update(keyPressed);
@@ -368,7 +350,7 @@ public class Game extends JPanel {
 	 * Method for updating the sprites displayed by the grid
 	 * @param direction as the direction the sprite is facing
 	 */
-	public void update(String direction){
+	private void update(String direction){
 		System.out.println("updating");
 		double scaledLen = 800/length;
 		double scaledHgt = 500/height;
@@ -458,7 +440,6 @@ public class Game extends JPanel {
 			break;
 		case Map.BOX:
 			imgLoc = path + "Box.png";
-			//imgLoc = "path + james.png";
 			break;
 		case Map.GOAL:
 			imgLoc = path + "Goal.png";
