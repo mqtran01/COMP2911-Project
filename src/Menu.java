@@ -67,7 +67,7 @@ public class Menu extends JPanel{
 		settingsBtn.setBorder(buttonBorder);
 		quitBtn.setBorder(buttonBorder);
 
-		//Set button actions
+		//Set button listeners
 		startGameBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -127,6 +127,7 @@ public class Menu extends JPanel{
 		this.add(settingsBtn);
 		this.add(quitBtn);
 
+		//Add bg
 		ImageIcon titleImage = new ImageIcon("image/" + settings.getSpriteSet() + "Menu_Bg.png");
 		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
 		this.add(titleLabel);

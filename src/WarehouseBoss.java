@@ -46,8 +46,10 @@ public class WarehouseBoss extends JFrame {
 		super("Warehouse Boss");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		//To prevent window resizing
+		//Set preferred dimensions
 		this.setPreferredSize(new Dimension(800,600));
+		
+		//To prevent window resizing
 		this.setResizable(false);			
 		
 		GameSettings settings;
@@ -60,23 +62,27 @@ public class WarehouseBoss extends JFrame {
 			settings = new GameSettings();//if it failed, just create a new one
 		}
 
+		//Set mainPanel layout to CardLayout
 		mainPanel.setLayout(views);
 		
+		//Add view objects to each panel
 		lvlSelPanel.add(new LevelSelector(views, mainPanel, settings));
 		settingsPanel.add(new Settings(views, mainPanel, settings));
 		menuPanel.add(new Menu(views, mainPanel, settings));
 		
+		//Add panels to mainPanel, utilising CardLayout
 		mainPanel.add(menuPanel, "Menu");
 		mainPanel.add(lvlSelPanel, "Level");
 		mainPanel.add(settingsPanel, "Settings");
+		
+		//Display menuPanel
 		views.show(mainPanel, "Menu");
 
+		//Add mainPanel to frame
 		this.add(mainPanel);
 
 		//Play BGM
-		String path = settings.getSpriteSet();
-		playSound("assets/" + path + "/MusicBackground.wav", settings);
-
+		playSound("assets/" + settings.getSpriteSet() + "/MusicBackground.wav", settings);
 
 		//Display the window.
 		this.pack();

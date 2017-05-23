@@ -34,16 +34,15 @@ import javax.swing.border.LineBorder;
  */
 public class Settings extends JPanel {
 	private String[] text = {"   Music", "   SFX", "Back"};
-	private String[] skins = {"Star Warehouse", "PokeManGo"};
+	private String[] spriteSets = {"Star Warehouse", "PokeManGo"};
 	private GameSettings settings;
-	private final String m_background = "assets/MusicBackground.wav";
+	//private final String m_background = "assets/MusicBackground.wav";
 
 	/**
 	 * Constructor for Settings Panel/View
 	 */
 	public Settings(CardLayout views, JPanel mainPanel, GameSettings settings) {
 		this.setLayout(new BorderLayout());
-
 		this.settings = settings;
 
 		//Make new check boxes and button
@@ -63,7 +62,6 @@ public class Settings extends JPanel {
 		musicBox.setBounds(startXPos, startYPos, btnWidth, btnHeight - 15);
 		SFXBox.setBounds(startXPos, startYPos + 65, btnWidth, btnHeight - 15);
 		backBtn.setBounds(startXPos, startYPos + 290, btnWidth, btnHeight);
-
 
 		//Set button fonts
 		Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
@@ -115,17 +113,20 @@ public class Settings extends JPanel {
 		this.add(SFXBox);
 		this.add(backBtn);
 
-		JComboBox<String> skinList = new JComboBox<String>(skins);
-		skinList.setBounds(startXPos, startYPos + 130, btnWidth, 25);
-
+		//Create spriteSet selection drop down box
+		JComboBox<String> spriteSetList = new JComboBox<String>(spriteSets);
+		spriteSetList.setBounds(startXPos, startYPos + 130, btnWidth, 25);
+		
+		//Set active spriteSet to selected
 		int i = 0;
-		for (String s : skins) {
+		for (String s : spriteSets) {
 			if (settings.getSpriteSet().equals(s + "/"))
-				skinList.setSelectedIndex(i);
+				spriteSetList.setSelectedIndex(i);
 			i++;
 		}
-
-		skinList.addActionListener(new ActionListener(){
+		
+		//Add listener to comboBox
+		spriteSetList.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JComboBox<String> combo = (JComboBox<String>)e.getSource();
@@ -137,11 +138,10 @@ public class Settings extends JPanel {
 			}
 		});
 
-		this.add(skinList);
+		this.add(spriteSetList);
 
 
-		String spriteSet = settings.getSpriteSet();
-		spriteSet = "image/" + spriteSet;
+		String spriteSet = "image/" + settings.getSpriteSet();
 
 		//Display player skins
 		ImageIcon skin1Image = new ImageIcon(spriteSet + "Player1.png");
@@ -152,14 +152,14 @@ public class Settings extends JPanel {
 		JLabel  skin2Label = new JLabel("", skin2Image, JLabel.CENTER);
 		skin2Label.setBounds(startXPos + 100, startYPos + 175, 100, 100);
 
-		//Determine which skin is selected
+		//Set active skin to selected
 		if (settings.isSkin1()) {
 			skin1Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
 		} else {
 			skin2Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
 		}
 		
-		//Add listener
+		//Add listeners
 		skin1Label.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -181,6 +181,7 @@ public class Settings extends JPanel {
 		this.add(skin1Label);
 		this.add(skin2Label);
 
+		//Add bg
 		ImageIcon titleImage = new ImageIcon(spriteSet+ "Menu_Bg.png");
 		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
 		this.add(titleLabel);

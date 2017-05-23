@@ -80,10 +80,10 @@ public class GameSettings implements Serializable{
 
 	/**
 	 * Sets isSkin1 to new setting
-	 * @param enable as new setting
+	 * @param b as new setting
 	 */
-	public void setSkin(boolean enable){
-		isSkin1 = enable;
+	public void setSkin(boolean b){
+		isSkin1 = b;
 	}
 	
 
