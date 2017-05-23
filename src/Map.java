@@ -2088,14 +2088,14 @@ public class Map implements Serializable {
      * @return true if all objects can be reached by the player
      */
     private boolean connectedMap(int objectives) {
-        Queue<Coordinate> frontier = new LinkedList<Coordinate>();
+        Queue<Coordinates> frontier = new LinkedList<Coordinates>();
         int[][] wallMap = copyWalls();
         int numGoals = 0;
         int numBoxes = 0;
-        frontier.add(new Coordinate(player_x, player_y));
+        frontier.add(new Coordinates(player_x, player_y));
         wallMap[player_x][player_y] = 1;
         while (!frontier.isEmpty()) {
-            Coordinate curr = frontier.poll();
+            Coordinates curr = frontier.poll();
             int currX = curr.getX();
             int currY = curr.getY();
             int target = grid[currX][currY];
@@ -2108,19 +2108,19 @@ public class Map implements Serializable {
                 return true;
             
             if (wallMap[currX - 1][currY] == 0) {
-                frontier.add(new Coordinate(currX - 1,currY));
+                frontier.add(new Coordinates(currX - 1,currY));
                 wallMap[currX - 1][currY] = 1;
             }
             if (wallMap[currX + 1][currY] == 0) {
-                frontier.add(new Coordinate(currX + 1,currY));
+                frontier.add(new Coordinates(currX + 1,currY));
                 wallMap[currX + 1][currY] = 1;
             }
             if (wallMap[currX][currY - 1] == 0) {
-                frontier.add(new Coordinate(currX,currY - 1));
+                frontier.add(new Coordinates(currX,currY - 1));
                 wallMap[currX][currY - 1] = 1;
             }
             if (wallMap[currX][currY + 1] == 0) {
-                frontier.add(new Coordinate(currX,currY + 1));
+                frontier.add(new Coordinates(currX,currY + 1));
                 wallMap[currX][currY + 1] = 1;
             }
         }
