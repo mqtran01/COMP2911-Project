@@ -60,7 +60,13 @@ public class LevelSelector extends JPanel {
 		hardBtn.setFont(gameFont);
 		backBtn.setFont(gameFont);
 		randomBox.setFont(gameFont);
-		randomBox.setForeground(Color.WHITE);
+		
+		//Set Random text colour according to spriteSet
+		if (settings.getSpriteSet().equals("Star Warehouse/")) {
+			randomBox.setForeground(Color.WHITE);
+		} else {
+			randomBox.setForeground(Color.BLACK);
+		}
 
 		//Set button border
 		Border buttonBorder = new LineBorder(Color.BLUE, 2);

@@ -20,9 +20,6 @@ public class WarehouseBoss extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	JPanel mainPanel = new JPanel();
-	JPanel menuPanel = new JPanel();
-	JPanel lvlSelPanel = new JPanel();
-	JPanel settingsPanel = new JPanel();
 	CardLayout views = new CardLayout();
 
 	public static Clip clip;
@@ -63,10 +60,10 @@ public class WarehouseBoss extends JFrame {
 		//Set mainPanel layout to CardLayout
 		mainPanel.setLayout(views);
 		
-		//Add view objects to each panel
-		lvlSelPanel.add(new LevelSelector(views, mainPanel, settings));
-		settingsPanel.add(new Settings(views, mainPanel, settings));
-		menuPanel.add(new Menu(views, mainPanel, settings));
+		//Create each view objects
+		LevelSelector lvlSelPanel = new LevelSelector(views, mainPanel, settings);
+		Settings settingsPanel = new Settings(views, mainPanel, settings);
+		Menu menuPanel = new Menu(views, mainPanel, settings);
 		
 		//Add panels to mainPanel, utilising CardLayout
 		mainPanel.add(menuPanel, "Menu");

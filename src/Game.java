@@ -50,15 +50,17 @@ public class Game extends JPanel {
 	 * @param settings as the application settings
 	 */
 	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings)  {
-		this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800,600));
 		this.map = map;
 		this.originalMap = map.clone();
 		this.previousMap = null;
 		this.settings = settings;
-		
+
 		length = map.getLength();
 		height = map.getHeight();
+
+		//Create grid layout
 		JPanel gridPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(0,0,0,0);
@@ -67,6 +69,7 @@ public class Game extends JPanel {
 		gbc.fill = GridBagConstraints.BOTH;
 		grid = new JLabel[length][height];
 
+		//Resize image objects dynamically according to grid size
 		double scaledLen = 800/length;
 		double scaledHgt = 500/height;
 		int proportion = (int) Math.min(scaledLen, scaledHgt);
@@ -117,29 +120,32 @@ public class Game extends JPanel {
 		}
 
 		// Creation of button elements
-		JPanel btnPanel = new JPanel(new GridLayout(1,3));
+		JPanel btnPanel = new JPanel(new GridLayout(1,3,2,2));
 		Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
-		Border buttonBorder = new LineBorder(Color.BLUE, 2);
+		Border border = new LineBorder(Color.BLUE, 2);
 
 		JButton saveBtn = new JButton("Save");
 		saveBtn.setFont(gameFont);
-		saveBtn.setBorder(buttonBorder);
-		saveBtn.setPreferredSize(new Dimension((800-3)/4, 71));
+		saveBtn.setBorder(border);
+		saveBtn.setPreferredSize(new Dimension(150, 50));
 
 		JButton undoBtn = new JButton("Undo");
 		undoBtn.setFont(gameFont);
-		undoBtn.setBorder(buttonBorder);
-		undoBtn.setPreferredSize(new Dimension((800-3)/4, 71));
-		
+		undoBtn.setBorder(border);
+		undoBtn.setPreferredSize(new Dimension(150, 50));
+
 		JButton resetBtn = new JButton("Reset");
 		resetBtn.setFont(gameFont);
-		resetBtn.setBorder(buttonBorder);
-		resetBtn.setPreferredSize(new Dimension((800-3)/4, 71));
+		resetBtn.setBorder(border);
+		resetBtn.setPreferredSize(new Dimension(150, 50));
 
 		JButton quitBtn = new JButton("Main Menu");
 		quitBtn.setFont(gameFont);
-		quitBtn.setBorder(buttonBorder);
-		quitBtn.setPreferredSize(new Dimension((800-3)/4, 71));
+		quitBtn.setBorder(border);
+		quitBtn.setPreferredSize(new Dimension(150, 50));
+		
+		//Set a border to grid
+		gridPanel.setBorder(border);
 
 		// Creation of button action
 		saveBtn.addActionListener(new ActionListener(){
@@ -148,6 +154,9 @@ public class Game extends JPanel {
 				System.out.println("Clicked Save!");
 				try {
 					SaveLoad.save(Game.this.map);
+					JOptionPane.showMessageDialog(null,
+							"          Your progress has been saved!", 
+							"Game Saved!", JOptionPane.PLAIN_MESSAGE);
 				} catch (IOException e1) {
 					System.out.println("Failed to save");
 					e1.printStackTrace();
@@ -161,21 +170,21 @@ public class Game extends JPanel {
 				System.out.println("Clicked Undo!");
 				if (previousMap != null){
 					setMap(Game.this.previousMap);
-					update("w");
+					update("s");
 				}
 			}
 		});
-		
+
 		resetBtn.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Reset!");
-                Map resetMap = Game.this.originalMap.clone();
-                setMap(resetMap);
-                update("s");
-            }
-        });
-		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Clicked Reset!");
+				Map resetMap = Game.this.originalMap.clone();
+				setMap(resetMap);
+				update("s");
+			}
+		});
+
 		quitBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -185,18 +194,14 @@ public class Game extends JPanel {
 			}
 		});
 
-		// Add buttons onto visual page
+		// Add buttons onto buttonPanel
 		btnPanel.add(saveBtn);
 		btnPanel.add(undoBtn);
 		btnPanel.add(resetBtn);
 		btnPanel.add(quitBtn);
-
-		this.add(gridPanel);
-		this.add(btnPanel);
-
+		
 		// Gets the file names of sounds
-		String path = settings.getSpriteSet();
-		path = "assets/" + path;
+		String path = "assets/" + settings.getSpriteSet();
 		m_footsteps = path + m_footsteps;
 		m_moveBox = path + m_moveBox;
 		m_winGame = path + m_winGame;
@@ -239,7 +244,7 @@ public class Game extends JPanel {
 						Game.this.previousMap = Game.this.map.clone();
 						Game.this.map.moveLeft();
 						//if (footsteps) {
-							playSound(m_footsteps);
+						playSound(m_footsteps);
 						//}
 						keyPressed = "a";
 					}
@@ -279,8 +284,20 @@ public class Game extends JPanel {
 
 		//add in keyboard controls
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyDispatcher);
-
 		
+		//Add bg image
+		ImageIcon bgImage = new ImageIcon("image/" + settings.getSpriteSet() + "bg.png");
+		JLabel  bgLabel = new JLabel("", bgImage, JLabel.CENTER);
+		bgLabel.setBounds(0, 0, 800, 600);
+		bgLabel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		//Add bg to the view - Game Panel 
+		this.add(bgLabel);
+		
+		//Add grid and buttons to bg
+		bgLabel.add(gridPanel);
+		bgLabel.add(btnPanel);
+
 	}
 
 	/**
@@ -321,9 +338,9 @@ public class Game extends JPanel {
 
 		String imgLoc = null;
 		if (settings.isSkin1()){
-			imgLoc = characterImageSelector("player", item);
+			imgLoc = imageSelector("player", item);
 		} else {
-			imgLoc = characterImageSelector("player2", item);
+			imgLoc = imageSelector("player2", item);
 		}
 
 		BufferedImage img = null;
@@ -344,7 +361,7 @@ public class Game extends JPanel {
 	public void setMap(Map map){
 		this.map = map;
 		update((String) null);
-		
+
 	}
 
 	/**
@@ -421,14 +438,13 @@ public class Game extends JPanel {
 	}
 
 	/**
-	 * Method to select images according to player type
-	 * @param player as the player facing direction
+	 * Method to select images of objects according to skin and spriteSet active
+	 * @param skin as current active skin
 	 * @param item as the item
 	 * @return String as the path for the image object
 	 */
-	private String characterImageSelector(String player, int item) {
-		String path = settings.getSpriteSet();
-		path = "image/" + path;
+	private String imageSelector(String skin, int item) {
+		String path = "image/" + settings.getSpriteSet();
 		String imgLoc = null;
 		switch (item) {
 		case Map.WALL:
@@ -438,7 +454,7 @@ public class Game extends JPanel {
 			imgLoc = path + "Empty.png";
 			break;
 		case Map.PLAYER:
-			imgLoc = path + player + "Down.png";
+			imgLoc = path + skin + "Down.png";
 			break;
 		case Map.BOX:
 			imgLoc = path + "Box.png";
@@ -451,31 +467,31 @@ public class Game extends JPanel {
 			imgLoc = path + "GoalBox.png";
 			break;
 		case Map.GOALPLAYER:
-			imgLoc = path + player + "DownGoal.png";
+			imgLoc = path + skin + "DownGoal.png";
 			break;
 		case PLAYER_UP:
-			imgLoc = path + player + "Up.png";
+			imgLoc = path + skin + "Up.png";
 			break;
 		case PLAYER_DOWN:
-			imgLoc = path + player + "Down.png";
+			imgLoc = path + skin + "Down.png";
 			break;
 		case PLAYER_LEFT:
-			imgLoc = path + player + "Left.png";
+			imgLoc = path + skin + "Left.png";
 			break;
 		case PLAYER_RIGHT:
-			imgLoc = path + player + "Right.png";
+			imgLoc = path + skin + "Right.png";
 			break;
 		case GOALPLAYER_UP:
-			imgLoc = path + player + "UpGoal.png";
+			imgLoc = path + skin + "UpGoal.png";
 			break;
 		case GOALPLAYER_DOWN:
-			imgLoc = path + player + "DownGoal.png";
+			imgLoc = path + skin + "DownGoal.png";
 			break;
 		case GOALPLAYER_LEFT:
-			imgLoc = path + player + "LeftGoal.png";
+			imgLoc = path + skin + "LeftGoal.png";
 			break;
 		case GOALPLAYER_RIGHT:
-			imgLoc = path + player + "RightGoal.png";
+			imgLoc = path + skin + "RightGoal.png";
 			break;
 		}
 		return imgLoc;

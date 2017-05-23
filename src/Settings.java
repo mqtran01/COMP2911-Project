@@ -180,7 +180,7 @@ public class Settings extends JPanel {
 	}
 	
 	/**
-	 * Updates all panels tot he new skin set
+	 * Updates all panels to the new skin set
 	 * @param views as the list of panels
 	 * @param mainPanel as the main control panel
 	 */
