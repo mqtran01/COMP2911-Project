@@ -55,6 +55,7 @@ public class Menu extends JPanel{
 		settingsBtn.setFont(gameFont);
 		quitBtn.setFont(gameFont);
 
+
 		//Set button border
 		Border buttonBorder = new LineBorder(Color.BLUE, 2);
 		startGameBtn.setBorder(buttonBorder);
@@ -62,6 +63,7 @@ public class Menu extends JPanel{
 		randGameBtn.setBorder(buttonBorder);
 		settingsBtn.setBorder(buttonBorder);
 		quitBtn.setBorder(buttonBorder);
+
 
 		//Set button listeners
 		startGameBtn.addActionListener(new ActionListener(){
