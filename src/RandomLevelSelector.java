@@ -98,9 +98,9 @@ public class RandomLevelSelector extends JPanel {
 				System.out.println("Clicked Easy Button!");
 				Map newMap;
 //				if (isRandomLevel) {
-//				    newMap = new Map(0);
+				    newMap = new Map(0);
 //				} else {
-				    newMap = new Map('a');
+//				    newMap = new Map('a');
 //				}
 				Game newGame = new Game(views, mainPanel, newMap, settings, true);
 				try {
@@ -123,9 +123,9 @@ public class RandomLevelSelector extends JPanel {
 				
 				Map newMap;
 //                if (isRandomLevel) {
-//                    newMap = new Map(1);
+                    newMap = new Map(1);
 //                } else {
-                    newMap = new Map('b');
+//                    newMap = new Map('b');
 //                }
 				Game newGame = new Game(views, mainPanel, newMap, settings, true);
 				try {
@@ -147,9 +147,9 @@ public class RandomLevelSelector extends JPanel {
 				
 				Map newMap;
 //                if (isRandomLevel) {
-//                    newMap = new Map(2);
+                    newMap = new Map(2);
 //                } else {
-                    newMap = new Map('c');
+//                    newMap = new Map('c');
 //                }
 				Game newGame = new Game(views, mainPanel, newMap, settings, true);
 				try {

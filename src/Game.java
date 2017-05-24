@@ -324,12 +324,12 @@ public class Game extends JPanel {
 
 	}
 
-	private void displayTutorial() {
-		System.out.println("ON DISPLAY");
-		JButton tute = new JButton(new ImageIcon("image/tutorial.png"));
-		tute.setBounds(400, 300, 800, 600);
-		this.add(tute);
-	}
+//	private void displayTutorial() {
+//		System.out.println("ON DISPLAY");
+//		JButton tute = new JButton(new ImageIcon("image/tutorial.png"));
+//		tute.setBounds(400, 300, 800, 600);
+//		this.add(tute);
+//	}
 
 	/**
 	 * Plays the movement sound file
