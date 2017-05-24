@@ -44,7 +44,7 @@ public class Game extends JPanel {
 
 	/**
 	 * Constructor of the Game object
-	 * @param viewsas the card view collection
+	 * @param views as the card view collection
 	 * @param mainPanel as the main visible panel
 	 * @param map as the map to play
 	 * @param settings as the application settings
@@ -143,7 +143,18 @@ public class Game extends JPanel {
 		quitBtn.setFont(gameFont);
 		quitBtn.setBorder(border);
 		quitBtn.setPreferredSize(new Dimension(150, 50));
-		
+
+		JButton tuteBtn = new JButton("?");
+		tuteBtn.setBounds(20, 527, 30, 30);
+		tuteBtn.setFont(gameFont);
+		tuteBtn.setBorder(border);
+		tuteBtn.setBackground(Color.white);
+		tuteBtn.setOpaque(true);
+
+		ImageIcon tuteImage = new ImageIcon("image/tutorial.png");
+		JLabel tuteLabel = new JLabel("", tuteImage, JLabel.CENTER);
+		tuteLabel.setBounds(0, 0, 800, 600);
+
 		//Set a border to grid
 		gridPanel.setBorder(border);
 
@@ -199,7 +210,7 @@ public class Game extends JPanel {
 		btnPanel.add(undoBtn);
 		btnPanel.add(resetBtn);
 		btnPanel.add(quitBtn);
-		
+
 		// Gets the file names of sounds
 		String path = "assets/" + settings.getSpriteSet();
 		m_footsteps = path + m_footsteps;
@@ -272,14 +283,31 @@ public class Game extends JPanel {
 		JLabel  bgLabel = new JLabel("", bgImage, JLabel.CENTER);
 		bgLabel.setBounds(0, 0, 800, 600);
 		bgLabel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
+		this.add(tuteBtn);
 		//Add bg to the view - Game Panel 
 		this.add(bgLabel);
-		
+
 		//Add grid and buttons to bg
 		bgLabel.add(gridPanel);
 		bgLabel.add(btnPanel);
 
+		tuteBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Clicked ? Button");
+				JOptionPane.showMessageDialog(null, tuteLabel, "Tutorial",
+						JOptionPane.PLAIN_MESSAGE, null);
+			}
+		});
+
+	}
+
+	private void displayTutorial() {
+		System.out.println("ON DISPLAY");
+		JButton tute = new JButton(new ImageIcon("image/tutorial.png"));
+		tute.setBounds(400, 300, 800, 600);
+		this.add(tute);
 	}
 
 	/**

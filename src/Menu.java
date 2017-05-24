@@ -45,6 +45,7 @@ public class Menu extends JPanel{
 		settingsBtn.setBounds(startXPos, startYPos + 190, btnWidth, btnHeight);
 		quitBtn.setBounds(startXPos, startYPos + 290, btnWidth, btnHeight);
 
+
 		//Set button fonts
 		Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
 		startGameBtn.setFont(gameFont);
@@ -52,12 +53,14 @@ public class Menu extends JPanel{
 		settingsBtn.setFont(gameFont);
 		quitBtn.setFont(gameFont);
 
+
 		//Set button border
 		Border buttonBorder = new LineBorder(Color.BLUE, 2);
 		startGameBtn.setBorder(buttonBorder);
 		loadGameBtn.setBorder(buttonBorder);
 		settingsBtn.setBorder(buttonBorder);
 		quitBtn.setBorder(buttonBorder);
+
 
 		//Set button listeners
 		startGameBtn.addActionListener(new ActionListener(){
