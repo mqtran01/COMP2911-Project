@@ -149,6 +149,7 @@ public class WarehouseBoss extends JFrame {
 	 */
 	static public void changeSound(String skin, GameSettings settings) {
 		String path = "assets/" + skin + "MusicBackground.wav";
+		clip.stop();
 		System.out.println("changeSound!" + path);
 		playSound(path, settings);
 	}
