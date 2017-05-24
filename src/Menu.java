@@ -76,12 +76,6 @@ public class Menu extends JPanel{
 					Map map = SaveLoad.load();
 					if (map != null) {
 						Game newGame = new Game(views, mainPanel, map, settings);
-//					try {
-//						gamePanel.disableKeys();
-//						mainPanel.remove(gamePanel);
-//					} catch (Exception g) {
-//						System.out.println("Nothing to remove");
-//					}
 						mainPanel.add(newGame, "Game");
 						map.printMap();
 					} else {
@@ -120,9 +114,9 @@ public class Menu extends JPanel{
 		this.add(quitBtn);
 
 		//Add bg
-		ImageIcon titleImage = new ImageIcon("image/" + settings.getSpriteSet() + "Menu_Bg.png");
-		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
-		this.add(titleLabel);
-		titleLabel.setBounds(0, 0, 800, 600);
+		ImageIcon bgImage = new ImageIcon("image/" + settings.getSpriteSet() + "Menu_Bg.png");
+		JLabel  bgLabel = new JLabel("", bgImage, JLabel.CENTER);
+		this.add(bgLabel);
+		bgLabel.setBounds(0, 0, 800, 600);
 	}
 }

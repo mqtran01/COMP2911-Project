@@ -24,7 +24,7 @@ import javax.swing.border.LineBorder;
  *
  */
 public class Settings extends JPanel {
-	private String[] text = {"   Music", "   SFX", "Back"};
+	private String[] buttonText = {"   Music", "   SFX", "Back"};
 	private String[] spriteSets = {"Star Warehouse", "PokeManGo"};
 	private GameSettings settings;
 	//private final String m_background = "assets/MusicBackground.wav";
@@ -37,9 +37,9 @@ public class Settings extends JPanel {
 		this.settings = settings;
 
 		//Make new check boxes and button
-		JCheckBox musicBox = new JCheckBox(text[0]);
-		JCheckBox SFXBox = new JCheckBox(text[1]);
-		JButton backBtn = new JButton(text[2]);
+		JCheckBox musicBox = new JCheckBox(buttonText[0]);
+		JCheckBox SFXBox = new JCheckBox(buttonText[1]);
+		JButton backBtn = new JButton(buttonText[2]);
 
 		//Make checkBox selected initially if settings say it is
 		musicBox.setSelected(settings.isEnableMusic());

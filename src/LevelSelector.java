@@ -19,7 +19,7 @@ import javax.swing.border.LineBorder;
  *
  */
 public class LevelSelector extends JPanel {
-	private String[] levelText = {"Easy", "Medium", "Hard", "Back", " Random"};
+	private String[] buttonText = {"Easy", "Medium", "Hard", "Back", " Random"};
 	private Game gamePanel;
 	private boolean isRandomLevel;
 
@@ -36,11 +36,11 @@ public class LevelSelector extends JPanel {
 		this.isRandomLevel = false;
 		
 		// Make selection buttons
-		JButton easyBtn = new JButton(levelText[0]);
-		JButton medBtn = new JButton(levelText[1]);
-		JButton hardBtn = new JButton(levelText[2]);
-		JButton backBtn = new JButton(levelText[3]);
-		JCheckBox randomBox = new JCheckBox(levelText[4]);
+		JButton easyBtn = new JButton(buttonText[0]);
+		JButton medBtn = new JButton(buttonText[1]);
+		JButton hardBtn = new JButton(buttonText[2]);
+		JButton backBtn = new JButton(buttonText[3]);
+		JCheckBox randomBox = new JCheckBox(buttonText[4]);
 
 		//Set the location of each button
 		int btnWidth = 200;
@@ -179,10 +179,10 @@ public class LevelSelector extends JPanel {
 		this.add(backBtn);
 		this.add(randomBox);
 
-		ImageIcon titleImage = new ImageIcon("image/" + settings.getSpriteSet() + "Level_Select_Bg.png");
-		JLabel  titleLabel = new JLabel("", titleImage, JLabel.CENTER);
-		this.add(titleLabel);
-		titleLabel.setBounds(0, 0, 800, 600);
+		ImageIcon bgImage = new ImageIcon("image/" + settings.getSpriteSet() + "Level_Select_Bg.png");
+		JLabel  bgLabel = new JLabel("", bgImage, JLabel.CENTER);
+		this.add(bgLabel);
+		bgLabel.setBounds(0, 0, 800, 600);
 	}
 
 

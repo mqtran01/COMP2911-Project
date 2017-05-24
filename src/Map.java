@@ -14,10 +14,9 @@ import java.util.Random;
  *
  */
 public class Map implements Serializable {
-	int[][] grid;//note: 0,0 is upper left of grid
-	//int seed;
-	int player_x;
-	int player_y;
+	private int[][] grid;//note: 0,0 is upper left of grid
+	private int player_x;
+	private int player_y;
 	
 	// Map elements
 	final static int WALL = 0;
@@ -2925,7 +2924,7 @@ public class Map implements Serializable {
 	}
     
     /**
-     * returns the manhtan distance heuristic for this map
+     * returns the Manhattan distance heuristic for this map
      * @return
      */
     private int hManhattan(){
