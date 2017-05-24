@@ -19,7 +19,7 @@ import javax.swing.border.LineBorder;
  *
  */
 public class Menu extends JPanel{
-	private String[] buttonText = {"Start Game", "Load Game", "Settings", "Quit"};
+	private String[] buttonText = {"Start Game", "Load Game", "Random Game", "Settings", "Quit"};
 	GameSettings settings;
 
 	/**
@@ -32,8 +32,9 @@ public class Menu extends JPanel{
 		//Make new buttons
 		JButton startGameBtn = new JButton(buttonText[0]);
 		JButton loadGameBtn = new JButton(buttonText[1]);
-		JButton settingsBtn = new JButton(buttonText[2]);
-		JButton quitBtn = new JButton(buttonText[3]);
+		JButton randGameBtn = new JButton(buttonText[2]);
+		JButton settingsBtn = new JButton(buttonText[3]);
+		JButton quitBtn = new JButton(buttonText[4]);
 
 		//Set the location of each button
 		int btnWidth = 200;
@@ -41,14 +42,16 @@ public class Menu extends JPanel{
 		int startXPos = 400 - btnWidth/2;
 		int startYPos = 150;
 		startGameBtn.setBounds(startXPos, startYPos, btnWidth, btnHeight);
-		loadGameBtn.setBounds(startXPos, startYPos + 90, btnWidth, btnHeight);
-		settingsBtn.setBounds(startXPos, startYPos + 190, btnWidth, btnHeight);
-		quitBtn.setBounds(startXPos, startYPos + 290, btnWidth, btnHeight);
-
+		loadGameBtn.setBounds(startXPos, startYPos + 80, btnWidth, btnHeight);
+		randGameBtn.setBounds(startXPos, startYPos + 160, btnWidth, btnHeight);
+		settingsBtn.setBounds(startXPos, startYPos + 240, btnWidth, btnHeight);
+		quitBtn.setBounds(startXPos, startYPos + 320, btnWidth, btnHeight);
+		
 		//Set button fonts
 		Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
 		startGameBtn.setFont(gameFont);
 		loadGameBtn.setFont(gameFont);
+		randGameBtn.setFont(gameFont);
 		settingsBtn.setFont(gameFont);
 		quitBtn.setFont(gameFont);
 
@@ -56,6 +59,7 @@ public class Menu extends JPanel{
 		Border buttonBorder = new LineBorder(Color.BLUE, 2);
 		startGameBtn.setBorder(buttonBorder);
 		loadGameBtn.setBorder(buttonBorder);
+		randGameBtn.setBorder(buttonBorder);
 		settingsBtn.setBorder(buttonBorder);
 		quitBtn.setBorder(buttonBorder);
 
@@ -64,7 +68,7 @@ public class Menu extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Play Game!");
-				views.show(mainPanel, "Level");
+				views.show(mainPanel, "Story");
 			}
 		});
 
@@ -75,12 +79,12 @@ public class Menu extends JPanel{
 				try {
 					Map map = SaveLoad.load();
 					if (map != null) {
-						Game newGame = new Game(views, mainPanel, map, settings);
+						Game newGame = new Game(views, mainPanel, map, settings, false);
 						mainPanel.add(newGame, "Game");
 						map.printMap();
 					} else {
 						//Direct to level select when save file is null
-						views.show(mainPanel, "Level");
+						views.show(mainPanel, "Story");
 					}
 				} catch (IOException e1) {
 					System.out.println("Load failed!");
@@ -90,6 +94,15 @@ public class Menu extends JPanel{
 				views.show(mainPanel, "Game");
 			}
 		});
+		
+		randGameBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Clicked Random Game!");
+				views.show(mainPanel, "Random");
+			}
+		});
+
 
 		settingsBtn.addActionListener(new ActionListener(){
 			@Override
@@ -106,10 +119,12 @@ public class Menu extends JPanel{
 				System.exit(0);
 			}
 		});
+		
 
 		//Add buttons to this
 		this.add(startGameBtn);
 		this.add(loadGameBtn);
+		this.add(randGameBtn);
 		this.add(settingsBtn);
 		this.add(quitBtn);
 

@@ -36,14 +36,14 @@ public class Map implements Serializable {
 	 * Constructor is a pre-generated map based on a seed.
 	 * @param seed as a letter 'a', 'b', or 'c'
 	 */
-	public Map(char seed){
-		Random rand = new Random(System.currentTimeMillis());
-		int randMapNum = rand.nextInt((10 - 1) + 1) + 1;
+	public Map(char seed, int level){
+		//Random rand = new Random(System.currentTimeMillis());
+		//int randMapNum = rand.nextInt((10 - 1) + 1) + 1;
 		
 		//Pre-loaded Maps
 		
 		if (seed == 'a'){
-			if (randMapNum == 1){
+			if (level == 1){
 				//EASY MAP 1
 				this.grid = new int[6][8];
 				for (int x=0; x < 6; x++){
@@ -87,7 +87,7 @@ public class Map implements Serializable {
 				player_x=1;
 				player_y=2;
 				
-			} else if (randMapNum == 2){
+			} else if (level == 2){
 				//EASY MAP 2
 				this.grid = new int[6][9];
 				for (int x=0; x < 6; x++){
@@ -137,7 +137,7 @@ public class Map implements Serializable {
 				player_x=4;
 				player_y=7;
 				
-			} else if (randMapNum == 3){
+			} else if (level == 3){
 				//EASY MAP 3
 				this.grid = new int[6][9];
 				for (int x=0; x < 6; x++){
@@ -187,7 +187,7 @@ public class Map implements Serializable {
 				player_x=1;
 				player_y=1;
 				
-			} else if (randMapNum == 4){
+			} else if (level == 4){
 				//EASY MAP 4
 				this.grid = new int[7][9];
 				for (int x=0; x < 7; x++){
@@ -244,7 +244,7 @@ public class Map implements Serializable {
 				player_x=1;
 				player_y=7;
 				
-			} else if (randMapNum == 5){
+			} else if (level == 5){
 				//EASY MAP 5
 				this.grid = new int[7][9];
 				for (int x=0; x < 7; x++){
@@ -301,7 +301,7 @@ public class Map implements Serializable {
 				player_x=5;
 				player_y=2;
 				
-			} else if (randMapNum == 6){
+			} else if (level == 6){
 				//EASY MAP 6
 				this.grid = new int[8][9];
 				for (int x=0; x < 8; x++){
@@ -365,7 +365,7 @@ public class Map implements Serializable {
 				player_x=1;
 				player_y=1;
 				
-			} else if (randMapNum == 7){
+			} else if (level == 7){
 				//EASY MAP 7
 				this.grid = new int[8][9];
 				for (int x=0; x < 8; x++){
@@ -429,7 +429,7 @@ public class Map implements Serializable {
 				player_x=6;
 				player_y=7;
 				
-			} else if (randMapNum == 8){
+			} else if (level == 8){
 				//EASY MAP 8
 				this.grid = new int[8][9];
 				for (int x=0; x < 8; x++){
@@ -492,7 +492,7 @@ public class Map implements Serializable {
 				
 				player_x=4;
 				player_y=1;
-			} else if (randMapNum == 9){
+			} else if (level == 9){
 				//EASY MAP 9
 				this.grid = new int[8][9];
 				for (int x=0; x < 8; x++){
@@ -556,7 +556,7 @@ public class Map implements Serializable {
 				player_x=1;
 				player_y=4;
 				
-			} else if (randMapNum == 10){
+			} else if (level == 10){
 				//EASY MAP 10
 				this.grid = new int[8][9];
 				for (int x=0; x < 8; x++){
@@ -622,7 +622,7 @@ public class Map implements Serializable {
 				
 			}
 		} else if (seed == 'b'){
-			if (randMapNum == 1){
+			if (level == 1){
 				//MEDIUM MAP 1
 				this.grid = new int[14][12];
 				for (int x=0; x < 14; x++){
@@ -766,7 +766,7 @@ public class Map implements Serializable {
 				player_x=8;
 				player_y=8;
 				
-			} else if (randMapNum == 2){
+			} else if (level == 2){
 				//MEDIUM MAP 2
 				this.grid = new int[13][13];
 				for (int x=0; x < 13; x++){
@@ -912,7 +912,7 @@ public class Map implements Serializable {
 				player_x=6;
 				player_y=3;	
 				
-			} else if (randMapNum == 3){
+			} else if (level == 3){
 				//MEDIUM MAP 3
 				this.grid = new int[13][8];
 				for (int x=0; x < 13; x++){
@@ -998,7 +998,7 @@ public class Map implements Serializable {
 				player_x=7;
 				player_y=5;
 				
-			} else if (randMapNum == 4){
+			} else if (level == 4){
 				//MEDIUM MAP 4
 				this.grid = new int[8][8];
 				for (int x=0; x < 8; x++){
@@ -1054,7 +1054,7 @@ public class Map implements Serializable {
 				player_x=4;
 				player_y=2;			
 				
-			} else if (randMapNum == 5){
+			} else if (level == 5){
 				//MEDIUM MAP 5
 				this.grid = new int[10][9];
 				for (int x=0; x < 10; x++){
@@ -1131,7 +1131,7 @@ public class Map implements Serializable {
 				player_x=4;
 				player_y=5;	
 				
-			} 	else if (randMapNum == 6){
+			} 	else if (level == 6){
 				//MEDIUM MAP 6
 				this.grid = new int[10][12];
 				for (int x=0; x < 10; x++){
@@ -1235,7 +1235,7 @@ public class Map implements Serializable {
 				player_x=2;
 				player_y=9;	
 				
-			}	else if (randMapNum == 7){
+			}	else if (level == 7){
 				//MEDIUM MAP 7
 				this.grid = new int[9][12];
 				for (int x=0; x < 9; x++){
@@ -1329,7 +1329,7 @@ public class Map implements Serializable {
 				player_x=6;
 				player_y=4;	
 				
-			}	else if (randMapNum == 8){
+			}	else if (level == 8){
 				//MEDIUM MAP 8
 				this.grid = new int[12][8];
 				for (int x=0; x < 12; x++){
@@ -1409,7 +1409,7 @@ public class Map implements Serializable {
 				player_x=9;
 				player_y=5;	
 				
-			}	else if (randMapNum == 9){
+			}	else if (level == 9){
 				//MEDIUM MAP 9
 				this.grid = new int[11][11];
 				for (int x=0; x < 11; x++){
@@ -1514,7 +1514,7 @@ public class Map implements Serializable {
 				player_x=5;
 				player_y=5;	
 				
-			} else if (randMapNum == 10){
+			} else if (level == 10){
 				//MEDIUM MAP 10
 				this.grid = new int[6][8];
 				for (int x=0; x < 6; x++){
@@ -1561,7 +1561,7 @@ public class Map implements Serializable {
 			}
 			
 		} else if (seed == 'c'){
-			if (randMapNum == 1){
+			if (level == 1){
 				//HARD MAP 1
 				this.grid = new int[11][10];
 				for (int x=0; x < 10; x++){
@@ -1654,7 +1654,7 @@ public class Map implements Serializable {
 				
 				player_x=5;
 				player_y=4;				
-			} else if (randMapNum == 2){
+			} else if (level == 2){
 				//HARD MAP 2
 				this.grid = new int[19][16];
 				for (int x=0; x < 19; x++){
@@ -1919,7 +1919,7 @@ public class Map implements Serializable {
 				
 				player_x=1;
 				player_y=1;				
-			} else if (randMapNum == 3){
+			} else if (level == 3){
 				//HARD MAP 3
 				this.grid = new int[11][9];
 				for (int x=0; x < 11; x++){
@@ -2003,7 +2003,7 @@ public class Map implements Serializable {
 				player_x=5;
 				player_y=1;		
 				
-			} else if (randMapNum == 4){
+			} else if (level == 4){
 				//HARD MAP 4
 				this.grid = new int[10][9];
 				for (int x=0; x < 10; x++){
@@ -2080,7 +2080,7 @@ public class Map implements Serializable {
 				player_x=4;
 				player_y=6;	
 				
-			} else if (randMapNum == 5){
+			} else if (level == 5){
 				//HARD MAP 5
 				this.grid = new int[15][9];
 				for (int x=0; x < 15; x++){
@@ -2192,7 +2192,7 @@ public class Map implements Serializable {
 				player_x=11;
 				player_y=4;
 				
-			} else if (randMapNum == 6){
+			} else if (level == 6){
 				//HARD MAP 6
 				this.grid = new int[20][8];
 				for (int x=0; x < 20; x++){
@@ -2319,7 +2319,7 @@ public class Map implements Serializable {
 				
 				player_x=18;
 				player_y=1;				
-			} else if (randMapNum == 7){
+			} else if (level == 7){
 				//HARD MAP 7
 				this.grid = new int[14][10];
 				for (int x=0; x < 14; x++){
@@ -2437,7 +2437,7 @@ public class Map implements Serializable {
 				player_x=12;
 				player_y=6;	
 				
-			} else if (randMapNum == 8){
+			} else if (level == 8){
 				//HARD MAP 8
 				this.grid = new int[7][10];
 				for (int x=0; x < 7; x++){
@@ -2498,7 +2498,7 @@ public class Map implements Serializable {
 				
 				player_x=3;
 				player_y=8;				
-			}  else if (randMapNum == 9){
+			}  else if (level == 9){
 				//HARD MAP 9
 				this.grid = new int[12][12];
 				for (int x=0; x < 12; x++){
@@ -2622,7 +2622,7 @@ public class Map implements Serializable {
 				player_x=3;
 				player_y=8;	
 				
-			}  else if (randMapNum == 10){
+			}  else if (level == 10){
 				//HARD MAP 10
 				this.grid = new int[13][13];
 				for (int x=0; x < 12; x++){

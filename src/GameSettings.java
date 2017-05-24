@@ -11,6 +11,7 @@ public class GameSettings implements Serializable{
 	private boolean enableSFX;
 	private boolean isSkin1; //Set Skin skin: True for 1; False for 2
 	private String spriteSet; //the location of the sprite set being used
+	private int numLevelsCleared;
 
 	/**
 	 * Constructor of the Game Settings object
@@ -20,6 +21,7 @@ public class GameSettings implements Serializable{
 		enableSFX = true;
 		isSkin1 = true;
 		spriteSet = "Star Warehouse/";
+		numLevelsCleared = 0;
 	}
 
 	/**
@@ -86,5 +88,12 @@ public class GameSettings implements Serializable{
 		isSkin1 = b;
 	}
 	
+	public int getNumLevelsCleared() {
+		return numLevelsCleared;
+	}
+	
+	public void setNumLevelsCleared() {
+		numLevelsCleared++;
+	}
 
 }

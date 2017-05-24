@@ -18,7 +18,7 @@ import javax.swing.border.LineBorder;
  * @author Group 1 Tutorial H14A
  *
  */
-public class LevelSelector extends JPanel {
+public class RandomLevelSelector extends JPanel {
 	private String[] buttonText = {"Easy", "Medium", "Hard", "Back", " Random"};
 	private Game gamePanel;
 	private boolean isRandomLevel;
@@ -29,18 +29,18 @@ public class LevelSelector extends JPanel {
 	 * @param mainPanel as the main visible panel
 	 * @param settings as the application settings
 	 */
-	public LevelSelector(final CardLayout views, final JPanel mainPanel, GameSettings settings) {
+	public RandomLevelSelector(final CardLayout views, final JPanel mainPanel, GameSettings settings) {
 		this.setLayout(new BorderLayout());
 
 		this.gamePanel = null;
-		this.isRandomLevel = false;
+//		this.isRandomLevel = false;
 		
 		// Make selection buttons
 		JButton easyBtn = new JButton(buttonText[0]);
 		JButton medBtn = new JButton(buttonText[1]);
 		JButton hardBtn = new JButton(buttonText[2]);
 		JButton backBtn = new JButton(buttonText[3]);
-		JCheckBox randomBox = new JCheckBox(buttonText[4]);
+//		JCheckBox randomBox = new JCheckBox(buttonText[4]);
 
 		//Set the location of each button
 		int btnWidth = 200;
@@ -51,7 +51,7 @@ public class LevelSelector extends JPanel {
 		medBtn.setBounds(startXPos, startYPos + 120, btnWidth, btnHeight);
 		hardBtn.setBounds(startXPos, startYPos + 190, btnWidth, btnHeight);
 		backBtn.setBounds(startXPos, startYPos + 290, btnWidth, btnHeight);
-		randomBox.setBounds(startXPos + 40, startYPos + 230, btnWidth-50, btnHeight);
+//		randomBox.setBounds(startXPos + 40, startYPos + 230, btnWidth-50, btnHeight);
 
 		//Set button fonts
 		Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
@@ -59,14 +59,14 @@ public class LevelSelector extends JPanel {
 		medBtn.setFont(gameFont);
 		hardBtn.setFont(gameFont);
 		backBtn.setFont(gameFont);
-		randomBox.setFont(gameFont);
+//		randomBox.setFont(gameFont);
 		
-		//Set Random text colour according to spriteSet
-		if (settings.getSpriteSet().equals("Star Warehouse/")) {
-			randomBox.setForeground(Color.WHITE);
-		} else {
-			randomBox.setForeground(Color.BLACK);
-		}
+//		//Set Random text colour according to spriteSet
+//		if (settings.getSpriteSet().equals("Star Warehouse/")) {
+//			randomBox.setForeground(Color.WHITE);
+//		} else {
+//			randomBox.setForeground(Color.BLACK);
+//		}
 
 		//Set button border
 		Border buttonBorder = new LineBorder(Color.BLUE, 2);
@@ -74,22 +74,22 @@ public class LevelSelector extends JPanel {
 		medBtn.setBorder(buttonBorder);
 		hardBtn.setBorder(buttonBorder);
 		backBtn.setBorder(buttonBorder);
-		randomBox.setOpaque(false);
+//		randomBox.setOpaque(false);
 
 		//Set random checkBox property and action
-		randomBox.setSelected(isRandomLevel);
-		randomBox.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (randomBox.isSelected()){
-				    isRandomLevel = true;
-				    System.out.println("Enabled random");
-				} else {
-				    isRandomLevel = false;
-				    System.out.println("Disabled random");
-				}
-			}
-		});
+//		randomBox.setSelected(isRandomLevel);
+//		randomBox.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				if (randomBox.isSelected()){
+//				    isRandomLevel = true;
+//				    System.out.println("Enabled random");
+//				} else {
+//				    isRandomLevel = false;
+//				    System.out.println("Disabled random");
+//				}
+//			}
+//		});
 		
 		//Set button actions
 		easyBtn.addActionListener(new ActionListener(){
@@ -97,12 +97,12 @@ public class LevelSelector extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Easy Button!");
 				Map newMap;
-				if (isRandomLevel) {
-				    newMap = new Map(0);
-				} else {
+//				if (isRandomLevel) {
+//				    newMap = new Map(0);
+//				} else {
 				    newMap = new Map('a');
-				}
-				Game newGame = new Game(views, mainPanel, newMap, settings);
+//				}
+				Game newGame = new Game(views, mainPanel, newMap, settings, true);
 				try {
 					gamePanel.disableKeys();
 					mainPanel.remove(gamePanel);
@@ -122,12 +122,12 @@ public class LevelSelector extends JPanel {
 				System.out.println("Clicked Medium Button!");
 				
 				Map newMap;
-                if (isRandomLevel) {
-                    newMap = new Map(1);
-                } else {
+//                if (isRandomLevel) {
+//                    newMap = new Map(1);
+//                } else {
                     newMap = new Map('b');
-                }
-				Game newGame = new Game(views, mainPanel, newMap, settings);
+//                }
+				Game newGame = new Game(views, mainPanel, newMap, settings, true);
 				try {
 					gamePanel.disableKeys();
 					mainPanel.remove(gamePanel);
@@ -146,12 +146,12 @@ public class LevelSelector extends JPanel {
 				System.out.println("Clicked Hard Button!");
 				
 				Map newMap;
-                if (isRandomLevel) {
-                    newMap = new Map(2);
-                } else {
+//                if (isRandomLevel) {
+//                    newMap = new Map(2);
+//                } else {
                     newMap = new Map('c');
-                }
-				Game newGame = new Game(views, mainPanel, newMap, settings);
+//                }
+				Game newGame = new Game(views, mainPanel, newMap, settings, true);
 				try {
 					gamePanel.disableKeys();
 					mainPanel.remove(gamePanel);
@@ -177,7 +177,7 @@ public class LevelSelector extends JPanel {
 		this.add(medBtn);
 		this.add(hardBtn);
 		this.add(backBtn);
-		this.add(randomBox);
+//		this.add(randomBox);
 
 		ImageIcon bgImage = new ImageIcon("image/" + settings.getSpriteSet() + "Level_Select_Bg.png");
 		JLabel  bgLabel = new JLabel("", bgImage, JLabel.CENTER);

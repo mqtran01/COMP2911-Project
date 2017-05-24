@@ -188,7 +188,8 @@ public class Settings extends JPanel {
 		mainPanel.removeAll();
 		
 		mainPanel.add(new JPanel().add(new Menu(views, mainPanel, settings)), "Menu");
-		mainPanel.add(new JPanel().add(new LevelSelector(views, mainPanel, settings)), "Level");
+		mainPanel.add(new JPanel().add(new StoryLevelSelector(views, mainPanel, settings)), "Story");
+		mainPanel.add(new JPanel().add(new RandomLevelSelector(views, mainPanel, settings)), "Random");
 		mainPanel.add(new JPanel().add(new Settings(views, mainPanel, settings)), "Settings");
 		views.show(mainPanel, "Settings");
 	}

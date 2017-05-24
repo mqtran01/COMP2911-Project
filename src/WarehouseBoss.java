@@ -61,13 +61,15 @@ public class WarehouseBoss extends JFrame {
 		mainPanel.setLayout(views);
 		
 		//Create each view objects
-		LevelSelector lvlSelPanel = new LevelSelector(views, mainPanel, settings);
+		StoryLevelSelector storyLvlPanel = new StoryLevelSelector(views, mainPanel, settings);
+		RandomLevelSelector randLvlPanel = new RandomLevelSelector(views, mainPanel, settings);
 		Settings settingsPanel = new Settings(views, mainPanel, settings);
 		Menu menuPanel = new Menu(views, mainPanel, settings);
 		
 		//Add panels to mainPanel, utilising CardLayout
 		mainPanel.add(menuPanel, "Menu");
-		mainPanel.add(lvlSelPanel, "Level");
+		mainPanel.add(storyLvlPanel, "Story");
+		mainPanel.add(randLvlPanel, "Random");
 		mainPanel.add(settingsPanel, "Settings");
 		
 		//Display menuPanel

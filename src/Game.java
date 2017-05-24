@@ -49,7 +49,7 @@ public class Game extends JPanel {
 	 * @param map as the map to play
 	 * @param settings as the application settings
 	 */
-	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings)  {
+	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings, boolean isRandom)  {
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800,600));
 		this.map = map;
@@ -243,20 +243,41 @@ public class Game extends JPanel {
 					if (Game.this.map.winState()){
 						disableKeys();
 						playSound(m_winGame);
-						Object[] options = {"Play Again?", "Main Menu"};
-						int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!", 
-								"You have won!", JOptionPane.YES_NO_CANCEL_OPTION, 
-								JOptionPane.DEFAULT_OPTION, null,
-								options,
-								options[1]);
-						JOptionPane.getRootFrame().dispose(); 
-						if (n == JOptionPane.NO_OPTION){
-							System.out.println("Clicked Main Menu!");
-							views.show(mainPanel, "Menu");
-						}
-						if (n == JOptionPane.YES_OPTION){
-							System.out.println("Clicked Play Again!");
-							views.show(mainPanel, "Level");
+						if (isRandom) {
+							Object[] options = {"Play Again?", "Main Menu"};
+							int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!", 
+									"You have won!", JOptionPane.YES_NO_CANCEL_OPTION, 
+									JOptionPane.DEFAULT_OPTION, null,
+									options,
+									options[1]);
+							JOptionPane.getRootFrame().dispose(); 
+							if (n == JOptionPane.NO_OPTION){
+								System.out.println("Clicked Main Menu!");
+								views.show(mainPanel, "Menu");
+							}
+							if (n == JOptionPane.YES_OPTION){
+								System.out.println("Clicked Play Again!");
+								views.show(mainPanel, "Random");
+							}
+						} else {
+							settings.setNumLevelsCleared();
+							Object[] options = {"Play Next?", "Main Menu"};
+							int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!", 
+									"You have won!", JOptionPane.YES_NO_CANCEL_OPTION, 
+									JOptionPane.DEFAULT_OPTION, null,
+									options,
+									options[1]);
+							JOptionPane.getRootFrame().dispose(); 
+							if (n == JOptionPane.NO_OPTION){
+								System.out.println("Clicked Main Menu!");
+								views.show(mainPanel, "Menu");
+							}
+							if (n == JOptionPane.YES_OPTION){
+								System.out.println("Clicked Play Next!");
+								StoryLevelSelector sL = new StoryLevelSelector(views, mainPanel, settings);
+								mainPanel.add(sL, "Story");
+								views.show(mainPanel, "Story");
+							}
 						}
 					}
 				}
