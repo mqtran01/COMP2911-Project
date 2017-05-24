@@ -39,9 +39,8 @@ public class Map implements Serializable {
 	public Map(char seed){
 		Random rand = new Random(System.currentTimeMillis());
 		int randMapNum = rand.nextInt((10 - 1) + 1) + 1;
-		///////////////
-		//EASY MAPS://
-		///////////////
+		
+		//Pre-loaded Maps
 		
 		if (seed == 'a'){
 			if (randMapNum == 1){
@@ -1922,12 +1921,12 @@ public class Map implements Serializable {
 				player_y=1;				
 			} else if (randMapNum == 3){
 				//HARD MAP 3
-				this.grid = new int[11][11];
+				this.grid = new int[11][9];
 				for (int x=0; x < 11; x++){
 					grid[x][0]=WALL;
-					grid[x][10]=WALL;
+					grid[x][8]=WALL;
 				}
-				for (int y=0; y < 11; y++){
+				for (int y=0; y < 9; y++){
 					grid[0][y]=WALL;
 					grid[10][y]=WALL;
 				}
@@ -2078,15 +2077,6 @@ public class Map implements Serializable {
 				grid[7][7] = WALL;
 				grid[8][7] = EMPTY;
 				
-				grid[1][8] = WALL;
-				grid[2][8] = WALL;
-				grid[3][8] = WALL;
-				grid[4][8] = WALL;
-				grid[5][8] = EMPTY;
-				grid[6][8] = EMPTY;
-				grid[7][8] = EMPTY;
-				grid[8][8] = EMPTY;
-				
 				player_x=4;
 				player_y=6;	
 				
@@ -2200,7 +2190,584 @@ public class Map implements Serializable {
 				grid[13][7] = WALL;
 				
 				player_x=11;
-				player_y=4;				
+				player_y=4;
+				
+			} else if (randMapNum == 6){
+				//HARD MAP 6
+				this.grid = new int[20][8];
+				for (int x=0; x < 20; x++){
+					grid[x][0]=WALL;
+					grid[x][7]=WALL;
+				}
+				for (int y=0; y < 8; y++){
+					grid[0][y]=WALL;
+					grid[19][y]=WALL;
+				}
+				grid[1][1] = EMPTY;
+				grid[2][1] = EMPTY;
+				grid[3][1] = EMPTY;
+				grid[4][1] = EMPTY;
+				grid[5][1] = EMPTY;
+				grid[6][1] = EMPTY;
+				grid[7][1] = EMPTY;
+				grid[8][1] = EMPTY;
+				grid[9][1] = EMPTY;
+				grid[10][1] = EMPTY;
+				grid[11][1] = WALL;
+				grid[12][1] = WALL;
+				grid[13][1] = WALL;
+				grid[14][1] = WALL;
+				grid[15][1] = WALL;
+				grid[16][1] = EMPTY;
+				grid[17][1] = EMPTY;
+				grid[18][1] = PLAYER;
+				
+				grid[1][2] = EMPTY;
+				grid[2][2] = EMPTY;
+				grid[3][2] = BOX;
+				grid[4][2] = EMPTY;
+				grid[5][2] = BOX;
+				grid[6][2] = BOX;
+				grid[7][2] = BOX;
+				grid[8][2] = WALL;
+				grid[9][2] = WALL;
+				grid[10][2] = GOAL;
+				grid[11][2] = EMPTY;
+				grid[12][2] = GOALBOX;
+				grid[13][2] = EMPTY;
+				grid[14][2] = WALL;
+				grid[15][2] = WALL;
+				grid[16][2] = BOX;
+				grid[17][2] = BOX;
+				grid[18][2] = EMPTY;
+				
+				grid[1][3] = WALL;
+				grid[2][3] = WALL;
+				grid[3][3] = WALL;
+				grid[4][3] = WALL;
+				grid[5][3] = WALL;
+				grid[6][3] = EMPTY;
+				grid[7][3] = GOAL;
+				grid[8][3] = EMPTY;
+				grid[9][3] = WALL;
+				grid[10][3] = GOAL;
+				grid[11][3] = EMPTY;
+				grid[12][3] = GOAL;
+				grid[13][3] = GOAL;
+				grid[14][3] = EMPTY;
+				grid[15][3] = EMPTY;
+				grid[16][3] = EMPTY;
+				grid[17][3] = EMPTY;
+				grid[18][3] = WALL;
+				
+				grid[1][4] = WALL;
+				grid[2][4] = WALL;
+				grid[3][4] = WALL;
+				grid[4][4] = WALL;
+				grid[5][4] = EMPTY;
+				grid[6][4] = GOALBOX;
+				grid[7][4] = GOALBOX;
+				grid[8][4] = GOAL;
+				grid[9][4] = GOAL;
+				grid[10][4] = GOALBOX;
+				grid[11][4] = GOAL;
+				grid[12][4] = GOALBOX;
+				grid[13][4] = GOALBOX;
+				grid[14][4] = BOX;
+				grid[15][4] = EMPTY;
+				grid[16][4] = WALL;
+				grid[17][4] = WALL;
+				grid[18][4] = WALL;
+				
+				grid[1][5] = WALL;
+				grid[2][5] = EMPTY;
+				grid[3][5] = BOX;
+				grid[4][5] = EMPTY;
+				grid[5][5] = EMPTY;
+				grid[6][5] = EMPTY;
+				grid[7][5] = EMPTY;
+				grid[8][5] = EMPTY;
+				grid[9][5] = BOX;
+				grid[10][5] = EMPTY;
+				grid[11][5] = WALL;
+				grid[12][5] = GOAL;
+				grid[13][5] = EMPTY;
+				grid[14][5] = WALL;
+				grid[15][5] = WALL;
+				grid[16][5] = WALL;
+				grid[17][5] = WALL;
+				grid[18][5] = WALL;
+				
+				grid[1][6] = WALL;
+				grid[2][6] = EMPTY;
+				grid[3][6] = EMPTY;
+				grid[4][6] = EMPTY;
+				grid[5][6] = EMPTY;
+				grid[6][6] = EMPTY;
+				grid[7][6] = WALL;
+				grid[8][6] = WALL;
+				grid[9][6] = WALL;
+				grid[10][6] = WALL;
+				grid[11][6] = WALL;
+				grid[12][6] = EMPTY;
+				grid[13][6] = EMPTY;
+				grid[14][6] = WALL;
+				grid[15][6] = WALL;
+				grid[16][6] = WALL;
+				grid[17][6] = WALL;
+				grid[18][6] = WALL;
+				
+				player_x=18;
+				player_y=1;				
+			} else if (randMapNum == 7){
+				//HARD MAP 7
+				this.grid = new int[14][10];
+				for (int x=0; x < 14; x++){
+					grid[x][0]=WALL;
+					grid[x][9]=WALL;
+				}
+				for (int y=0; y < 10; y++){
+					grid[0][y]=WALL;
+					grid[13][y]=WALL;
+				}
+				grid[1][1] = EMPTY;
+				grid[2][1] = EMPTY;
+				grid[3][1] = WALL;
+				grid[4][1] = WALL;
+				grid[5][1] = WALL;
+				grid[6][1] = WALL;
+				grid[7][1] = GOAL;
+				grid[8][1] = WALL;
+				grid[9][1] = WALL;
+				grid[10][1] = EMPTY;
+				grid[11][1] = EMPTY;
+				grid[12][1] = EMPTY;
+				
+				grid[1][2] = EMPTY;
+				grid[2][2] = EMPTY;
+				grid[3][2] = EMPTY;
+				grid[4][2] = WALL;
+				grid[5][2] = WALL;
+				grid[6][2] = EMPTY;
+				grid[7][2] = GOAL;
+				grid[8][2] = GOAL;
+				grid[9][2] = WALL;
+				grid[10][2] = EMPTY;
+				grid[11][2] = BOX;
+				grid[12][2] = EMPTY;
+
+				grid[1][3] = EMPTY;
+				grid[2][3] = BOX;
+				grid[3][3] = EMPTY;
+				grid[4][3] = WALL;
+				grid[5][3] = WALL;
+				grid[6][3] = BOX;
+				grid[7][3] = GOAL;
+				grid[8][3] = BOX;
+				grid[9][3] = WALL;
+				grid[10][3] = WALL;
+				grid[11][3] = EMPTY;
+				grid[12][3] = EMPTY;
+				
+				grid[1][4] = EMPTY;
+				grid[2][4] = EMPTY;
+				grid[3][4] = BOX;
+				grid[4][4] = EMPTY;
+				grid[5][4] = WALL;
+				grid[6][4] = GOAL;
+				grid[7][4] = GOAL;
+				grid[8][4] = GOAL;
+				grid[9][4] = GOAL;
+				grid[10][4] = EMPTY;
+				grid[11][4] = EMPTY;
+				grid[12][4] = EMPTY;
+				
+				grid[1][5] = EMPTY;
+				grid[2][5] = BOX;
+				grid[3][5] = EMPTY;
+				grid[4][5] = BOX;
+				grid[5][5] = EMPTY;
+				grid[6][5] = WALL;
+				grid[7][5] = GOAL;
+				grid[8][5] = GOALBOX;
+				grid[9][5] = WALL;
+				grid[10][5] = WALL;
+				grid[11][5] = WALL;
+				grid[12][5] = WALL;
+				
+				grid[1][6] = EMPTY;
+				grid[2][6] = WALL;
+				grid[3][6] = EMPTY;
+				grid[4][6] = EMPTY;
+				grid[5][6] = EMPTY;
+				grid[6][6] = BOX;
+				grid[7][6] = GOALBOX;
+				grid[8][6] = GOAL;
+				grid[9][6] = GOAL;
+				grid[10][6] = EMPTY;
+				grid[11][6] = BOX;
+				grid[12][6] = PLAYER;
+				
+				grid[1][7] = EMPTY;
+				grid[2][7] = BOX;
+				grid[3][7] = BOX;
+				grid[4][7] = EMPTY;
+				grid[5][7] = WALL;
+				grid[6][7] = EMPTY;
+				grid[7][7] = GOAL;
+				grid[8][7] = BOX;
+				grid[9][7] = EMPTY;
+				grid[10][7] = WALL;
+				grid[11][7] = WALL;
+				grid[12][7] = WALL;
+				
+				grid[1][8] = EMPTY;
+				grid[2][8] = EMPTY;
+				grid[3][8] = EMPTY;
+				grid[4][8] = EMPTY;
+				grid[5][8] = WALL;
+				grid[6][8] = EMPTY;
+				grid[7][8] = EMPTY;
+				grid[8][8] = WALL;
+				grid[9][8] = WALL;
+				grid[10][8] = WALL;
+				grid[11][8] = WALL;
+				grid[12][8] = WALL;
+				
+				player_x=12;
+				player_y=6;	
+				
+			} else if (randMapNum == 8){
+				//HARD MAP 8
+				this.grid = new int[7][10];
+				for (int x=0; x < 7; x++){
+					grid[x][0]=WALL;
+					grid[x][9]=WALL;
+				}
+				for (int y=0; y < 10; y++){
+					grid[0][y]=WALL;
+					grid[6][y]=WALL;
+				}
+				grid[1][1] = WALL;
+				grid[2][1] = EMPTY;
+				grid[3][1] = EMPTY;
+				grid[4][1] = WALL;
+				grid[5][1] = WALL;
+				
+				grid[1][2] = EMPTY;
+				grid[2][2] = BOX;
+				grid[3][2] = EMPTY;
+				grid[4][2] = EMPTY;
+				grid[5][2] = EMPTY;
+
+				grid[1][3] = EMPTY;
+				grid[2][3] = WALL;
+				grid[3][3] = EMPTY;
+				grid[4][3] = EMPTY;
+				grid[5][3] = BOX;
+				
+				grid[1][4] = EMPTY;
+				grid[2][4] = GOAL;
+				grid[3][4] = GOAL;
+				grid[4][4] = GOAL;
+				grid[5][4] = GOAL;
+				
+				grid[1][5] = EMPTY;
+				grid[2][5] = WALL;
+				grid[3][5] = EMPTY;
+				grid[4][5] = BOX;
+				grid[5][5] = EMPTY;
+				
+				grid[1][6] = EMPTY;
+				grid[2][6] = WALL;
+				grid[3][6] = GOAL;
+				grid[4][6] = WALL;
+				grid[5][6] = EMPTY;
+				
+				grid[1][7] = EMPTY;
+				grid[2][7] = BOX;
+				grid[3][7] = GOALBOX;
+				grid[4][7] = BOX;
+				grid[5][7] = EMPTY;
+				
+				grid[1][8] = WALL;
+				grid[2][8] = EMPTY;
+				grid[3][8] = PLAYER;
+				grid[4][8] = EMPTY;
+				grid[5][8] = WALL;
+				
+				player_x=3;
+				player_y=8;				
+			}  else if (randMapNum == 9){
+				//HARD MAP 9
+				this.grid = new int[12][12];
+				for (int x=0; x < 12; x++){
+					grid[x][0]=WALL;
+					grid[x][11]=WALL;
+				}
+				for (int y=0; y < 12; y++){
+					grid[0][y]=WALL;
+					grid[11][y]=WALL;
+				}
+				grid[1][1] = EMPTY;
+				grid[2][1] = EMPTY;
+				grid[3][1] = EMPTY;
+				grid[4][1] = WALL;
+				grid[5][1] = WALL;
+				grid[6][1] = WALL;
+				grid[7][1] = EMPTY;
+				grid[8][1] = EMPTY;
+				grid[9][1] = EMPTY;
+				grid[10][1] = WALL;
+				
+				grid[1][2] = EMPTY;
+				grid[2][2] = GOAL;
+				grid[3][2] = BOX;
+				grid[4][2] = EMPTY;
+				grid[5][2] = EMPTY;
+				grid[6][2] = EMPTY;
+				grid[7][2] = EMPTY;
+				grid[8][2] = EMPTY;
+				grid[9][2] = EMPTY;
+				grid[10][2] = WALL;
+
+				grid[1][3] = WALL;
+				grid[2][3] = GOAL;
+				grid[3][3] = WALL;
+				grid[4][3] = WALL;
+				grid[5][3] = WALL;
+				grid[6][3] = WALL;
+				grid[7][3] = WALL;
+				grid[8][3] = BOX;
+				grid[9][3] = WALL;
+				grid[10][3] = WALL;
+				
+				grid[1][4] = EMPTY;
+				grid[2][4] = EMPTY;
+				grid[3][4] = WALL;
+				grid[4][4] = EMPTY;
+				grid[5][4] = EMPTY;
+				grid[6][4] = EMPTY;
+				grid[7][4] = WALL;
+				grid[8][4] = EMPTY;
+				grid[9][4] = BOX;
+				grid[10][4] = EMPTY;
+				
+				grid[1][5] = EMPTY;
+				grid[2][5] = GOAL;
+				grid[3][5] = BOX;
+				grid[4][5] = EMPTY;
+				grid[5][5] = GOAL;
+				grid[6][5] = EMPTY;
+				grid[7][5] = BOX;
+				grid[8][5] = EMPTY;
+				grid[9][5] = EMPTY;
+				grid[10][5] = EMPTY;
+				
+				grid[1][6] = EMPTY;
+				grid[2][6] = EMPTY;
+				grid[3][6] = WALL;
+				grid[4][6] = WALL;
+				grid[5][6] = GOAL;
+				grid[6][6] = WALL;
+				grid[7][6] = WALL;
+				grid[8][6] = EMPTY;
+				grid[9][6] = WALL;
+				grid[10][6] = WALL;
+				
+				grid[1][7] = WALL;
+				grid[2][7] = BOX;
+				grid[3][7] = WALL;
+				grid[4][7] = EMPTY;
+				grid[5][7] = GOAL;
+				grid[6][7] = EMPTY;
+				grid[7][7] = EMPTY;
+				grid[8][7] = EMPTY;
+				grid[9][7] = WALL;
+				grid[10][7] = EMPTY;
+				
+				grid[1][8] = WALL;
+				grid[2][8] = PLAYER;
+				grid[3][8] = WALL;
+				grid[4][8] = EMPTY;
+				grid[5][8] = EMPTY;
+				grid[6][8] = EMPTY;
+				grid[7][8] = WALL;
+				grid[8][8] = WALL;
+				grid[9][8] = WALL;
+				grid[10][8] = EMPTY;
+				
+				grid[1][9] = WALL;
+				grid[2][9] = BOX;
+				grid[3][9] = WALL;
+				grid[4][9] = WALL;
+				grid[5][9] = WALL;
+				grid[6][9] = EMPTY;
+				grid[7][9] = WALL;
+				grid[8][9] = EMPTY;
+				grid[9][9] = EMPTY;
+				grid[10][9] = EMPTY;
+				
+				grid[1][10] = WALL;
+				grid[2][10] = EMPTY;
+				grid[3][10] = EMPTY;
+				grid[4][10] = EMPTY;
+				grid[5][10] = EMPTY;
+				grid[6][10] = EMPTY;
+				grid[7][10] = WALL;
+				grid[8][10] = EMPTY;
+				grid[9][10] = EMPTY;
+				grid[10][10] = EMPTY;
+				
+				player_x=3;
+				player_y=8;	
+				
+			}  else if (randMapNum == 10){
+				//HARD MAP 10
+				this.grid = new int[13][13];
+				for (int x=0; x < 12; x++){
+					grid[x][0]=WALL;
+					grid[x][12]=WALL;
+				}
+				for (int y=0; y < 13; y++){
+					grid[0][y]=WALL;
+					grid[12][y]=WALL;
+				}
+				grid[1][1] = EMPTY;
+				grid[2][1] = EMPTY;
+				grid[3][1] = WALL;
+				grid[4][1] = WALL;
+				grid[5][1] = WALL;
+				grid[6][1] = EMPTY;
+				grid[7][1] = EMPTY;
+				grid[8][1] = EMPTY;
+				grid[9][1] = EMPTY;
+				grid[10][1] = WALL;
+				grid[11][1] = WALL;
+				
+				grid[1][2] = EMPTY;
+				grid[2][2] = EMPTY;
+				grid[3][2] = WALL;
+				grid[4][2] = EMPTY;
+				grid[5][2] = EMPTY;
+				grid[6][2] = EMPTY;
+				grid[7][2] = GOAL;
+				grid[8][2] = GOAL;
+				grid[9][2] = GOAL;
+				grid[10][2] = WALL;
+				grid[11][2] = WALL;
+
+				grid[1][3] = EMPTY;
+				grid[2][3] = EMPTY;
+				grid[3][3] = WALL;
+				grid[4][3] = EMPTY;
+				grid[5][3] = EMPTY;
+				grid[6][3] = WALL;
+				grid[7][3] = GOAL;
+				grid[8][3] = GOAL;
+				grid[9][3] = GOAL;
+				grid[10][3] = WALL;
+				grid[11][3] = WALL;
+
+				grid[1][4] = WALL;
+				grid[2][4] = EMPTY;
+				grid[3][4] = WALL;
+				grid[4][4] = WALL;
+				grid[5][4] = BOX;
+				grid[6][4] = EMPTY;
+				grid[7][4] = WALL;
+				grid[8][4] = EMPTY;
+				grid[9][4] = EMPTY;
+				grid[10][4] = WALL;
+				grid[11][4] = WALL;
+
+				grid[1][5] = WALL;
+				grid[2][5] = EMPTY;
+				grid[3][5] = BOX;
+				grid[4][5] = EMPTY;
+				grid[5][5] = EMPTY;
+				grid[6][5] = EMPTY;
+				grid[7][5] = WALL;
+				grid[8][5] = EMPTY;
+				grid[9][5] = EMPTY;
+				grid[10][5] = WALL;
+				grid[11][5] = WALL;
+
+				grid[1][6] = WALL;
+				grid[2][6] = PLAYER;
+				grid[3][6] = BOX;
+				grid[4][6] = WALL;
+				grid[5][6] = WALL;
+				grid[6][6] = EMPTY;
+				grid[7][6] = WALL;
+				grid[8][6] = EMPTY;
+				grid[9][6] = WALL;
+				grid[10][6] = WALL;
+				grid[11][6] = WALL;
+
+				grid[1][7] = EMPTY;
+				grid[2][7] = BOX;
+				grid[3][7] = BOX;
+				grid[4][7] = EMPTY;
+				grid[5][7] = EMPTY;
+				grid[6][7] = EMPTY;
+				grid[7][7] = EMPTY;
+				grid[8][7] = EMPTY;
+				grid[9][7] = EMPTY;
+				grid[10][7] = WALL;
+				grid[11][7] = WALL;
+
+				grid[1][8] = EMPTY;
+				grid[2][8] = EMPTY;
+				grid[3][8] = BOX;
+				grid[4][8] = EMPTY;
+				grid[5][8] = WALL;
+				grid[6][8] = WALL;
+				grid[7][8] = EMPTY;
+				grid[8][8] = BOX;
+				grid[9][8] = EMPTY;
+				grid[10][8] = WALL;
+				grid[11][8] = WALL;
+
+				grid[1][9] = WALL;
+				grid[2][9] = EMPTY;
+				grid[3][9] = WALL;
+				grid[4][9] = BOX;
+				grid[5][9] = WALL;
+				grid[6][9] = WALL;
+				grid[7][9] = WALL;
+				grid[8][9] = WALL;
+				grid[9][9] = BOX;
+				grid[10][9] = WALL;
+				grid[11][9] = WALL;
+
+				grid[1][10] = GOAL;
+				grid[2][10] = GOAL;
+				grid[3][10] = GOAL;
+				grid[4][10] = GOALBOX;
+				grid[5][10] = GOAL;
+				grid[6][10] = EMPTY;
+				grid[7][10] = EMPTY;
+				grid[8][10] = BOX;
+				grid[9][10] = EMPTY;
+				grid[10][10] = BOX;
+				grid[11][10] = EMPTY;
+				
+				grid[1][11] = EMPTY;
+				grid[2][11] = EMPTY;
+				grid[3][11] = GOAL;
+				grid[4][11] = EMPTY;
+				grid[5][11] = EMPTY;
+				grid[6][11] = WALL;
+				grid[7][11] = EMPTY;
+				grid[8][11] = EMPTY;
+				grid[9][11] = EMPTY;
+				grid[10][11] = EMPTY;
+				grid[11][11] = EMPTY;
+
+				player_x=2;
+				player_y=6;			
+				
 			}
 		}
 		
