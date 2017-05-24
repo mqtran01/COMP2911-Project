@@ -70,7 +70,8 @@ public class Settings extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (musicBox.isSelected()){
 					settings.setEnableMusic(true);
-					WarehouseBoss.clip.start();
+					String skin = settings.getSpriteSet();
+					WarehouseBoss.playSound("assets/" + skin + "MusicBackground.wav", settings);
 				} else {
 					settings.setEnableMusic(false);
 					WarehouseBoss.clip.stop();
