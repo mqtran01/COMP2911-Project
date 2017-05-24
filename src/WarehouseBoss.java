@@ -17,28 +17,20 @@ import javax.swing.JPanel;
  *
  */
 public class WarehouseBoss extends JFrame {
-
-	private static final long serialVersionUID = 1L;
-	JPanel mainPanel = new JPanel();
-	CardLayout views = new CardLayout();
+	private JPanel mainPanel;
+	private CardLayout views;
 
 	public static Clip clip;
-
-	/**
-	 * Main entry point for the Warehouse Boss game.
-	 * @param args is irrelevant
-	 */
-	public static void main(String[] args){
-		new WarehouseBoss();
-	}
 
 	/**
 	 * Constructor of the overall game container.
 	 * Also controls the background music of the game.
 	 */
-	WarehouseBoss(){
+	public WarehouseBoss(){
 		//Create and set up the window.
 		super("Warehouse Boss");
+		this.mainPanel = new JPanel();
+		this.views = new CardLayout();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//Set preferred dimensions
@@ -88,6 +80,17 @@ public class WarehouseBoss extends JFrame {
 	}
 
 	/**
+     * Changes the background music based on skin
+     * @param skin as the skin set
+     * @param settings as the settings controller
+     */
+    static public void changeSound(String skin, GameSettings settings) {
+    	String path = "assets/" + skin + "MusicBackground.wav";
+    	System.out.println("changeSound!" + path);
+    	playSound(path, settings);
+    }
+
+    /**
 	 * Plays the sound of the specific sound file.
 	 * @param filename as the file path of the sound file
 	 * @param settings as the settings controller
@@ -143,13 +146,10 @@ public class WarehouseBoss extends JFrame {
 	}
 	
 	/**
-	 * Changes the background music based on skin
-	 * @param skin as the skin set
-	 * @param settings as the settings controller
-	 */
-	static public void changeSound(String skin, GameSettings settings) {
-		String path = "assets/" + skin + "MusicBackground.wav";
-		System.out.println("changeSound!" + path);
-		playSound(path, settings);
-	}
+     * Main entry point for the Warehouse Boss game.
+     * @param args is irrelevant
+     */
+    public static void main(String[] args){
+    	new WarehouseBoss();
+    }
 }

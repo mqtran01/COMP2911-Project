@@ -19,9 +19,9 @@ import javax.swing.border.LineBorder;
  *
  */
 public class RandomLevelSelector extends JPanel {
-	private String[] buttonText = {"Easy", "Medium", "Hard", "Back", " Random"};
+	private static final String[] BUTTON_TEXT = {"Easy", "Medium", "Hard", "Back", " Random"};
 	private Game gamePanel;
-	private boolean isRandomLevel;
+	//private boolean isRandomLevel;
 
 	/**
 	 * Constructor of the Level Selector object
@@ -36,10 +36,10 @@ public class RandomLevelSelector extends JPanel {
 //		this.isRandomLevel = false;
 		
 		// Make selection buttons
-		JButton easyBtn = new JButton(buttonText[0]);
-		JButton medBtn = new JButton(buttonText[1]);
-		JButton hardBtn = new JButton(buttonText[2]);
-		JButton backBtn = new JButton(buttonText[3]);
+		JButton easyBtn = new JButton(BUTTON_TEXT[0]);
+		JButton medBtn = new JButton(BUTTON_TEXT[1]);
+		JButton hardBtn = new JButton(BUTTON_TEXT[2]);
+		JButton backBtn = new JButton(BUTTON_TEXT[3]);
 //		JCheckBox randomBox = new JCheckBox(buttonText[4]);
 
 		//Set the location of each button

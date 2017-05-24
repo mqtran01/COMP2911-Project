@@ -24,8 +24,8 @@ import javax.swing.border.LineBorder;
  *
  */
 public class Settings extends JPanel {
-	private String[] buttonText = {"   Music", "   SFX", "Back"};
-	private String[] spriteSets = {"Star Warehouse", "PokeManGo"};
+	private static final String[] BUTTON_TEXT = {"   Music", "   SFX", "Back"};
+	private static final String[] SPRITE_SETS = {"Star Warehouse", "PokeManGo"};
 	private GameSettings settings;
 	//private final String m_background = "assets/MusicBackground.wav";
 
@@ -37,9 +37,9 @@ public class Settings extends JPanel {
 		this.settings = settings;
 
 		//Make new check boxes and button
-		JCheckBox musicBox = new JCheckBox(buttonText[0]);
-		JCheckBox SFXBox = new JCheckBox(buttonText[1]);
-		JButton backBtn = new JButton(buttonText[2]);
+		JCheckBox musicBox = new JCheckBox(BUTTON_TEXT[0]);
+		JCheckBox SFXBox = new JCheckBox(BUTTON_TEXT[1]);
+		JButton backBtn = new JButton(BUTTON_TEXT[2]);
 
 		//Make checkBox selected initially if settings say it is
 		musicBox.setSelected(settings.isEnableMusic());
@@ -105,12 +105,12 @@ public class Settings extends JPanel {
 		this.add(backBtn);
 
 		//Create spriteSet selection drop down box
-		JComboBox<String> spriteSetList = new JComboBox<String>(spriteSets);
+		JComboBox<String> spriteSetList = new JComboBox<String>(SPRITE_SETS);
 		spriteSetList.setBounds(startXPos, startYPos + 130, btnWidth, 25);
 		
 		//Set active spriteSet to selected
 		int i = 0;
-		for (String s : spriteSets) {
+		for (String s : SPRITE_SETS) {
 			if (settings.getSpriteSet().equals(s + "/"))
 				spriteSetList.setSelectedIndex(i);
 			i++;

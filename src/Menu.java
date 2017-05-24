@@ -19,8 +19,8 @@ import javax.swing.border.LineBorder;
  *
  */
 public class Menu extends JPanel{
-	private String[] buttonText = {"Start Game", "Load Game", "Random Game", "Settings", "Quit"};
-	GameSettings settings;
+	private static final String[] BUTTON_TEXT = {"Start Game", "Load Game", "Random Game", "Settings", "Quit"};
+	private GameSettings settings;
 
 	/**
 	 * Constructor for Menu Panel/View
@@ -30,11 +30,11 @@ public class Menu extends JPanel{
 		this.settings = settings;
 		
 		//Make new buttons
-		JButton startGameBtn = new JButton(buttonText[0]);
-		JButton loadGameBtn = new JButton(buttonText[1]);
-		JButton randGameBtn = new JButton(buttonText[2]);
-		JButton settingsBtn = new JButton(buttonText[3]);
-		JButton quitBtn = new JButton(buttonText[4]);
+		JButton startGameBtn = new JButton(BUTTON_TEXT[0]);
+		JButton loadGameBtn = new JButton(BUTTON_TEXT[1]);
+		JButton randGameBtn = new JButton(BUTTON_TEXT[2]);
+		JButton settingsBtn = new JButton(BUTTON_TEXT[3]);
+		JButton quitBtn = new JButton(BUTTON_TEXT[4]);
 
 		//Set the location of each button
 		int btnWidth = 200;

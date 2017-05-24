@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author Group 1 Tutorial H14A
  *
  */
-public class GameSettings implements Serializable{
+public class GameSettings implements Serializable {
 	private boolean enableMusic;
 	private boolean enableSFX;
 	private boolean isSkin1; //Set Skin skin: True for 1; False for 2
