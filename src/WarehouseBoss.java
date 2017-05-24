@@ -95,7 +95,7 @@ public class WarehouseBoss extends JFrame {
 	 * @param filename as the file path of the sound file
 	 * @param settings as the settings controller
 	 */
-	static private void playSound(String filename, GameSettings settings) {
+	static public void playSound(String filename, GameSettings settings) {
 		Thread musicThread = new Thread() {
 			@Override
 			public void run() {
@@ -138,7 +138,8 @@ public class WarehouseBoss extends JFrame {
 			@Override
 			public void run() {
 				System.out.println("Looping sound");
-				if (settings.isEnableMusic()) {
+				// if music is enabled and skin has not been changed
+				if (settings.isEnableMusic() && (skin.equals(settings.getSpriteSet()))) {
 					playSound(filename, settings);
 				}
 			}
@@ -153,3 +154,4 @@ public class WarehouseBoss extends JFrame {
     	new WarehouseBoss();
     }
 }
+    
