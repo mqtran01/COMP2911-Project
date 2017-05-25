@@ -17,6 +17,7 @@ import javax.swing.JPanel;
  *
  */
 public class WarehouseBoss extends JFrame {
+	private Models models;//hold the models which will be passed to all 
 	private JPanel mainPanel;
 	private CardLayout views;
 
@@ -39,6 +40,7 @@ public class WarehouseBoss extends JFrame {
 		//To prevent window resizing
 		this.setResizable(false);			
 		
+		
 		SettingsModel settings;
 		try {
 			settings = SaveLoad.loadSettings();
@@ -48,15 +50,17 @@ public class WarehouseBoss extends JFrame {
 		} catch (IOException e) {
 			settings = new SettingsModel();//if it failed, just create a new one
 		}
+		Models models = new Models(settings);
+		
 
 		//Set mainPanel layout to CardLayout
 		mainPanel.setLayout(views);
 		
 		//Create each view objects
-		StoryLevelSelector storyLvlPanel = new StoryLevelSelector(views, mainPanel, settings);
-		RandomLevelSelector randLvlPanel = new RandomLevelSelector(views, mainPanel, settings);
-		SettingsPanel settingsPanel = new SettingsPanel(views, mainPanel, settings);
-		MenuPanel menuPanel = new MenuPanel(views, mainPanel, settings);
+		StoryLevelSelector storyLvlPanel = new StoryLevelSelector(views, mainPanel, settings, models);
+		RandomLevelSelector randLvlPanel = new RandomLevelSelector(views, mainPanel, settings, models);
+		SettingsPanel settingsPanel = new SettingsPanel(views, mainPanel, settings, models);
+		MenuPanel menuPanel = new MenuPanel(views, mainPanel, settings, models);
 		
 		//Add panels to mainPanel, utilising CardLayout
 		mainPanel.add(menuPanel, "Menu");

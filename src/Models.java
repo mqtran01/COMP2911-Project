@@ -6,9 +6,13 @@ public class Models {
 	private SettingsModel settings;
 	GamePanel gamePanel;
 	
-	public Models(MapModel map, SettingsModel settings, GamePanel gamePanel){
-		this.map = map;
+	public Models(SettingsModel settings){
 		this.settings=settings;
+		this.undoMap = null;
+		this.resetMap = null;
+	}
+	
+	public void setGamePanel(GamePanel gamePanel){
 		this.gamePanel = gamePanel;
 	}
 	

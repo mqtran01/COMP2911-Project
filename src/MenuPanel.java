@@ -21,11 +21,13 @@ import javax.swing.border.LineBorder;
 public class MenuPanel extends JPanel{
 	private static final String[] BUTTON_TEXT = {"Start Game", "Load Game", "Random Game", "Settings", "Quit"};
 	private SettingsModel settings;
+	private Models models;
 
 	/**
 	 * Constructor for Menu Panel/View
 	 */
-	public MenuPanel(final CardLayout views, final JPanel mainPanel, SettingsModel settings) {
+	public MenuPanel(final CardLayout views, final JPanel mainPanel, SettingsModel settings, Models models) {
+		this.models = models;
 		this.setLayout(new BorderLayout());
 		this.settings = settings;
 		
@@ -81,7 +83,7 @@ public class MenuPanel extends JPanel{
 				try {
 					MapModel map = SaveLoad.load();
 					if (map != null) {
-						GamePanel newGame = new GamePanel(views, mainPanel, map, settings, false);
+						GamePanel newGame = new GamePanel(views, mainPanel, map, settings, false, models);
 						mainPanel.add(newGame, "Game");
 						map.printMap();
 					} else {

@@ -27,12 +27,14 @@ public class SettingsPanel extends JPanel {
 	private static final String[] BUTTON_TEXT = {"   Music", "   SFX", "Back"};
 	private static final String[] SPRITE_SETS = {"Star Warehouse", "PokeManGo"};
 	private SettingsModel settings;
+	private Models models;
 	//private final String m_background = "assets/MusicBackground.wav";
 
 	/**
 	 * Constructor for Settings Panel/View
 	 */
-	public SettingsPanel(CardLayout views, JPanel mainPanel, SettingsModel settings) {
+	public SettingsPanel(CardLayout views, JPanel mainPanel, SettingsModel settings, Models models) {
+		this.models = models;
 		this.setLayout(new BorderLayout());
 		this.settings = settings;
 
@@ -201,10 +203,10 @@ public class SettingsPanel extends JPanel {
 	private void update(CardLayout views, JPanel mainPanel) {
 		mainPanel.removeAll();
 		
-		mainPanel.add(new JPanel().add(new MenuPanel(views, mainPanel, settings)), "Menu");
-		mainPanel.add(new JPanel().add(new StoryLevelSelector(views, mainPanel, settings)), "Story");
-		mainPanel.add(new JPanel().add(new RandomLevelSelector(views, mainPanel, settings)), "Random");
-		mainPanel.add(new JPanel().add(new SettingsPanel(views, mainPanel, settings)), "Settings");
+		mainPanel.add(new JPanel().add(new MenuPanel(views, mainPanel, settings, models)), "Menu");
+		mainPanel.add(new JPanel().add(new StoryLevelSelector(views, mainPanel, settings, models)), "Story");
+		mainPanel.add(new JPanel().add(new RandomLevelSelector(views, mainPanel, settings, models)), "Random");
+		mainPanel.add(new JPanel().add(new SettingsPanel(views, mainPanel, settings, models)), "Settings");
 		views.show(mainPanel, "Settings");
 	}
 }

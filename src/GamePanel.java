@@ -18,6 +18,8 @@ import javax.swing.border.LineBorder;
  *
  */
 public class GamePanel extends JPanel {
+	private Models models;
+	
 	private JLabel[][] grid;
 	private int length; 
 	private int height;
@@ -49,7 +51,8 @@ public class GamePanel extends JPanel {
 	 * @param map as the map to play
 	 * @param settings as the application settings
 	 */
-	public GamePanel(CardLayout views, JPanel mainPanel, MapModel map, SettingsModel settings, boolean isRandom)  {
+	public GamePanel(CardLayout views, JPanel mainPanel, MapModel map, SettingsModel settings, boolean isRandom, Models models)  {
+		this.models = models;
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800,600));
 		this.map = map;
@@ -285,7 +288,7 @@ public class GamePanel extends JPanel {
 							}
 							if (n == JOptionPane.YES_OPTION){
 								System.out.println("Clicked Play Next!");
-								StoryLevelSelector sL = new StoryLevelSelector(views, mainPanel, settings);
+								StoryLevelSelector sL = new StoryLevelSelector(views, mainPanel, settings, models);
 								mainPanel.add(sL, "Story");
 								views.show(mainPanel, "Story");
 							}
