@@ -74,7 +74,12 @@ public class Settings extends JPanel {
 					WarehouseBoss.playSound("assets/" + skin + "MusicBackground.wav", settings);
 				} else {
 					settings.setEnableMusic(false);
-					WarehouseBoss.clip.stop();
+					try{
+						WarehouseBoss.clip.stop();
+					}
+					catch(Exception e1){
+						
+					}
 				}
 			}
 		});
@@ -124,7 +129,12 @@ public class Settings extends JPanel {
 				JComboBox<String> combo = (JComboBox<String>)e.getSource();
 				String selectedSkin = (String) combo.getSelectedItem();
 				settings.setSpriteSet(selectedSkin + "/");
-				WarehouseBoss.clip.stop();
+				try{
+					WarehouseBoss.clip.stop();
+				}
+				catch(Exception e1){
+					
+				}
 				WarehouseBoss.changeSound(selectedSkin + "/", settings);
 				update(views, mainPanel);
 			}
