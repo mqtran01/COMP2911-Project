@@ -392,14 +392,13 @@ public class GamePanel extends JPanel {
 	public void setMap(MapModel map){
 		this.map = map;
 		update((String) null);
-
 	}
 
 	/**
 	 * Method for updating the sprites displayed by the grid
 	 * @param direction as the direction the sprite is facing
 	 */
-	private void update(String direction){
+	public void update(String direction){
 		System.out.println("updating");
 		double scaledLen = 800/length;
 		double scaledHgt = 500/height;
