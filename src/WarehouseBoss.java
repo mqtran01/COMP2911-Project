@@ -87,7 +87,17 @@ public class WarehouseBoss extends JFrame {
     static public void changeSound(String skin, GameSettings settings) {
     	String path = "assets/" + skin + "MusicBackground.wav";
     	System.out.println("changeSound!" + path);
-    	playSound(path, settings);
+		try{
+			// Open an audio input stream.
+			AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(path));
+			// Get a sound clip resource.
+			clip = AudioSystem.getClip();
+			// Open audio clip and load samples from the audio input stream.
+			clip.open(audioIn);
+			clip.start();
+			loopSound(settings);
+		} catch(Exception e) {
+		}
     }
 
     /**
@@ -115,17 +125,15 @@ public class WarehouseBoss extends JFrame {
 		if (settings.isEnableMusic()) {
 			System.out.println("Music enabled");
 			musicThread.start();
-			loopSound(filename, musicThread, settings);
+			loopSound(settings);
 		}
 	}
 
 	/**
 	 * Creates a delay to loop the sound file after it is complete
-	 * @param filename as the specified file name
-	 * @param musicThread as the thread playing the music
 	 * @param settings as the settings controller
 	 */
-	static private void loopSound(String filename, Thread musicThread, GameSettings settings) {
+	static private void loopSound(GameSettings settings) {
 		String skin = settings.getSpriteSet();
 		int delay;
 		if (skin.equals("Star Warehouse/")) {
@@ -141,7 +149,7 @@ public class WarehouseBoss extends JFrame {
 				if (settings.isEnableMusic() && (skin.equals(settings.getSpriteSet()))) {
 					clip.loop(1);
 					System.out.println("loop");
-					loopSound(filename, musicThread, settings);
+					loopSound(settings);
 				}
 			}
 		}, delay);
