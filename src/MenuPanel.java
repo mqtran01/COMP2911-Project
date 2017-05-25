@@ -82,9 +82,9 @@ public class MenuPanel extends JPanel {
                 try {
                     MapModel map = SaveLoad.load();
                     if (map != null) {
-                        GamePanel newGame = new GamePanel(warehouseBoss, false, models);
+                        GamePanel newGame = new GamePanel(warehouseBoss, false, MenuPanel.this.models);
                         warehouseBoss.addPanel(newGame, "Game");
-                        map.printMap();
+                        //map.printMap();
                     } else {
                         // Direct to level select when save file is null
                         warehouseBoss.swapPanel("Story");

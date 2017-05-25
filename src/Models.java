@@ -28,7 +28,10 @@ public class Models {
 
     public void setMap(MapModel map) {
         this.map = map;
-        gamePanel.update("s");
+        this.resetMap = map.clone();
+        if (gamePanel != null){
+        	gamePanel.update("s");
+        }
     }
 
     public boolean winState(){
@@ -74,7 +77,7 @@ public class Models {
 
     public void reset() {
     	if (resetMap != null){
-    		map = resetMap;
+    		map = resetMap.clone();
     	}
     }
 

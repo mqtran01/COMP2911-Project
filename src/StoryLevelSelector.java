@@ -67,8 +67,9 @@ public class StoryLevelSelector extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         MapModel newMap = new MapModel(levelSeed, levelNum);
-                        models.setMap(newMap);
-                        GamePanel gamePanel = new GamePanel(warehouseBoss, false, models);
+                        StoryLevelSelector.this.models.setMap(newMap);
+                        GamePanel gamePanel = new GamePanel(warehouseBoss, false, StoryLevelSelector.this.models);
+                        StoryLevelSelector.this.models.setGamePanel(gamePanel);
                         warehouseBoss.addPanel(gamePanel, "Game");
                         warehouseBoss.swapPanel("Game");
 

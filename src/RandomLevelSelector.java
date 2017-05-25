@@ -71,8 +71,8 @@ public class RandomLevelSelector extends JPanel {
                 System.out.println("Clicked Easy Button!");
                 MapModel newMap;
                 newMap = new MapModel(0);
-                models.setMap(newMap);
-                GamePanel newGame = new GamePanel(warehouseBoss, true, models);
+                RandomLevelSelector.this.models.setMap(newMap);
+                GamePanel newGame = new GamePanel(warehouseBoss, true, RandomLevelSelector.this.models);
                 try {
                     gamePanel.disableKeys();
                     warehouseBoss.removePanel(gamePanel);
@@ -92,8 +92,8 @@ public class RandomLevelSelector extends JPanel {
                 System.out.println("Clicked Medium Button!");
 
                 MapModel newMap = new MapModel(1);
-                models.setMap(newMap);
-                GamePanel newGame = new GamePanel(warehouseBoss, true, models);
+                RandomLevelSelector.this.models.setMap(newMap);
+                GamePanel newGame = new GamePanel(warehouseBoss, true, RandomLevelSelector.this.models);
                 try {
                     gamePanel.disableKeys();
                     warehouseBoss.removePanel(gamePanel);
@@ -112,8 +112,8 @@ public class RandomLevelSelector extends JPanel {
                 System.out.println("Clicked Hard Button!");
 
                 MapModel newMap = new MapModel(2);
-                models.setMap(newMap);
-                GamePanel newGame = new GamePanel(warehouseBoss, true, models);
+                RandomLevelSelector.this.models.setMap(newMap);
+                GamePanel newGame = new GamePanel(warehouseBoss, true, RandomLevelSelector.this.models);
                 try {
                     gamePanel.disableKeys();
                     warehouseBoss.removePanel(gamePanel);

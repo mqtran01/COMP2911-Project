@@ -72,11 +72,11 @@ public class SettingsPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (musicBox.isSelected()) {
-                    models.setEnableMusic(true);
-                    String skin = models.getSpriteSet();
+                	SettingsPanel.this.models.setEnableMusic(true);
+                    String skin = SettingsPanel.this.models.getSpriteSet();
                     WarehouseBoss.changeSound(skin);
                 } else {
-                    models.setEnableMusic(false);
+                	SettingsPanel.this.models.setEnableMusic(false);
                     try {
                         WarehouseBoss.clip.stop();
                         WarehouseBoss.clip.close();
@@ -91,9 +91,9 @@ public class SettingsPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (SFXBox.isSelected()) {
-                    models.setEnableSFX(true);
+                	SettingsPanel.this.models.setEnableSFX(true);
                 } else {
-                    models.setEnableSFX(false);
+                	SettingsPanel.this.models.setEnableSFX(false);
                 }
 
             }
@@ -104,7 +104,7 @@ public class SettingsPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     // SaveLoad.saveSettings(SettingsPanel.this.settings);
-                    SaveLoad.saveSettings(models.getSettings());
+                    SaveLoad.saveSettings(SettingsPanel.this.models.getSettings());
                 } catch (IOException e1) {
                     System.out.println("save failed");
                 }
@@ -135,14 +135,14 @@ public class SettingsPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 JComboBox<String> combo = (JComboBox<String>) e.getSource();
                 String selectedSkin = (String) combo.getSelectedItem();
-                models.setSpriteSet(selectedSkin + "/");
+                SettingsPanel.this.models.setSpriteSet(selectedSkin + "/");
                 try {
                     WarehouseBoss.clip.stop();
                     WarehouseBoss.clip.close();
                 } catch (Exception e1) {
 
                 }
-                if (models.isEnableMusic()) {
+                if (SettingsPanel.this.models.isEnableMusic()) {
                     WarehouseBoss.changeSound(selectedSkin + "/");
                 }
                 update();
@@ -175,7 +175,7 @@ public class SettingsPanel extends JPanel {
             public void mousePressed(MouseEvent e) {
                 skin1Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
                 skin2Label.setBorder(null);
-                models.setSkin(true);
+                SettingsPanel.this.models.setSkin(true);
             }
         });
 
@@ -184,7 +184,7 @@ public class SettingsPanel extends JPanel {
             public void mousePressed(MouseEvent e) {
                 skin2Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
                 skin1Label.setBorder(null);
-                models.setSkin(false);
+                SettingsPanel.this.models.setSkin(false);
             }
         });
 

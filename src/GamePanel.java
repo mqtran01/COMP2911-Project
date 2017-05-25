@@ -52,9 +52,6 @@ public class GamePanel extends JPanel {
         this.models = models;
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(800, 600));
-        //this.map = map;
-        //this.originalMap = map.clone();
-        //this.previousMap = null;
 
         length = models.getLength();
         height = models.getHeight();
@@ -176,10 +173,6 @@ public class GamePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Undo!");
-                /*if (previousMap != null) {
-                    setMap(GamePanel.this.previousMap);
-                    update("s");
-                }*/
                 GamePanel.this.models.undo();
                 update("s");
             }
@@ -190,8 +183,6 @@ public class GamePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Reset!");
                 GamePanel.this.models.reset();
-                /*MapModel resetMap = GamePanel.this.originalMap.clone();
-                setMap(resetMap);*/
                 update("s");
             }
         });
@@ -265,11 +256,11 @@ public class GamePanel extends JPanel {
                                 warehouseBoss.swapPanel("Random");
                             }
                         } else {
-                            models.setNumLevelsCleared();
+                            GamePanel.this.models.setNumLevelsCleared();
 
                             // Recreated StoryLevelSelector to update number of
                             // playable levels
-                            warehouseBoss.addPanel(new StoryLevelSelector(warehouseBoss, models), "Story");
+                            warehouseBoss.addPanel(new StoryLevelSelector(warehouseBoss, GamePanel.this.models), "Story");
 
                             Object[] options = { "Play Next?", "Main Menu" };
                             int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!",
@@ -315,6 +306,9 @@ public class GamePanel extends JPanel {
                 JOptionPane.showMessageDialog(null, tuteLabel, "Tutorial", JOptionPane.PLAIN_MESSAGE, null);
             }
         });
+        
+      //tell the models that this is the map GUI that needs to be updated when the map is
+        this.models.setGamePanel(this);
 
     }
 
