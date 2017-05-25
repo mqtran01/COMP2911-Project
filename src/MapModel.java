@@ -6,7 +6,7 @@ import java.util.Queue;
 import java.util.Random;
 
 /**
- * The map class which contains details of all elements of a single instance of
+ * The Map Model class which contains details of all elements of a single instance of
  * the map.
  * 
  * @author Group 1 Tutorial H14A
@@ -2803,6 +2803,7 @@ public class MapModel implements Serializable {
         this.mapLevel = RANDOM_LEVEL;
         Random rGen = new Random(System.currentTimeMillis());
 
+        // Continuously loops until it finds a map it likes
         boolean success = false;
         while (!success) {
             ArrayList<int[][]> gridList = new ArrayList<int[][]>();
@@ -2970,18 +2971,10 @@ public class MapModel implements Serializable {
             // calculate the next grid space over
             int new_x = 2 * to_x - from_x;
             int new_y = 2 * to_y - from_y;
-            if (grid[new_x][new_y] == EMPTY || grid[new_x][new_y] == GOAL) {// if
-                                                                            // the
-                                                                            // next
-                                                                            // grid
-                                                                            // space
-                                                                            // is
-                                                                            // not
-                                                                            // blocked
-                // then move everything
-                grid[from_x][from_y] = removeObject(from_x, from_y);// remove
-                                                                    // object
-                                                                    // from from
+            // if the next grid space is not blocked then move everything
+            if (grid[new_x][new_y] == EMPTY || grid[new_x][new_y] == GOAL) {
+                // remove object from 'from'
+                grid[from_x][from_y] = removeObject(from_x, from_y);
                 // move the box out and the player in
                 if (grid[to_x][to_y] == BOX) {// box -> player
                     grid[to_x][to_y] = PLAYER;
@@ -3014,12 +3007,10 @@ public class MapModel implements Serializable {
                 return false;// if the next space is blocked then the move fails
             }
             grid[to_x][to_y] = GOALPLAYER;// move player to this space
-            grid[from_x][from_y] = removeObject(from_x, from_y);// move player
-                                                                // off previous
-                                                                // space
+            // move player off previous space
+            grid[from_x][from_y] = removeObject(from_x, from_y);
             return true;
-        } else if (grid[to_x][to_y] == GOALPLAYER) {// player + goal, this
-                                                    // should never happen
+        } else if (grid[to_x][to_y] == GOALPLAYER) {// player + goal, this should never happen
             System.out.println("error, attempted to move into a space that is occupied by the player");
             return false;
         }
@@ -3034,8 +3025,7 @@ public class MapModel implements Serializable {
     public boolean winState() {
         for (int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid[0].length; y++) {
-                if (grid[x][y] == BOX) {// if box not on goal then it is not a
-                                        // win state
+                if (grid[x][y] == BOX) {// if box not on goal then it is not a win state
                     return false;
                 }
             }
@@ -3421,21 +3411,43 @@ public class MapModel implements Serializable {
         return wallMap;
     }
 
+    /**
+     * Private auxiliary class to assist with map connected search 
+     * 
+     * @author Group 1 Tutorial H14A
+     *
+     */
     private class Coordinates {
         private int x;
         private int y;
 
+        /**
+         * Constructor of a Coordinate pair
+         * 
+         * @param x as x coord
+         * @param y as y coord
+         */
+        public Coordinates(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+        
+        /**
+         * Gets the x coordinate
+         * 
+         * @return x coord
+         */
         public int getX() {
             return x;
         }
 
+        /**
+         * Gets the y coordinate
+         * 
+         * @return y coord
+         */
         public int getY() {
             return y;
-        }
-
-        public Coordinates(int x, int y) {
-            this.x = x;
-            this.y = y;
         }
     }
 }
