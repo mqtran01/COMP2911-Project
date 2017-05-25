@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author Group 1 Tutorial H14A
  *
  */
-public class GameSettings implements Serializable {
+public class SettingsModel implements Serializable {
 	private boolean enableMusic;
 	private boolean enableSFX;
 	private boolean isSkin1; //Set Skin skin: True for 1; False for 2
@@ -16,7 +16,7 @@ public class GameSettings implements Serializable {
 	/**
 	 * Constructor of the Game Settings object
 	 */
-	public GameSettings() {
+	public SettingsModel() {
 		enableMusic = true;
 		enableSFX = true;
 		isSkin1 = true;

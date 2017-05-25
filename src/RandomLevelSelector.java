@@ -20,7 +20,7 @@ import javax.swing.border.LineBorder;
  */
 public class RandomLevelSelector extends JPanel {
 	private static final String[] BUTTON_TEXT = {"Easy", "Medium", "Hard", "Back", " Random"};
-	private Game gamePanel;
+	private GamePanel gamePanel;
 	//private boolean isRandomLevel;
 
 	/**
@@ -29,7 +29,7 @@ public class RandomLevelSelector extends JPanel {
 	 * @param mainPanel as the main visible panel
 	 * @param settings as the application settings
 	 */
-	public RandomLevelSelector(final CardLayout views, final JPanel mainPanel, GameSettings settings) {
+	public RandomLevelSelector(final CardLayout views, final JPanel mainPanel, SettingsModel settings) {
 		this.setLayout(new BorderLayout());
 
 		this.gamePanel = null;
@@ -96,13 +96,13 @@ public class RandomLevelSelector extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Easy Button!");
-				Map newMap;
+				MapModel newMap;
 //				if (isRandomLevel) {
-				    newMap = new Map(0);
+				    newMap = new MapModel(0);
 //				} else {
 //				    newMap = new Map('a');
 //				}
-				Game newGame = new Game(views, mainPanel, newMap, settings, true);
+				GamePanel newGame = new GamePanel(views, mainPanel, newMap, settings, true);
 				try {
 					gamePanel.disableKeys();
 					mainPanel.remove(gamePanel);
@@ -121,13 +121,13 @@ public class RandomLevelSelector extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Medium Button!");
 				
-				Map newMap;
+				MapModel newMap;
 //                if (isRandomLevel) {
-                    newMap = new Map(1);
+                    newMap = new MapModel(1);
 //                } else {
 //                    newMap = new Map('b');
 //                }
-				Game newGame = new Game(views, mainPanel, newMap, settings, true);
+				GamePanel newGame = new GamePanel(views, mainPanel, newMap, settings, true);
 				try {
 					gamePanel.disableKeys();
 					mainPanel.remove(gamePanel);
@@ -145,13 +145,13 @@ public class RandomLevelSelector extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Hard Button!");
 				
-				Map newMap;
+				MapModel newMap;
 //                if (isRandomLevel) {
-                    newMap = new Map(2);
+                    newMap = new MapModel(2);
 //                } else {
 //                    newMap = new Map('c');
 //                }
-				Game newGame = new Game(views, mainPanel, newMap, settings, true);
+				GamePanel newGame = new GamePanel(views, mainPanel, newMap, settings, true);
 				try {
 					gamePanel.disableKeys();
 					mainPanel.remove(gamePanel);

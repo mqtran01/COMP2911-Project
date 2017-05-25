@@ -23,16 +23,16 @@ import javax.swing.border.LineBorder;
  * @author Group 1 Tutorial H14A
  *
  */
-public class Settings extends JPanel {
+public class SettingsPanel extends JPanel {
 	private static final String[] BUTTON_TEXT = {"   Music", "   SFX", "Back"};
 	private static final String[] SPRITE_SETS = {"Star Warehouse", "PokeManGo"};
-	private GameSettings settings;
+	private SettingsModel settings;
 	//private final String m_background = "assets/MusicBackground.wav";
 
 	/**
 	 * Constructor for Settings Panel/View
 	 */
-	public Settings(CardLayout views, JPanel mainPanel, GameSettings settings) {
+	public SettingsPanel(CardLayout views, JPanel mainPanel, SettingsModel settings) {
 		this.setLayout(new BorderLayout());
 		this.settings = settings;
 
@@ -98,7 +98,7 @@ public class Settings extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					SaveLoad.saveSettings(Settings.this.settings);
+					SaveLoad.saveSettings(SettingsPanel.this.settings);
 				} catch (IOException e1) {
 					System.out.println("save failed");
 				}
@@ -201,10 +201,10 @@ public class Settings extends JPanel {
 	private void update(CardLayout views, JPanel mainPanel) {
 		mainPanel.removeAll();
 		
-		mainPanel.add(new JPanel().add(new Menu(views, mainPanel, settings)), "Menu");
+		mainPanel.add(new JPanel().add(new MenuPanel(views, mainPanel, settings)), "Menu");
 		mainPanel.add(new JPanel().add(new StoryLevelSelector(views, mainPanel, settings)), "Story");
 		mainPanel.add(new JPanel().add(new RandomLevelSelector(views, mainPanel, settings)), "Random");
-		mainPanel.add(new JPanel().add(new Settings(views, mainPanel, settings)), "Settings");
+		mainPanel.add(new JPanel().add(new SettingsPanel(views, mainPanel, settings)), "Settings");
 		views.show(mainPanel, "Settings");
 	}
 }

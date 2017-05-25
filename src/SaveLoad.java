@@ -21,13 +21,13 @@ public class SaveLoad {
 	 * @return the saved Map
 	 * @throws IOException
 	 */
-	public static Map load() throws IOException {
+	public static MapModel load() throws IOException {
 		ObjectInputStream in = null;
-		Map map = null;
+		MapModel map = null;
 		try {
 			FileInputStream inFile = new FileInputStream(filename);
 			in = new ObjectInputStream(inFile);
-			map = (Map) in.readObject();
+			map = (MapModel) in.readObject();
 			System.out.println("Read from file");
 		} catch (FileNotFoundException e) {
 			return null;
@@ -48,7 +48,7 @@ public class SaveLoad {
 	 * @param map as the map to save
 	 * @throws IOException
 	 */
-	public static void save(Map map) throws IOException {
+	public static void save(MapModel map) throws IOException {
 		ObjectOutputStream out = null;
 		// will create the file only if it does not exist
 		File f = new File(filename);
@@ -71,13 +71,13 @@ public class SaveLoad {
 	 * @return the loaded GameSettings
 	 * @throws IOException
 	 */
-	public static GameSettings loadSettings() throws IOException{
+	public static SettingsModel loadSettings() throws IOException{
 		ObjectInputStream in = null;
-		GameSettings settings = null;
+		SettingsModel settings = null;
 		try {
 			FileInputStream inFile = new FileInputStream(settingsfilename);
 			in = new ObjectInputStream(inFile);
-			settings = (GameSettings) in.readObject();
+			settings = (SettingsModel) in.readObject();
 			System.out.println("Read from file");
 		} catch (FileNotFoundException e) {
 			return null;
@@ -98,7 +98,7 @@ public class SaveLoad {
 	 * @param settings as the settings to save
 	 * @throws IOException
 	 */
-	public static void saveSettings(GameSettings settings) throws IOException{
+	public static void saveSettings(SettingsModel settings) throws IOException{
 		ObjectOutputStream out = null;
 		// will create the file only if it does not exist
 		File f = new File(settingsfilename);

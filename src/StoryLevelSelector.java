@@ -19,10 +19,10 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 public class StoryLevelSelector extends JPanel {
-	private Game gamePanel;
+	private GamePanel gamePanel;
 	private char[] seed = {'a','b','c'};
 	
-	public StoryLevelSelector(final CardLayout views, final JPanel mainPanel, GameSettings settings) {
+	public StoryLevelSelector(final CardLayout views, final JPanel mainPanel, SettingsModel settings) {
 		this.setLayout(new BorderLayout());
 		
 		ImageIcon bgImage = new ImageIcon("image/" + settings.getSpriteSet() + "bg.png");
@@ -60,8 +60,8 @@ public class StoryLevelSelector extends JPanel {
 			level.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					Map newMap = new Map(levelSeed, levelNum);
-					Game newGame = new Game(views, mainPanel, newMap, settings, false);
+					MapModel newMap = new MapModel(levelSeed, levelNum);
+					GamePanel newGame = new GamePanel(views, mainPanel, newMap, settings, false);
 					try {
 						gamePanel.disableKeys();
 						mainPanel.remove(gamePanel);

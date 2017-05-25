@@ -13,7 +13,7 @@ import java.util.Random;
  * @author Group 1 Tutorial H14A
  *
  */
-public class Map implements Serializable {
+public class MapModel implements Serializable {
 	private int[][] grid;//note: 0,0 is upper left of grid
 	private int player_x;
 	private int player_y;
@@ -36,7 +36,7 @@ public class Map implements Serializable {
 	 * Constructor is a pre-generated map based on a seed.
 	 * @param seed as a letter 'a', 'b', or 'c'
 	 */
-	public Map(char seed, int level){
+	public MapModel(char seed, int level){
 		//Random rand = new Random(System.currentTimeMillis());
 		//int randMapNum = rand.nextInt((10 - 1) + 1) + 1;
 		
@@ -2778,7 +2778,7 @@ public class Map implements Serializable {
 	 * Constructor of a randomly generated map
 	 * @param difficulty as the difficulty
 	 */
-	public Map(int difficulty) {
+	public MapModel(int difficulty) {
 	    int length;
 	    int height;
 	    int objectives;
@@ -2831,15 +2831,15 @@ public class Map implements Serializable {
 	/**
 	 * Empty constructor to be used in the clone method
 	 */
-	private Map(){
+	private MapModel(){
 	}
 	
 	/**
 	 * Deep clones the current Map
 	 * @return the new clone Map object
 	 */
-	public Map clone(){
-		Map clonedMap = new Map();
+	public MapModel clone(){
+		MapModel clonedMap = new MapModel();
 		clonedMap.grid = new int[getLength()][getHeight()];
 		for (int y=0; y< getHeight();y++){
 			for (int x=0; x< getLength();x++){
@@ -3266,7 +3266,7 @@ public class Map implements Serializable {
         // Check self is empty
         if (isClear(xPos, yPos)) {
             // Box has an additional restriction cannot be placed on edge
-            if (objective == Map.BOX) {
+            if (objective == MapModel.BOX) {
                 if (xPos <= 1 || xPos >= grid.length - 2 || yPos <= 1 || yPos >= grid[0].length - 2)
                     return false;
             }
@@ -3432,99 +3432,6 @@ public class Map implements Serializable {
         return wallMap;
     }
     
-    private boolean isSolvable(Map map){
-		PriorityQueue<aStarNode> pq = new PriorityQueue<aStarNode>(10, new Comparator<aStarNode>(){
-			public int compare(aStarNode x, aStarNode y){
-				return x.compareTo(y);
-			}
-		}); 
-		
-		int i=0;
-		LinkedList<Map> visited = new LinkedList<Map>();
-		int initH = map.hManhattan();
-		pq.add(new aStarNode(initH,initH,map));
-		while (!pq.isEmpty()){
-			aStarNode node = pq.poll();
-			System.out.println(i + " heuristic is " + node.getH() + " f is " + node.getF());
-			i++;
-			node.getMap().printMap();
-			if (node.getMap().winState()){
-				return true;
-			}
-			
-			//using .contains() doesn't use the custom .equals method
-			for (Map m: visited){
-				if (m.equals(node.getMap())){
-					//System.out.println("found a copy");
-					continue;
-				}
-			}
-			visited.add(node.getMap());
-			
-			//add successors to pq
-			Map clone = node.getMap().clone();
-			if (clone.moveDown()){
-				int newH = clone.hManhattan();
-				pq.add(new aStarNode(newH,node.getF()-node.getH()+1+newH,clone));
-				System.out.println("	move down is possible");
-			}
-			clone = node.getMap().clone();
-			if (clone.moveUp()){
-				int newH = clone.hManhattan();
-				pq.add(new aStarNode(newH,node.getF()-node.getH()+1+newH,clone));
-				System.out.println("	move up is possible");
-			}
-			clone = node.getMap().clone();
-			if (clone.moveLeft()){
-				int newH = clone.hManhattan();
-				pq.add(new aStarNode(newH,node.getF()-node.getH()+1+newH,clone));
-				System.out.println("	move left is possible");
-			}
-			clone = node.getMap().clone();
-			if (clone.moveRight()){
-				int newH = clone.hManhattan();
-				pq.add(new aStarNode(newH,node.getF()-node.getH()+1+newH,clone));
-				System.out.println("	move right is possible");
-			}
-		}
-		return false;
-	}
-    
-    /**
-     * returns the Manhattan distance heuristic for this map
-     * @return
-     */
-    private int hManhattan(){
-    	//get the list of boxes and goals in the map
-    	//does not include boxes on goals
-    	ArrayList<Coordinates> boxes = new ArrayList<Coordinates>();
-    	ArrayList<Coordinates> goals = new ArrayList<Coordinates>();
-    	for (int y=0;y<grid[0].length;y++){
-    		for(int x=0;x<grid.length;x++){
-    			if (grid[x][y]==BOX){
-    				boxes.add(new Coordinates(x,y));
-    			}
-    			else if (grid[x][y]==GOAL || grid[x][y]==GOALPLAYER){
-    				goals.add(new Coordinates(x,y));
-    			}
-    		}
-    	}
-    	//totalDistance is sum of minimum dist between each box and any goal
-    	int totalDistance = 0;
-    	for (Coordinates box: boxes){
-    		int min = Integer.MAX_VALUE;
-    		for(Coordinates goal: goals){
-    			//manhattan distance
-    			int dist = (Math.abs(box.getX()-goal.getX()) + Math.abs(box.getY()-goal.getY()));
-    			if (dist < min){
-    				min = dist;
-    			}
-    		}
-    		totalDistance += min;
-    	}
-    	return totalDistance;
-    }
-
     private class Coordinates {
     	private int x;
     	private int y;
@@ -3549,19 +3456,5 @@ public class Map implements Serializable {
     		this.x=x;
     		this.y=y;
     	}
-    }
-    
-    public boolean equals(Map o){
-    	if (this.player_x != o.player_x)return false;
-    	if (this.player_y != o.player_y)return false;
-    	for (int y=0;y<this.grid[0].length;y++){
-    		for(int x=0;x<this.grid.length;x++){
-    			if (this.grid[x][y] != o.grid[x][y]){
-    				//System.out.println("found an elem that differs");
-    				return false;
-    			}
-    		}
-    	}
-    	return true;
     }
 }

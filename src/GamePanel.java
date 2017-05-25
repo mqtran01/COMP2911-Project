@@ -17,14 +17,14 @@ import javax.swing.border.LineBorder;
  * @author Group 1 Tutorial H14A
  *
  */
-public class Game extends JPanel {
+public class GamePanel extends JPanel {
 	private JLabel[][] grid;
 	private int length; 
 	private int height;
-	private Map map;
-	private Map originalMap;
-	private Map previousMap;//i.e. the map used for undo
-	private GameSettings settings;
+	private MapModel map;
+	private MapModel originalMap;
+	private MapModel previousMap;//i.e. the map used for undo
+	private SettingsModel settings;
 	private KeyEventDispatcher keyDispatcher;
 
 	// Music assets
@@ -49,7 +49,7 @@ public class Game extends JPanel {
 	 * @param map as the map to play
 	 * @param settings as the application settings
 	 */
-	public Game(CardLayout views, JPanel mainPanel, Map map, GameSettings settings, boolean isRandom)  {
+	public GamePanel(CardLayout views, JPanel mainPanel, MapModel map, SettingsModel settings, boolean isRandom)  {
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800,600));
 		this.map = map;
@@ -74,13 +74,13 @@ public class Game extends JPanel {
 		double scaledHgt = 500/height;
 		int proportion = (int) Math.min(scaledLen, scaledHgt);
 
-		ImageIcon wall = resizedImage(Map.WALL, proportion);
-		ImageIcon empty = resizedImage(Map.EMPTY, proportion);
-		ImageIcon player = resizedImage(Map.PLAYER, proportion);
-		ImageIcon box = resizedImage(Map.BOX, proportion);
-		ImageIcon goal = resizedImage(Map.GOAL, proportion);
-		ImageIcon goalBox = resizedImage(Map.GOALBOX, proportion);
-		ImageIcon goalPlayer = resizedImage(Map.GOALPLAYER, proportion);
+		ImageIcon wall = resizedImage(MapModel.WALL, proportion);
+		ImageIcon empty = resizedImage(MapModel.EMPTY, proportion);
+		ImageIcon player = resizedImage(MapModel.PLAYER, proportion);
+		ImageIcon box = resizedImage(MapModel.BOX, proportion);
+		ImageIcon goal = resizedImage(MapModel.GOAL, proportion);
+		ImageIcon goalBox = resizedImage(MapModel.GOALBOX, proportion);
+		ImageIcon goalPlayer = resizedImage(MapModel.GOALPLAYER, proportion);
 
 
 		// Draws the map visually
@@ -91,25 +91,25 @@ public class Game extends JPanel {
 				int tileItem = map.getTile(x, y);
 				ImageIcon img = null;
 				switch (tileItem) {
-				case Map.WALL:
+				case MapModel.WALL:
 					img = wall;
 					break;
-				case Map.EMPTY:
+				case MapModel.EMPTY:
 					img = empty;
 					break;
-				case Map.PLAYER:
+				case MapModel.PLAYER:
 					img = player;
 					break;
-				case Map.BOX:
+				case MapModel.BOX:
 					img = box;
 					break;
-				case Map.GOAL:
+				case MapModel.GOAL:
 					img = goal;
 					break;
-				case Map.GOALBOX:
+				case MapModel.GOALBOX:
 					img = goalBox;
 					break;
-				case Map.GOALPLAYER:
+				case MapModel.GOALPLAYER:
 					img = goalPlayer;
 					break;
 				}
@@ -164,7 +164,7 @@ public class Game extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Save!");
 				try {
-					SaveLoad.save(Game.this.map);
+					SaveLoad.save(GamePanel.this.map);
 					JOptionPane.showMessageDialog(null,
 							"          Your progress has been saved!", 
 							"Game Saved!", JOptionPane.PLAIN_MESSAGE);
@@ -180,7 +180,7 @@ public class Game extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Undo!");
 				if (previousMap != null){
-					setMap(Game.this.previousMap);
+					setMap(GamePanel.this.previousMap);
 					update("s");
 				}
 			}
@@ -190,7 +190,7 @@ public class Game extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Reset!");
-				Map resetMap = Game.this.originalMap.clone();
+				MapModel resetMap = GamePanel.this.originalMap.clone();
 				setMap(resetMap);
 				update("s");
 			}
@@ -225,33 +225,33 @@ public class Game extends JPanel {
 					System.out.println(key.getKeyCode());
 
 					if (key.getKeyCode() == KeyEvent.VK_W || key.getKeyCode() == KeyEvent.VK_UP){
-						Game.this.previousMap = Game.this.map.clone();
-						Game.this.map.moveUp();
+						GamePanel.this.previousMap = GamePanel.this.map.clone();
+						GamePanel.this.map.moveUp();
 						System.out.println("music is " + settings.isEnableMusic());
 						playSound(m_footsteps);
 						keyPressed = "w";
 					}
 					if (key.getKeyCode() == KeyEvent.VK_S || key.getKeyCode() == KeyEvent.VK_DOWN){
-						Game.this.previousMap = Game.this.map.clone();
-						Game.this.map.moveDown();
+						GamePanel.this.previousMap = GamePanel.this.map.clone();
+						GamePanel.this.map.moveDown();
 						playSound(m_footsteps);
 						keyPressed = "s";
 					}
 					if (key.getKeyCode() == KeyEvent.VK_A || key.getKeyCode() == KeyEvent.VK_LEFT){
-						Game.this.previousMap = Game.this.map.clone();
-						Game.this.map.moveLeft();
+						GamePanel.this.previousMap = GamePanel.this.map.clone();
+						GamePanel.this.map.moveLeft();
 						playSound(m_footsteps);
 						keyPressed = "a";
 					}
 					if (key.getKeyCode() == KeyEvent.VK_D || key.getKeyCode() == KeyEvent.VK_RIGHT){
-						Game.this.previousMap = Game.this.map.clone();
-						Game.this.map.moveRight();
+						GamePanel.this.previousMap = GamePanel.this.map.clone();
+						GamePanel.this.map.moveRight();
 						playSound(m_footsteps);
 						keyPressed = "d";
 					}
 					update(keyPressed);
 
-					if (Game.this.map.winState()){
+					if (GamePanel.this.map.winState()){
 						disableKeys();
 						playSound(m_winGame);
 						if (isRandom) {
@@ -389,7 +389,7 @@ public class Game extends JPanel {
 	 * Method for setting the map
 	 * @param map
 	 */
-	public void setMap(Map map){
+	public void setMap(MapModel map){
 		this.map = map;
 		update((String) null);
 
@@ -405,13 +405,13 @@ public class Game extends JPanel {
 		double scaledHgt = 500/height;
 
 		int proportion = (int) Math.min(scaledLen, scaledHgt);
-		ImageIcon wall = resizedImage(Map.WALL, proportion);
-		ImageIcon empty = resizedImage(Map.EMPTY, proportion);
-		ImageIcon box = resizedImage(Map.BOX, proportion);
-		ImageIcon goal = resizedImage(Map.GOAL, proportion);
-		ImageIcon goalBox = resizedImage(Map.GOALBOX, proportion);
-		ImageIcon goalPlayer = resizedImage(Map.GOALPLAYER, proportion);
-		ImageIcon player = resizedImage(Map.PLAYER, proportion);
+		ImageIcon wall = resizedImage(MapModel.WALL, proportion);
+		ImageIcon empty = resizedImage(MapModel.EMPTY, proportion);
+		ImageIcon box = resizedImage(MapModel.BOX, proportion);
+		ImageIcon goal = resizedImage(MapModel.GOAL, proportion);
+		ImageIcon goalBox = resizedImage(MapModel.GOALBOX, proportion);
+		ImageIcon goalPlayer = resizedImage(MapModel.GOALPLAYER, proportion);
+		ImageIcon player = resizedImage(MapModel.PLAYER, proportion);
 
 		if (direction != null) {
 			switch (direction) {
@@ -439,25 +439,25 @@ public class Game extends JPanel {
 				int tileItem = map.getTile(x, y);
 				ImageIcon img = null;
 				switch (tileItem) {
-				case Map.WALL:
+				case MapModel.WALL:
 					img = wall;
 					break;
-				case Map.EMPTY:
+				case MapModel.EMPTY:
 					img = empty;
 					break;
-				case Map.PLAYER:
+				case MapModel.PLAYER:
 					img = player;
 					break;
-				case Map.BOX:
+				case MapModel.BOX:
 					img = box;
 					break;
-				case Map.GOAL:
+				case MapModel.GOAL:
 					img = goal;
 					break;
-				case Map.GOALBOX:
+				case MapModel.GOALBOX:
 					img = goalBox;
 					break;
-				case Map.GOALPLAYER:
+				case MapModel.GOALPLAYER:
 					img = goalPlayer;
 					break;
 				}
@@ -478,25 +478,25 @@ public class Game extends JPanel {
 		String path = "image/" + settings.getSpriteSet();
 		String imgLoc = null;
 		switch (item) {
-		case Map.WALL:
+		case MapModel.WALL:
 			imgLoc = path + "Wall.png";
 			break;
-		case Map.EMPTY:
+		case MapModel.EMPTY:
 			imgLoc = path + "Empty.png";
 			break;
-		case Map.PLAYER:
+		case MapModel.PLAYER:
 			imgLoc = path + skin + "Down.png";
 			break;
-		case Map.BOX:
+		case MapModel.BOX:
 			imgLoc = path + "Box.png";
 			break;
-		case Map.GOAL:
+		case MapModel.GOAL:
 			imgLoc = path + "Goal.png";
 			break;
-		case Map.GOALBOX:
+		case MapModel.GOALBOX:
 			imgLoc = path + "GoalBox.png";
 			break;
-		case Map.GOALPLAYER:
+		case MapModel.GOALPLAYER:
 			imgLoc = path + skin + "DownGoal.png";
 			break;
 		case PLAYER_UP:

@@ -39,14 +39,14 @@ public class WarehouseBoss extends JFrame {
 		//To prevent window resizing
 		this.setResizable(false);			
 		
-		GameSettings settings;
+		SettingsModel settings;
 		try {
 			settings = SaveLoad.loadSettings();
 			if (settings == null){
-				settings = new GameSettings();//if it failed, just create a new one
+				settings = new SettingsModel();//if it failed, just create a new one
 			}
 		} catch (IOException e) {
-			settings = new GameSettings();//if it failed, just create a new one
+			settings = new SettingsModel();//if it failed, just create a new one
 		}
 
 		//Set mainPanel layout to CardLayout
@@ -55,8 +55,8 @@ public class WarehouseBoss extends JFrame {
 		//Create each view objects
 		StoryLevelSelector storyLvlPanel = new StoryLevelSelector(views, mainPanel, settings);
 		RandomLevelSelector randLvlPanel = new RandomLevelSelector(views, mainPanel, settings);
-		Settings settingsPanel = new Settings(views, mainPanel, settings);
-		Menu menuPanel = new Menu(views, mainPanel, settings);
+		SettingsPanel settingsPanel = new SettingsPanel(views, mainPanel, settings);
+		MenuPanel menuPanel = new MenuPanel(views, mainPanel, settings);
 		
 		//Add panels to mainPanel, utilising CardLayout
 		mainPanel.add(menuPanel, "Menu");
@@ -84,7 +84,7 @@ public class WarehouseBoss extends JFrame {
      * @param skin as the skin set
      * @param settings as the settings controller
      */
-    static public void changeSound(String skin, GameSettings settings) {
+    static public void changeSound(String skin, SettingsModel settings) {
     	String path = "assets/" + skin + "MusicBackground.wav";
     	System.out.println("changeSound!" + path);
     	if (settings.isEnableMusic()) {
@@ -107,7 +107,7 @@ public class WarehouseBoss extends JFrame {
 	 * @param filename as the file path of the sound file
 	 * @param settings as the settings controller
 	 */
-	static public void playSound(String filename, GameSettings settings) {
+	static public void playSound(String filename, SettingsModel settings) {
 		Thread musicThread = new Thread() {
 			@Override
 			public void run() {
@@ -135,7 +135,7 @@ public class WarehouseBoss extends JFrame {
 	 * Creates a delay to loop the sound file after it is complete
 	 * @param settings as the settings controller
 	 */
-	static private void loopSound(GameSettings settings) {
+	static private void loopSound(SettingsModel settings) {
 		String skin = settings.getSpriteSet();
 		int delay;
 		if (skin.equals("Star Warehouse/")) {

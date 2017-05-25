@@ -18,14 +18,14 @@ import javax.swing.border.LineBorder;
  * @author Group 1 Tutorial H14A
  *
  */
-public class Menu extends JPanel{
+public class MenuPanel extends JPanel{
 	private static final String[] BUTTON_TEXT = {"Start Game", "Load Game", "Random Game", "Settings", "Quit"};
-	private GameSettings settings;
+	private SettingsModel settings;
 
 	/**
 	 * Constructor for Menu Panel/View
 	 */
-	public Menu(final CardLayout views, final JPanel mainPanel, GameSettings settings) {
+	public MenuPanel(final CardLayout views, final JPanel mainPanel, SettingsModel settings) {
 		this.setLayout(new BorderLayout());
 		this.settings = settings;
 		
@@ -79,9 +79,9 @@ public class Menu extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Load Game!");
 				try {
-					Map map = SaveLoad.load();
+					MapModel map = SaveLoad.load();
 					if (map != null) {
-						Game newGame = new Game(views, mainPanel, map, settings, false);
+						GamePanel newGame = new GamePanel(views, mainPanel, map, settings, false);
 						mainPanel.add(newGame, "Game");
 						map.printMap();
 					} else {
