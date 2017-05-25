@@ -138,17 +138,20 @@ public class Models {
         return map.getHeight();
     }
     
-<<<<<<< HEAD
+    /**
+     * Gets the level of the map
+     * 
+     * @return level of map
+     */
     public int getMapLevel() {
     	return map.getMapLevel();
     }
 
-=======
+
     /**
      * Resets the current map to the original map
      * where it initially started from
      */
->>>>>>> bfd96389782d9ec43e033d4108a7bfff89cd6f7b
     public void reset() {
     	if (resetMap != null){
     		map = resetMap.clone();
