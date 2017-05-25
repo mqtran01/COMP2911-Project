@@ -2847,6 +2847,7 @@ public class MapModel implements Serializable {
         }
         clonedMap.player_x = this.player_x;
         clonedMap.player_y = this.player_y;
+        clonedMap.mapLevel = this.mapLevel;
         return clonedMap;
     }
 
