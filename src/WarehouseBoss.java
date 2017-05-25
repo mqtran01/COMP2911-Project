@@ -56,10 +56,10 @@ public class WarehouseBoss extends JFrame {
 		mainPanel.setLayout(views);
 		
 		//Create each view objects
-		StoryLevelSelector storyLvlPanel = new StoryLevelSelector(views, mainPanel, models);
-		RandomLevelSelector randLvlPanel = new RandomLevelSelector(views, mainPanel, models);
-		SettingsPanel settingsPanel = new SettingsPanel(views, mainPanel, models);
-		MenuPanel menuPanel = new MenuPanel(views, mainPanel, models);
+		StoryLevelSelector storyLvlPanel = new StoryLevelSelector(this, models);
+		RandomLevelSelector randLvlPanel = new RandomLevelSelector(this, models);
+		SettingsPanel settingsPanel = new SettingsPanel(this, models);
+		MenuPanel menuPanel = new MenuPanel(this, models);
 		
 		//Add panels to mainPanel, utilising CardLayout
 		mainPanel.add(menuPanel, "Menu");
@@ -81,7 +81,19 @@ public class WarehouseBoss extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
-
+	
+	public void swapPanel(String hash) {
+		views.show(mainPanel, hash);
+	}
+	
+	public void addPanel(JPanel panel, String hash) {
+		mainPanel.add(panel, hash);
+	}
+	
+	public void removePanel(JPanel panel) {
+		mainPanel.remove(panel);
+	}
+	
 	/**
      * Changes the background music based on skin
      * @param skin as the skin set

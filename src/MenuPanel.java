@@ -26,7 +26,7 @@ public class MenuPanel extends JPanel{
 	/**
 	 * Constructor for Menu Panel/View
 	 */
-	public MenuPanel(final CardLayout views, final JPanel mainPanel, Models models) {
+	public MenuPanel(WarehouseBoss warehouseBoss, Models models) {
 		this.models = models;
 		this.setLayout(new BorderLayout());
 //		this.settings = settings;
@@ -72,7 +72,7 @@ public class MenuPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Play Game!");
-				views.show(mainPanel, "Story");
+				warehouseBoss.swapPanel("Story");
 			}
 		});
 
@@ -83,19 +83,19 @@ public class MenuPanel extends JPanel{
 				try {
 					MapModel map = SaveLoad.load();
 					if (map != null) {
-						GamePanel newGame = new GamePanel(views, mainPanel, map, false, models);
-						mainPanel.add(newGame, "Game");
+						GamePanel newGame = new GamePanel(warehouseBoss, map, false, models);
+						warehouseBoss.addPanel(newGame, "Game");
 						map.printMap();
 					} else {
 						//Direct to level select when save file is null
-						views.show(mainPanel, "Story");
+						warehouseBoss.swapPanel("Story");
 					}
 				} catch (IOException e1) {
 					System.out.println("Load failed!");
 					e1.printStackTrace();
 				}
 
-				views.show(mainPanel, "Game");
+				warehouseBoss.swapPanel("Game");
 			}
 		});
 		
@@ -103,7 +103,7 @@ public class MenuPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Random Game!");
-				views.show(mainPanel, "Random");
+				warehouseBoss.swapPanel("Random");
 			}
 		});
 
@@ -112,7 +112,7 @@ public class MenuPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked settings!");
-				views.show(mainPanel, "Settings");
+				warehouseBoss.swapPanel("Settings");
 			}
 		});
 

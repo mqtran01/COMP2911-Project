@@ -19,11 +19,11 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 public class StoryLevelSelector extends JPanel {
-	private GamePanel gamePanel;
+	//private GamePanel gamePanel;
 	private char[] seed = {'a','b','c'};
 	private Models models;
 	
-	public StoryLevelSelector(final CardLayout views, final JPanel mainPanel, Models models) {
+	public StoryLevelSelector(WarehouseBoss warehouseBoss, Models models) {
 		this.setLayout(new BorderLayout());
 		this.models = models;
 		ImageIcon bgImage = new ImageIcon("image/" + models.getSpriteSet() + "bg.png");
@@ -58,26 +58,21 @@ public class StoryLevelSelector extends JPanel {
 			final int levelNum = counter%10 + 1;
 			final char levelSeed = seed[y];
 			
-			level.addActionListener(new ActionListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					MapModel newMap = new MapModel(levelSeed, levelNum);
-					GamePanel newGame = new GamePanel(views, mainPanel, newMap, false, models);
-					try {
-						gamePanel.disableKeys();
-						mainPanel.remove(gamePanel);
-					} catch (Exception g) {
-						System.out.println("Nothing to remove");
+			//Use to determine which levels can user play and thus create game
+			if (counter <= models.getNumLevelsCleared()) {
+				level.addActionListener(new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						MapModel newMap = new MapModel(levelSeed, levelNum);
+						GamePanel gamePanel = new GamePanel(warehouseBoss, newMap, false, models);
+						warehouseBoss.addPanel(gamePanel, "Game");
+						warehouseBoss.swapPanel("Game");
+	
 					}
-					gamePanel = newGame;
-					mainPanel.add(newGame, "Game");
-					views.show(mainPanel, "Game");
-
-				}
-			});
-			
-			//Use to determine which levels can user play
-			if (counter > models.getNumLevelsCleared()) level.setEnabled(false);
+				});
+			} else {
+				level.setEnabled(false);
+			}
 			
 			//Add level button the label
 			bgLabel.add(level, gbc);
@@ -105,7 +100,7 @@ public class StoryLevelSelector extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Back Button!");
-				views.show(mainPanel, "Menu");
+				warehouseBoss.swapPanel("Menu");
 			}
 		});
 	}

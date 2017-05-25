@@ -19,7 +19,7 @@ import javax.swing.border.LineBorder;
  */
 public class GamePanel extends JPanel {
 	private Models models;
-	
+
 	private JLabel[][] grid;
 	private int length; 
 	private int height;
@@ -50,7 +50,7 @@ public class GamePanel extends JPanel {
 	 * @param map as the map to play
 	 * @param settings as the application settings
 	 */
-	public GamePanel(CardLayout views, JPanel mainPanel, MapModel map, boolean isRandom, Models models)  {
+	public GamePanel(WarehouseBoss warehouseBoss, MapModel map, boolean isRandom, Models models)  {
 		this.models = models;
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800,600));
@@ -202,8 +202,7 @@ public class GamePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Main Menu!");
 				disableKeys();
-				//WarehouseBoss.swap("Menu");
-				views.show(mainPanel, "Menu");
+				warehouseBoss.swapPanel("Menu");
 			}
 		});
 
@@ -266,14 +265,18 @@ public class GamePanel extends JPanel {
 							JOptionPane.getRootFrame().dispose(); 
 							if (n == JOptionPane.NO_OPTION){
 								System.out.println("Clicked Main Menu!");
-								views.show(mainPanel, "Menu");
+								warehouseBoss.swapPanel("Menu");
 							}
 							if (n == JOptionPane.YES_OPTION){
 								System.out.println("Clicked Play Again!");
-								views.show(mainPanel, "Random");
+								warehouseBoss.swapPanel("Random");
 							}
 						} else {
 							models.setNumLevelsCleared();
+
+							//Recreated StoryLevelSelector to update number of playable levels
+							warehouseBoss.addPanel(new StoryLevelSelector(warehouseBoss, models), "Story");
+
 							Object[] options = {"Play Next?", "Main Menu"};
 							int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!", 
 									"You have won!", JOptionPane.YES_NO_CANCEL_OPTION, 
@@ -283,13 +286,11 @@ public class GamePanel extends JPanel {
 							JOptionPane.getRootFrame().dispose(); 
 							if (n == JOptionPane.NO_OPTION){
 								System.out.println("Clicked Main Menu!");
-								views.show(mainPanel, "Menu");
+								warehouseBoss.swapPanel("Menu");
 							}
 							if (n == JOptionPane.YES_OPTION){
 								System.out.println("Clicked Play Next!");
-								StoryLevelSelector sL = new StoryLevelSelector(views, mainPanel, models);
-								mainPanel.add(sL, "Story");
-								views.show(mainPanel, "Story");
+								warehouseBoss.swapPanel("Story");
 							}
 						}
 					}
@@ -300,7 +301,7 @@ public class GamePanel extends JPanel {
 
 		//add in keyboard controls
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyDispatcher);
-		
+
 		//Add bg image
 		ImageIcon bgImage = new ImageIcon("image/" + models.getSpriteSet() + "bg.png");
 		JLabel  bgLabel = new JLabel("", bgImage, JLabel.CENTER);
@@ -325,13 +326,6 @@ public class GamePanel extends JPanel {
 		});
 
 	}
-
-//	private void displayTutorial() {
-//		System.out.println("ON DISPLAY");
-//		JButton tute = new JButton(new ImageIcon("image/tutorial.png"));
-//		tute.setBounds(400, 300, 800, 600);
-//		this.add(tute);
-//	}
 
 	/**
 	 * Plays the movement sound file

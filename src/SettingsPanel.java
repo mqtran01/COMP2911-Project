@@ -28,13 +28,15 @@ public class SettingsPanel extends JPanel {
 	private static final String[] SPRITE_SETS = {"Star Warehouse", "PokeManGo"};
 //	private SettingsModel settings;
 	private Models models;
+	private WarehouseBoss warehouseBoss;
 	//private final String m_background = "assets/MusicBackground.wav";
 
 	/**
 	 * Constructor for Settings Panel/View
 	 */
-	public SettingsPanel(CardLayout views, JPanel mainPanel, Models models) {
+	public SettingsPanel(WarehouseBoss warehouseBoss, Models models) {
 		this.models = models;
+		this.warehouseBoss = warehouseBoss;
 		this.setLayout(new BorderLayout());
 //		this.settings = settings;
 
@@ -105,7 +107,7 @@ public class SettingsPanel extends JPanel {
 				} catch (IOException e1) {
 					System.out.println("save failed");
 				}
-				views.show(mainPanel, "Menu");
+				warehouseBoss.swapPanel("Menu");
 			}
 		});
 
@@ -142,7 +144,7 @@ public class SettingsPanel extends JPanel {
 				if (models.isEnableMusic()) {
 					WarehouseBoss.changeSound(selectedSkin + "/");
 				}
-				update(views, mainPanel);
+				update();
 			}
 		});
 
@@ -201,13 +203,13 @@ public class SettingsPanel extends JPanel {
 	 * @param views as the list of panels
 	 * @param mainPanel as the main control panel
 	 */
-	private void update(CardLayout views, JPanel mainPanel) {
-		mainPanel.removeAll();
+	private void update() {
+		//mainPanel.removeAll();
 		
-		mainPanel.add(new JPanel().add(new MenuPanel(views, mainPanel, models)), "Menu");
-		mainPanel.add(new JPanel().add(new StoryLevelSelector(views, mainPanel, models)), "Story");
-		mainPanel.add(new JPanel().add(new RandomLevelSelector(views, mainPanel, models)), "Random");
-		mainPanel.add(new JPanel().add(new SettingsPanel(views, mainPanel, models)), "Settings");
-		views.show(mainPanel, "Settings");
+		warehouseBoss.addPanel(new MenuPanel(warehouseBoss, models), "Menu");
+		warehouseBoss.addPanel(new StoryLevelSelector(warehouseBoss, models), "Story");
+		warehouseBoss.addPanel(new RandomLevelSelector(warehouseBoss, models), "Random");
+		warehouseBoss.addPanel(new SettingsPanel(warehouseBoss, models), "Settings");
+		warehouseBoss.swapPanel("Settings");
 	}
 }

@@ -30,7 +30,7 @@ public class RandomLevelSelector extends JPanel {
 	 * @param mainPanel as the main visible panel
 	 * @param settings as the application settings
 	 */
-	public RandomLevelSelector(final CardLayout views, final JPanel mainPanel, Models models) {
+	public RandomLevelSelector(WarehouseBoss warehouseBoss, Models models) {
 		this.setLayout(new BorderLayout());
 		this.models = models;
 		this.gamePanel = null;
@@ -104,16 +104,16 @@ public class RandomLevelSelector extends JPanel {
 //				} else {
 //				    newMap = new Map('a');
 //				}
-				GamePanel newGame = new GamePanel(views, mainPanel, newMap, true, models);
+				GamePanel newGame = new GamePanel(warehouseBoss, newMap, true, models);
 				try {
 					gamePanel.disableKeys();
-					mainPanel.remove(gamePanel);
+					warehouseBoss.removePanel(gamePanel);
 				} catch (Exception g) {
 					System.out.println("Nothing to remove");
 				}
 				gamePanel = newGame;
-				mainPanel.add(newGame, "Game");
-				views.show(mainPanel, "Game");
+				warehouseBoss.addPanel(newGame, "Game");
+				warehouseBoss.swapPanel("Game");
 
 			}
 		});
@@ -131,16 +131,16 @@ public class RandomLevelSelector extends JPanel {
 //                } else {
 //                    newMap = new Map('b');
 //                }
-				GamePanel newGame = new GamePanel(views, mainPanel, newMap, true, models);
+				GamePanel newGame = new GamePanel(warehouseBoss, newMap, true, models);
 				try {
 					gamePanel.disableKeys();
-					mainPanel.remove(gamePanel);
+					warehouseBoss.removePanel(gamePanel);
 				} catch (Exception g) {
 					System.out.println("Nothing to remove");
 				}
 				gamePanel = newGame;
-				mainPanel.add(newGame, "Game");
-				views.show(mainPanel, "Game");
+				warehouseBoss.addPanel(newGame, "Game");
+				warehouseBoss.swapPanel("Game");
 			}
 		});
 
@@ -156,16 +156,16 @@ public class RandomLevelSelector extends JPanel {
 //                } else {
 //                    newMap = new Map('c');
 //                }
-				GamePanel newGame = new GamePanel(views, mainPanel, newMap, true, models);
+				GamePanel newGame = new GamePanel(warehouseBoss, newMap, true, models);
 				try {
 					gamePanel.disableKeys();
-					mainPanel.remove(gamePanel);
+					warehouseBoss.removePanel(gamePanel);
 				} catch (Exception g) {
 					System.out.println("Nothing to remove");
 				}
 				gamePanel = newGame;
-				mainPanel.add(newGame, "Game");
-				views.show(mainPanel, "Game");
+				warehouseBoss.addPanel(newGame, "Game");
+				warehouseBoss.swapPanel("Game");
 			}
 		});
 
@@ -173,7 +173,7 @@ public class RandomLevelSelector extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Back Button!");
-				views.show(mainPanel, "Menu");
+				warehouseBoss.swapPanel("Menu");
 			}
 		});
 
