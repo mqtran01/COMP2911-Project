@@ -26,19 +26,19 @@ import javax.swing.border.LineBorder;
 public class SettingsPanel extends JPanel {
     private static final String[] BUTTON_TEXT = { "   Music", "   SFX", "Back" };
     private static final String[] SPRITE_SETS = { "Star Warehouse", "PokeManGo" };
-    // private SettingsModel settings;
     private Models models;
     private WarehouseBoss warehouseBoss;
-    // private final String m_background = "assets/MusicBackground.wav";
-
+    
     /**
      * Constructor for Settings Panel/View
+     * 
+     * @param warehouseBoss as the main game container
+     * @param models as the model handler
      */
     public SettingsPanel(WarehouseBoss warehouseBoss, Models models) {
         this.models = models;
         this.warehouseBoss = warehouseBoss;
         this.setLayout(new BorderLayout());
-        // this.settings = settings;
 
         // Make new check boxes and button
         JCheckBox musicBox = new JCheckBox(BUTTON_TEXT[0]);
@@ -202,14 +202,8 @@ public class SettingsPanel extends JPanel {
     /**
      * Updates all panels to the new skin set
      * 
-     * @param views
-     *            as the list of panels
-     * @param mainPanel
-     *            as the main control panel
      */
     private void update() {
-        // mainPanel.removeAll();
-
         warehouseBoss.addPanel(new MenuPanel(warehouseBoss, models), "Menu");
         warehouseBoss.addPanel(new StoryLevelSelector(warehouseBoss, models), "Story");
         warehouseBoss.addPanel(new RandomLevelSelector(warehouseBoss, models), "Random");

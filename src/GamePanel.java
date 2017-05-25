@@ -43,18 +43,13 @@ public class GamePanel extends JPanel {
     final static int GOALPLAYER_DOWN = 12;
     final static int GOALPLAYER_LEFT = 13;
     final static int GOALPLAYER_RIGHT = 14;
-
+    
     /**
-     * Constructor of the Game object
      * 
-     * @param views
-     *            as the card view collection
-     * @param mainPanel
-     *            as the main visible panel
-     * @param map
-     *            as the map to play
-     * @param settings
-     *            as the application settings
+     * @param warehouseBoss as the main game container
+     * @param map as the map to play
+     * @param isRandom as the check for random map
+     * @param models as the models handler
      */
     public GamePanel(WarehouseBoss warehouseBoss, MapModel map, boolean isRandom, Models models) {
         this.models = models;
@@ -330,8 +325,7 @@ public class GamePanel extends JPanel {
     /**
      * Plays the movement sound file
      * 
-     * @param filename
-     *            as the file path of the sound file
+     * @param filename as the file path of the sound file
      */
     private void playSound(String filename) {
         Thread musicThread = new Thread() {
@@ -360,10 +354,8 @@ public class GamePanel extends JPanel {
     /**
      * Resizes the image based on the map size to fit on window
      * 
-     * @param item
-     *            as the map element
-     * @param size
-     *            as the size to scale to
+     * @param item as the map element
+     * @param size as the size to scale to
      * @return the rescaled image
      */
     private ImageIcon resizedImage(int item, int size) {
@@ -399,8 +391,7 @@ public class GamePanel extends JPanel {
     /**
      * Method for updating the sprites displayed by the grid
      * 
-     * @param direction
-     *            as the direction the sprite is facing
+     * @param direction as the direction the sprite is facing
      */
     public void update(String direction) {
         System.out.println("updating");

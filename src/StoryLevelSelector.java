@@ -19,10 +19,15 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 public class StoryLevelSelector extends JPanel {
-    // private GamePanel gamePanel;
     private char[] seed = { 'a', 'b', 'c' };
     private Models models;
 
+    /**
+     * Constructor for Story Level Panel
+     * 
+     * @param warehouseBoss as the main game container
+     * @param models as the models handler
+     */
     public StoryLevelSelector(WarehouseBoss warehouseBoss, Models models) {
         this.setLayout(new BorderLayout());
         this.models = models;

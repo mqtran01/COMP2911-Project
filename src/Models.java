@@ -6,6 +6,11 @@ public class Models {
     private SettingsModel settings;
     GamePanel gamePanel;
 
+    /**
+     * Main model handler for the game for sounds and skins
+     * 
+     * @param settings as the game settings
+     */
     public Models(SettingsModel settings) {
         this.settings = settings;
         this.undoMap = null;
@@ -70,8 +75,7 @@ public class Models {
     /**
      * Sets enableMusic setting
      * 
-     * @param b
-     *            as the new setting
+     * @param b as the new setting
      */
     public void setEnableMusic(boolean b) {
         settings.setEnableMusic(b);
@@ -89,8 +93,7 @@ public class Models {
     /**
      * Sets enableSFX setting
      * 
-     * @param b
-     *            as the new setting
+     * @param b as the new setting
      */
     public void setEnableSFX(boolean b) {
         settings.setEnableSFX(b);

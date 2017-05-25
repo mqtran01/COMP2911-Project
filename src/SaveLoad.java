@@ -48,8 +48,7 @@ public class SaveLoad {
     /**
      * Saves the game writing it into the file 'savefile'
      * 
-     * @param map
-     *            as the map to save
+     * @param map as the map to save
      * @throws IOException
      */
     public static void save(MapModel map) throws IOException {
@@ -101,8 +100,7 @@ public class SaveLoad {
     /**
      * Saves the settings into 'savesettings'
      * 
-     * @param settings
-     *            as the settings to save
+     * @param settings as the settings to save
      * @throws IOException
      */
     public static void saveSettings(SettingsModel settings) throws IOException {

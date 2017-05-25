@@ -25,12 +25,14 @@ public class MenuPanel extends JPanel {
 
     /**
      * Constructor for Menu Panel/View
+     * 
+     * @param warehouseBoss as the main game container
+     * @param models as the model handler
      */
     public MenuPanel(WarehouseBoss warehouseBoss, Models models) {
         this.models = models;
         this.setLayout(new BorderLayout());
-        // this.settings = settings;
-
+        
         // Make new buttons
         JButton startGameBtn = new JButton(BUTTON_TEXT[0]);
         JButton loadGameBtn = new JButton(BUTTON_TEXT[1]);

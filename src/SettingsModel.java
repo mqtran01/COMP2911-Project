@@ -37,8 +37,7 @@ public class SettingsModel implements Serializable {
     /**
      * Sets enableMusic setting
      * 
-     * @param b
-     *            as the new setting
+     * @param b as the new setting
      */
     public void setEnableMusic(boolean b) {
         this.enableMusic = b;
@@ -56,8 +55,7 @@ public class SettingsModel implements Serializable {
     /**
      * Sets enableSFX setting
      * 
-     * @param b
-     *            as the new setting
+     * @param b as the new setting
      */
     public void setEnableSFX(boolean b) {
         this.enableSFX = b;
@@ -75,8 +73,7 @@ public class SettingsModel implements Serializable {
     /**
      * Sets the new spiteSet
      * 
-     * @param spriteSet
-     *            as the new spriteSet
+     * @param spriteSet as the new spriteSet
      */
     public void setSpriteSet(String spriteSet) {
         this.spriteSet = spriteSet;
@@ -94,8 +91,7 @@ public class SettingsModel implements Serializable {
     /**
      * Sets isSkin1 to new setting
      * 
-     * @param b
-     *            as new setting
+     * @param b as new setting
      */
     public void setSkin(boolean b) {
         isSkin1 = b;

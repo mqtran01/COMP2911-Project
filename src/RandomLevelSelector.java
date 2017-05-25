@@ -23,30 +23,23 @@ public class RandomLevelSelector extends JPanel {
     private static final String[] BUTTON_TEXT = { "Easy", "Medium", "Hard", "Back", " Random" };
     private GamePanel gamePanel;
     private Models models;
-    // private boolean isRandomLevel;
 
     /**
      * Constructor of the Level Selector object
      * 
-     * @param views
-     *            as the layout collection
-     * @param mainPanel
-     *            as the main visible panel
-     * @param settings
-     *            as the application settings
+     * @param warehouseBoss as the main game container
+     * @param models as the model controller
      */
     public RandomLevelSelector(WarehouseBoss warehouseBoss, Models models) {
         this.setLayout(new BorderLayout());
         this.models = models;
         this.gamePanel = null;
-        // this.isRandomLevel = false;
 
         // Make selection buttons
         JButton easyBtn = new JButton(BUTTON_TEXT[0]);
         JButton medBtn = new JButton(BUTTON_TEXT[1]);
         JButton hardBtn = new JButton(BUTTON_TEXT[2]);
         JButton backBtn = new JButton(BUTTON_TEXT[3]);
-        // JCheckBox randomBox = new JCheckBox(buttonText[4]);
 
         // Set the location of each button
         int btnWidth = 200;
@@ -57,8 +50,6 @@ public class RandomLevelSelector extends JPanel {
         medBtn.setBounds(startXPos, startYPos + 120, btnWidth, btnHeight);
         hardBtn.setBounds(startXPos, startYPos + 190, btnWidth, btnHeight);
         backBtn.setBounds(startXPos, startYPos + 290, btnWidth, btnHeight);
-        // randomBox.setBounds(startXPos + 40, startYPos + 230, btnWidth-50,
-        // btnHeight);
 
         // Set button fonts
         Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
@@ -66,14 +57,7 @@ public class RandomLevelSelector extends JPanel {
         medBtn.setFont(gameFont);
         hardBtn.setFont(gameFont);
         backBtn.setFont(gameFont);
-        // randomBox.setFont(gameFont);
 
-        // //Set Random text colour according to spriteSet
-        // if (settings.getSpriteSet().equals("Star Warehouse/")) {
-        // randomBox.setForeground(Color.WHITE);
-        // } else {
-        // randomBox.setForeground(Color.BLACK);
-        // }
 
         // Set button border
         Border buttonBorder = new LineBorder(Color.BLUE, 2);
@@ -81,22 +65,6 @@ public class RandomLevelSelector extends JPanel {
         medBtn.setBorder(buttonBorder);
         hardBtn.setBorder(buttonBorder);
         backBtn.setBorder(buttonBorder);
-        // randomBox.setOpaque(false);
-
-        // Set random checkBox property and action
-        // randomBox.setSelected(isRandomLevel);
-        // randomBox.addActionListener(new ActionListener(){
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // if (randomBox.isSelected()){
-        // isRandomLevel = true;
-        // System.out.println("Enabled random");
-        // } else {
-        // isRandomLevel = false;
-        // System.out.println("Disabled random");
-        // }
-        // }
-        // });
 
         // Set button actions
         easyBtn.addActionListener(new ActionListener() {
@@ -104,12 +72,7 @@ public class RandomLevelSelector extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Easy Button!");
                 MapModel newMap;
-                // if (isRandomLevel) {
                 newMap = new MapModel(0);
-                // models.setMap(newMap);
-                // } else {
-                // newMap = new Map('a');
-                // }
                 GamePanel newGame = new GamePanel(warehouseBoss, newMap, true, models);
                 try {
                     gamePanel.disableKeys();
@@ -129,14 +92,7 @@ public class RandomLevelSelector extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Medium Button!");
 
-                MapModel newMap;
-                // if (isRandomLevel) {
-
-                newMap = new MapModel(1);
-                // models.setMap(newMap);
-                // } else {
-                // newMap = new Map('b');
-                // }
+                MapModel newMap = new MapModel(1);
                 GamePanel newGame = new GamePanel(warehouseBoss, newMap, true, models);
                 try {
                     gamePanel.disableKeys();
@@ -155,13 +111,7 @@ public class RandomLevelSelector extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Hard Button!");
 
-                MapModel newMap;
-                // if (isRandomLevel) {
-                newMap = new MapModel(2);
-                // models.setMap(newMap);
-                // } else {
-                // newMap = new Map('c');
-                // }
+                MapModel newMap = new MapModel(2);
                 GamePanel newGame = new GamePanel(warehouseBoss, newMap, true, models);
                 try {
                     gamePanel.disableKeys();
@@ -188,7 +138,6 @@ public class RandomLevelSelector extends JPanel {
         this.add(medBtn);
         this.add(hardBtn);
         this.add(backBtn);
-        // this.add(randomBox);
 
         ImageIcon bgImage = new ImageIcon("image/" + models.getSpriteSet() + "Level_Select_Bg.png");
         JLabel bgLabel = new JLabel("", bgImage, JLabel.CENTER);

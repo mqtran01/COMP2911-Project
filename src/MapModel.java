@@ -36,13 +36,10 @@ public class MapModel implements Serializable {
     /**
      * Constructor is a pre-generated map based on a seed.
      * 
-     * @param seed
-     *            as a letter 'a', 'b', or 'c'
+     * @param seed as a letter 'a', 'b', or 'c'
+     * @param level as the level to play
      */
     public MapModel(char seed, int level) {
-        // Random rand = new Random(System.currentTimeMillis());
-        // int randMapNum = rand.nextInt((10 - 1) + 1) + 1;
-
         // Pre-loaded Maps
 
         if (seed == 'a') {
@@ -2773,15 +2770,12 @@ public class MapModel implements Serializable {
 
             }
         }
-
-        // System.out.println(isSolvable(this));
     }
 
     /**
      * Constructor of a randomly generated map
      * 
-     * @param difficulty
-     *            as the difficulty
+     * @param difficulty as the difficulty of the game
      */
     public MapModel(int difficulty) {
         int length;
@@ -2860,10 +2854,8 @@ public class MapModel implements Serializable {
     /**
      * Gets the value of a grid space given its x and y coordinates
      * 
-     * @param x
-     *            as the x coord
-     * @param y
-     *            as the y coord
+     * @param x as the x coord
+     * @param y as the y coord
      * @return the element at the tile
      */
     public int getTile(int x, int y) {
@@ -2874,10 +2866,8 @@ public class MapModel implements Serializable {
      * Helper function to change a grid tile to a value where the box or player
      * is no longer there
      * 
-     * @param x
-     *            as the x coord
-     * @param y
-     *            as the y coord
+     * @param x as the x coord
+     * @param y as the y coord
      * @return the to change the coordinate into after moving
      */
     private int removeObject(int x, int y) {
@@ -3105,8 +3095,7 @@ public class MapModel implements Serializable {
     /**
      * Gets a 3x3 template string
      * 
-     * @param seed
-     *            as the seed to choose from
+     * @param seed as the seed to choose from
      * @return a 9 character string
      */
     private String createTemplate(int seed) {
@@ -3194,8 +3183,7 @@ public class MapModel implements Serializable {
     /**
      * Creates the map out of the template string without rotating
      * 
-     * @param template
-     *            as the String template to rotate
+     * @param template as the String template to rotate
      * @return the 3x3 grid
      */
     private int[][] rotate0(String template) {
@@ -3214,8 +3202,7 @@ public class MapModel implements Serializable {
     /**
      * Creates the map out of the template string rotate 90 degrees clockwise
      * 
-     * @param template
-     *            as the String template to rotate
+     * @param template as the String template to rotate
      * @return the 3x3 grid
      */
     private int[][] rotate90(String template) {
@@ -3233,8 +3220,7 @@ public class MapModel implements Serializable {
     /**
      * Creates the map out of the template string rotate 180 degrees clockwise
      * 
-     * @param template
-     *            as the String template to rotate
+     * @param template as the String template to rotate
      * @return the 3x3 grid
      */
     private int[][] rotate180(String template) {
@@ -3252,8 +3238,7 @@ public class MapModel implements Serializable {
     /**
      * Creates the map out of the template string rotate 270 degrees clockwise
      * 
-     * @param template
-     *            as the String template to rotate
+     * @param template as the String template to rotate
      * @return the 3x3 grid
      */
     private int[][] rotate270(String template) {
@@ -3271,10 +3256,8 @@ public class MapModel implements Serializable {
     /**
      * Checks that at least 3 adjacent sides are free before placing
      * 
-     * @param xPos
-     *            as the x coord
-     * @param yPos
-     *            as the y coord
+     * @param xPos as the x coord
+     * @param yPos as the y coord
      * @param objective
      *            as the element to with
      * @return
@@ -3324,10 +3307,8 @@ public class MapModel implements Serializable {
      * Creates a grid that add a wall on the outer edge so player cannot go out
      * of bounds
      * 
-     * @param length
-     *            of the grid
-     * @param height
-     *            of the grid
+     * @param length of the grid
+     * @param height of the grid
      * @return a grid with all the outer walls initialised
      */
     private int[][] createOuterWall(int length, int height) {
@@ -3346,12 +3327,9 @@ public class MapModel implements Serializable {
     /**
      * Adds the map element specified
      * 
-     * @param element
-     *            as the map element
-     * @param count
-     *            how many to add in
-     * @param rGen
-     *            as the random number generator
+     * @param element as the map element
+     * @param count how many to add in
+     * @param rGen as the random number generator
      * @return true if all elements were successfully added
      */
     private boolean addMapElements(int element, int count, Random rGen) {
@@ -3398,8 +3376,7 @@ public class MapModel implements Serializable {
     /**
      * A search to determine that all map elements are connected to the player
      * 
-     * @param objectives
-     *            as number of objects on the map
+     * @param objectives as number of objects on the map
      * @return true if all objects can be reached by the player
      */
     private boolean connectedMap(int objectives) {
@@ -3469,16 +3446,8 @@ public class MapModel implements Serializable {
             return x;
         }
 
-        public void setX(int x) {
-            this.x = x;
-        }
-
         public int getY() {
             return y;
-        }
-
-        public void setY(int y) {
-            this.y = y;
         }
 
         public Coordinates(int x, int y) {
