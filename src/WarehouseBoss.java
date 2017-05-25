@@ -87,16 +87,18 @@ public class WarehouseBoss extends JFrame {
     static public void changeSound(String skin, GameSettings settings) {
     	String path = "assets/" + skin + "MusicBackground.wav";
     	System.out.println("changeSound!" + path);
-    	try{
-			// Open an audio input stream.
-			AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(path));
-			// Get a sound clip resource.
-			clip = AudioSystem.getClip();
-			// Open audio clip and load samples from the audio input stream.
-			clip.open(audioIn);
-			clip.start();
-			loopSound(settings);
-		} catch(Exception e) {
+    	if (settings.isEnableMusic()) {
+			try {
+				// Open an audio input stream.
+				AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(path));
+				// Get a sound clip resource.
+				clip = AudioSystem.getClip();
+				// Open audio clip and load samples from the audio input stream.
+				clip.open(audioIn);
+				clip.start();
+				loopSound(settings);
+			} catch (Exception e) {
+			}
 		}
     }
 
