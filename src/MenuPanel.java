@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -19,7 +20,7 @@ import javax.swing.border.LineBorder;
  *
  */
 public class MenuPanel extends JPanel {
-    private static final String[] BUTTON_TEXT = { "Start Game", "Load Game", "Random Game", "Settings", "Quit" };
+    private static final String[] BUTTON_TEXT = { "Start Game", "Resume Game", "Random Game", "Settings", "Quit" };
     private Models models;
 
     /**
@@ -34,7 +35,7 @@ public class MenuPanel extends JPanel {
         
         // Make new buttons
         JButton startGameBtn = new JButton(BUTTON_TEXT[0]);
-        JButton loadGameBtn = new JButton(BUTTON_TEXT[1]);
+        JButton resumeGameBtn = new JButton(BUTTON_TEXT[1]);
         JButton randGameBtn = new JButton(BUTTON_TEXT[2]);
         JButton settingsBtn = new JButton(BUTTON_TEXT[3]);
         JButton quitBtn = new JButton(BUTTON_TEXT[4]);
@@ -45,7 +46,7 @@ public class MenuPanel extends JPanel {
         int startXPos = 400 - btnWidth / 2;
         int startYPos = 150;
         startGameBtn.setBounds(startXPos, startYPos, btnWidth, btnHeight);
-        loadGameBtn.setBounds(startXPos, startYPos + 80, btnWidth, btnHeight);
+        resumeGameBtn.setBounds(startXPos, startYPos + 80, btnWidth, btnHeight);
         randGameBtn.setBounds(startXPos, startYPos + 160, btnWidth, btnHeight);
         settingsBtn.setBounds(startXPos, startYPos + 240, btnWidth, btnHeight);
         quitBtn.setBounds(startXPos, startYPos + 320, btnWidth, btnHeight);
@@ -53,7 +54,7 @@ public class MenuPanel extends JPanel {
         // Set button fonts
         Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
         startGameBtn.setFont(gameFont);
-        loadGameBtn.setFont(gameFont);
+        resumeGameBtn.setFont(gameFont);
         randGameBtn.setFont(gameFont);
         settingsBtn.setFont(gameFont);
         quitBtn.setFont(gameFont);
@@ -61,7 +62,7 @@ public class MenuPanel extends JPanel {
         // Set button border
         Border buttonBorder = new LineBorder(Color.BLUE, 2);
         startGameBtn.setBorder(buttonBorder);
-        loadGameBtn.setBorder(buttonBorder);
+        resumeGameBtn.setBorder(buttonBorder);
         randGameBtn.setBorder(buttonBorder);
         settingsBtn.setBorder(buttonBorder);
         quitBtn.setBorder(buttonBorder);
@@ -75,10 +76,10 @@ public class MenuPanel extends JPanel {
             }
         });
 
-        loadGameBtn.addActionListener(new ActionListener() {
+        resumeGameBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Load Game!");
+                System.out.println("Clicked Resume Game!");
                 try {
                     MapModel map = SaveLoad.load();
                     if (map != null) {
@@ -87,8 +88,9 @@ public class MenuPanel extends JPanel {
                         warehouseBoss.addPanel(newGame, "Game");
                         //map.printMap();
                     } else {
-                        // Direct to level select when save file is null
-                        warehouseBoss.swapPanel("Story");
+                        // Pop up when no saved file found
+                    	JOptionPane.showMessageDialog(null, "              No saved progress Found!", "Resume Failed",
+                                JOptionPane.PLAIN_MESSAGE);
                     }
                 } catch (IOException e1) {
                     System.out.println("Load failed!");
@@ -125,7 +127,7 @@ public class MenuPanel extends JPanel {
 
         // Add buttons to this
         this.add(startGameBtn);
-        this.add(loadGameBtn);
+        this.add(resumeGameBtn);
         this.add(randGameBtn);
         this.add(settingsBtn);
         this.add(quitBtn);
