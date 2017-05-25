@@ -15,6 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+
+/**
+ * Story Level Selector Panel to handle the story levels and progression 
+ * 
+ * @author Group 1 Tutorial H14A
+ *
+ */
 public class StoryLevelSelector extends JPanel {
     private char[] seed = { 'a', 'b', 'c' };
     private Models models;
@@ -67,11 +74,8 @@ public class StoryLevelSelector extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         MapModel newMap = new MapModel(levelSeed, levelNum);
-                        //StoryLevelSelector.this.models.setMap(newMap);
                         models.setMap(newMap);
-                        //GamePanel gamePanel = new GamePanel(warehouseBoss, false, StoryLevelSelector.this.models);
                         GamePanel gamePanel = new GamePanel(warehouseBoss, false, models);
-                        //StoryLevelSelector.this.models.setGamePanel(gamePanel);
                         models.setGamePanel(gamePanel);
                         warehouseBoss.addPanel(gamePanel, "Game");
                         warehouseBoss.swapPanel("Game");

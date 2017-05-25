@@ -12,8 +12,8 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 /**
- * Class of the Main Menu with layout and controller Used to navigate to other
- * panels
+ * Class of the main Menu Panel with layout and controller.
+ * Used to navigate to other panels.
  * 
  * @author Group 1 Tutorial H14A
  *

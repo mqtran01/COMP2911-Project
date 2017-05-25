@@ -13,7 +13,7 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 /**
- * Game class which contains the gameplay visuals and controller
+ * Game Panel class which contains the gameplay visuals and controller
  * 
  * @author Group 1 Tutorial H14A
  *
@@ -369,16 +369,6 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * Method for setting the map
-     * 
-     * @param map
-     */
-    /*public void setMap(MapModel map) {
-        this.map = map;
-        update((String) null);
-    }*/
-
-    /**
      * Method for updating the sprites displayed by the grid
      * 
      * @param direction as the direction the sprite is facing
@@ -455,10 +445,8 @@ public class GamePanel extends JPanel {
     /**
      * Method to select images of objects according to skin and spriteSet active
      * 
-     * @param skin
-     *            as current active skin
-     * @param item
-     *            as the item
+     * @param skin as current active skin
+     * @param item as the item
      * @return String as the path for the image object
      */
     private String imageSelector(String skin, int item) {
