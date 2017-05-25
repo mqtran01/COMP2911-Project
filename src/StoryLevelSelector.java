@@ -48,22 +48,32 @@ public class StoryLevelSelector extends JPanel {
 
         // Set font and border settings
         Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
+        Border easyBorder = new LineBorder(Color.GREEN, 2);
+        Border mediumBorder = new LineBorder(Color.ORANGE, 2);
+        Border hardBorder = new LineBorder(Color.RED, 2);
         Border buttonBorder = new LineBorder(Color.BLUE, 2);
+
 
         int counter = 0;
         int y = -1;
         while (counter < 30) {
             if (counter % 10 == 0)
                 y++;
-
+            
             gbc.gridx = counter % 10;
             gbc.gridy = y;
 
             JButton level = new JButton(Integer.toString(counter + 1));
             level.setPreferredSize(new Dimension(60, 60));
             level.setFont(gameFont);
-            level.setBorder(buttonBorder);
-
+            if (counter < 10){
+            	level.setBorder(easyBorder);
+            } else if (counter < 20){
+            	level.setBorder(mediumBorder);
+            } else {
+            	level.setBorder(hardBorder);
+            }
+            
             final int levelNum = counter+1;
 
             // Use to determine which levels can user play and thus create game
@@ -106,6 +116,7 @@ public class StoryLevelSelector extends JPanel {
         // Add font and border
         backBtn.setFont(gameFont);
         backBtn.setBorder(buttonBorder);
+        backBtn.setPreferredSize(new Dimension(200,50));
 
         // Add listener
         backBtn.addActionListener(new ActionListener() {
