@@ -101,8 +101,9 @@ public class SettingsModel implements Serializable {
         return numLevelsCleared;
     }
 
-    public void setNumLevelsCleared() {
-        numLevelsCleared++;
+    public void setNumLevelsCleared(int level) {
+        if (level > numLevelsCleared)
+        	numLevelsCleared++;
     }
 
 }

@@ -18,7 +18,7 @@ import javax.swing.border.LineBorder;
  *
  */
 public class RandomLevelSelector extends JPanel {
-    private static final String[] BUTTON_TEXT = { "Easy", "Medium", "Hard", "Back", " Random" };
+    private static final String[] BUTTON_TEXT = { "Easy", "Medium", "Hard", "Back"};
     private GamePanel gamePanel;
     private Models models;
 
@@ -70,9 +70,9 @@ public class RandomLevelSelector extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Easy Button!");
                 MapModel newMap;
-                newMap = new MapModel(0);
+                newMap = new MapModel('e');
                 RandomLevelSelector.this.models.setMap(newMap);
-                GamePanel newGame = new GamePanel(warehouseBoss, true, RandomLevelSelector.this.models);
+                GamePanel newGame = new GamePanel(warehouseBoss, RandomLevelSelector.this.models);
                 try {
                     gamePanel.disableKeys();
                     warehouseBoss.removePanel(gamePanel);
@@ -91,9 +91,9 @@ public class RandomLevelSelector extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Medium Button!");
 
-                MapModel newMap = new MapModel(1);
+                MapModel newMap = new MapModel('m');
                 RandomLevelSelector.this.models.setMap(newMap);
-                GamePanel newGame = new GamePanel(warehouseBoss, true, RandomLevelSelector.this.models);
+                GamePanel newGame = new GamePanel(warehouseBoss, RandomLevelSelector.this.models);
                 try {
                     gamePanel.disableKeys();
                     warehouseBoss.removePanel(gamePanel);
@@ -111,9 +111,9 @@ public class RandomLevelSelector extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Hard Button!");
 
-                MapModel newMap = new MapModel(2);
+                MapModel newMap = new MapModel('h');
                 RandomLevelSelector.this.models.setMap(newMap);
-                GamePanel newGame = new GamePanel(warehouseBoss, true, RandomLevelSelector.this.models);
+                GamePanel newGame = new GamePanel(warehouseBoss, RandomLevelSelector.this.models);
                 try {
                     gamePanel.disableKeys();
                     warehouseBoss.removePanel(gamePanel);

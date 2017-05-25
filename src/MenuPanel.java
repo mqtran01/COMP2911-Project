@@ -83,7 +83,7 @@ public class MenuPanel extends JPanel {
                     MapModel map = SaveLoad.load();
                     if (map != null) {
                     	MenuPanel.this.models.setMap(map);
-                        GamePanel newGame = new GamePanel(warehouseBoss, false, MenuPanel.this.models);
+                        GamePanel newGame = new GamePanel(warehouseBoss, MenuPanel.this.models);
                         warehouseBoss.addPanel(newGame, "Game");
                         //map.printMap();
                     } else {

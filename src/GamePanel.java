@@ -45,10 +45,9 @@ public class GamePanel extends JPanel {
      * 
      * @param warehouseBoss as the main game container
      * @param map as the map to play
-     * @param isRandom as the check for random map
      * @param models as the models handler
      */
-    public GamePanel(WarehouseBoss warehouseBoss, boolean isRandom, Models models) {
+    public GamePanel(WarehouseBoss warehouseBoss, Models models) {
         this.models = models;
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(800, 600));
@@ -241,7 +240,8 @@ public class GamePanel extends JPanel {
                     if (GamePanel.this.models.winState()) {
                         disableKeys();
                         playSound(m_winGame);
-                        if (isRandom) {
+                        int level = GamePanel.this.models.getMapLevel();
+                        if (level == -1) {
                             Object[] options = { "Play Again?", "Main Menu" };
                             int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!",
                                     "You have won!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION, null,
@@ -256,11 +256,18 @@ public class GamePanel extends JPanel {
                                 warehouseBoss.swapPanel("Random");
                             }
                         } else {
-                            GamePanel.this.models.setNumLevelsCleared();
+                            GamePanel.this.models.setNumLevelsCleared(level);
 
                             // Recreated StoryLevelSelector to update number of
                             // playable levels
                             warehouseBoss.addPanel(new StoryLevelSelector(warehouseBoss, GamePanel.this.models), "Story");
+                            
+                            // Save progress
+                            try {
+                                SaveLoad.saveSettings(GamePanel.this.models.getSettings());
+                            } catch (IOException e1) {
+                                System.out.println("save failed");
+                            }
 
                             Object[] options = { "Play Next?", "Main Menu" };
                             int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!",

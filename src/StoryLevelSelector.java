@@ -16,7 +16,6 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 public class StoryLevelSelector extends JPanel {
-    private char[] seed = { 'a', 'b', 'c' };
     private Models models;
 
     /**
@@ -58,19 +57,18 @@ public class StoryLevelSelector extends JPanel {
             level.setFont(gameFont);
             level.setBorder(buttonBorder);
 
-            final int levelNum = counter % 10 + 1;
-            final char levelSeed = seed[y];
+            final int levelNum = counter+1;
 
             // Use to determine which levels can user play and thus create game
             if (counter <= models.getNumLevelsCleared()) {
                 level.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        MapModel newMap = new MapModel(levelSeed, levelNum);
+                        MapModel newMap = new MapModel(levelNum);
                         //StoryLevelSelector.this.models.setMap(newMap);
                         models.setMap(newMap);
                         //GamePanel gamePanel = new GamePanel(warehouseBoss, false, StoryLevelSelector.this.models);
-                        GamePanel gamePanel = new GamePanel(warehouseBoss, false, models);
+                        GamePanel gamePanel = new GamePanel(warehouseBoss, models);
                         //StoryLevelSelector.this.models.setGamePanel(gamePanel);
                         models.setGamePanel(gamePanel);
                         warehouseBoss.addPanel(gamePanel, "Game");

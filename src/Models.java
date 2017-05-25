@@ -71,6 +71,9 @@ public class Models {
         return map.getHeight();
     }
     
+    public int getMapLevel() {
+    	return map.getMapLevel();
+    }
 
     public void reset() {
     	if (resetMap != null){
@@ -162,8 +165,8 @@ public class Models {
         return settings.getNumLevelsCleared();
     }
 
-    public void setNumLevelsCleared() {
-        settings.setNumLevelsCleared();
+    public void setNumLevelsCleared(int level) {
+        settings.setNumLevelsCleared(level);
     }
 
 }
