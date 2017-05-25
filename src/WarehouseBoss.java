@@ -17,10 +17,10 @@ import javax.swing.JPanel;
  *
  */
 public class WarehouseBoss extends JFrame {
-	private Models models;//hold the models which will be passed to all 
 	private JPanel mainPanel;
 	private CardLayout views;
-
+	private Models models;
+	private static SettingsModel settings;
 	public static Clip clip;
 
 	/**
@@ -41,7 +41,6 @@ public class WarehouseBoss extends JFrame {
 		this.setResizable(false);			
 		
 		
-		SettingsModel settings;
 		try {
 			settings = SaveLoad.loadSettings();
 			if (settings == null){
@@ -50,17 +49,17 @@ public class WarehouseBoss extends JFrame {
 		} catch (IOException e) {
 			settings = new SettingsModel();//if it failed, just create a new one
 		}
-		Models models = new Models(settings);
 		
+		this.models = new Models(settings);
 
 		//Set mainPanel layout to CardLayout
 		mainPanel.setLayout(views);
 		
 		//Create each view objects
-		StoryLevelSelector storyLvlPanel = new StoryLevelSelector(views, mainPanel, settings, models);
-		RandomLevelSelector randLvlPanel = new RandomLevelSelector(views, mainPanel, settings, models);
-		SettingsPanel settingsPanel = new SettingsPanel(views, mainPanel, settings, models);
-		MenuPanel menuPanel = new MenuPanel(views, mainPanel, settings, models);
+		StoryLevelSelector storyLvlPanel = new StoryLevelSelector(views, mainPanel, models);
+		RandomLevelSelector randLvlPanel = new RandomLevelSelector(views, mainPanel, models);
+		SettingsPanel settingsPanel = new SettingsPanel(views, mainPanel, models);
+		MenuPanel menuPanel = new MenuPanel(views, mainPanel, models);
 		
 		//Add panels to mainPanel, utilising CardLayout
 		mainPanel.add(menuPanel, "Menu");
@@ -88,7 +87,7 @@ public class WarehouseBoss extends JFrame {
      * @param skin as the skin set
      * @param settings as the settings controller
      */
-    static public void changeSound(String skin, SettingsModel settings) {
+    static public void changeSound(String skin) {
     	String path = "assets/" + skin + "MusicBackground.wav";
     	System.out.println("changeSound!" + path);
     	if (settings.isEnableMusic()) {

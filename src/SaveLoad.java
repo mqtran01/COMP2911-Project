@@ -71,7 +71,7 @@ public class SaveLoad {
 	 * @return the loaded GameSettings
 	 * @throws IOException
 	 */
-	public static SettingsModel loadSettings() throws IOException{
+	public static SettingsModel loadSettings() throws IOException {
 		ObjectInputStream in = null;
 		SettingsModel settings = null;
 		try {

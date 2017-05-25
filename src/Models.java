@@ -10,6 +10,11 @@ public class Models {
 		this.settings=settings;
 		this.undoMap = null;
 		this.resetMap = null;
+		
+	}
+	
+	public SettingsModel getSettings() {
+	    return settings;
 	}
 	
 	public void setGamePanel(GamePanel gamePanel){

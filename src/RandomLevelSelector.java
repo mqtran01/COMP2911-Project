@@ -30,7 +30,7 @@ public class RandomLevelSelector extends JPanel {
 	 * @param mainPanel as the main visible panel
 	 * @param settings as the application settings
 	 */
-	public RandomLevelSelector(final CardLayout views, final JPanel mainPanel, SettingsModel settings, Models models) {
+	public RandomLevelSelector(final CardLayout views, final JPanel mainPanel, Models models) {
 		this.setLayout(new BorderLayout());
 		this.models = models;
 		this.gamePanel = null;
@@ -100,10 +100,11 @@ public class RandomLevelSelector extends JPanel {
 				MapModel newMap;
 //				if (isRandomLevel) {
 				    newMap = new MapModel(0);
+//				    models.setMap(newMap);
 //				} else {
 //				    newMap = new Map('a');
 //				}
-				GamePanel newGame = new GamePanel(views, mainPanel, newMap, settings, true, models);
+				GamePanel newGame = new GamePanel(views, mainPanel, newMap, true, models);
 				try {
 					gamePanel.disableKeys();
 					mainPanel.remove(gamePanel);
@@ -124,11 +125,13 @@ public class RandomLevelSelector extends JPanel {
 				
 				MapModel newMap;
 //                if (isRandomLevel) {
+				
                     newMap = new MapModel(1);
+//                    models.setMap(newMap);
 //                } else {
 //                    newMap = new Map('b');
 //                }
-				GamePanel newGame = new GamePanel(views, mainPanel, newMap, settings, true, models);
+				GamePanel newGame = new GamePanel(views, mainPanel, newMap, true, models);
 				try {
 					gamePanel.disableKeys();
 					mainPanel.remove(gamePanel);
@@ -149,10 +152,11 @@ public class RandomLevelSelector extends JPanel {
 				MapModel newMap;
 //                if (isRandomLevel) {
                     newMap = new MapModel(2);
+//                    models.setMap(newMap);
 //                } else {
 //                    newMap = new Map('c');
 //                }
-				GamePanel newGame = new GamePanel(views, mainPanel, newMap, settings, true, models);
+				GamePanel newGame = new GamePanel(views, mainPanel, newMap, true, models);
 				try {
 					gamePanel.disableKeys();
 					mainPanel.remove(gamePanel);
@@ -180,7 +184,7 @@ public class RandomLevelSelector extends JPanel {
 		this.add(backBtn);
 //		this.add(randomBox);
 
-		ImageIcon bgImage = new ImageIcon("image/" + settings.getSpriteSet() + "Level_Select_Bg.png");
+		ImageIcon bgImage = new ImageIcon("image/" + models.getSpriteSet() + "Level_Select_Bg.png");
 		JLabel  bgLabel = new JLabel("", bgImage, JLabel.CENTER);
 		this.add(bgLabel);
 		bgLabel.setBounds(0, 0, 800, 600);

@@ -26,7 +26,6 @@ public class GamePanel extends JPanel {
 	private MapModel map;
 	private MapModel originalMap;
 	private MapModel previousMap;//i.e. the map used for undo
-	private SettingsModel settings;
 	private KeyEventDispatcher keyDispatcher;
 
 	// Music assets
@@ -51,14 +50,13 @@ public class GamePanel extends JPanel {
 	 * @param map as the map to play
 	 * @param settings as the application settings
 	 */
-	public GamePanel(CardLayout views, JPanel mainPanel, MapModel map, SettingsModel settings, boolean isRandom, Models models)  {
+	public GamePanel(CardLayout views, JPanel mainPanel, MapModel map, boolean isRandom, Models models)  {
 		this.models = models;
 		this.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(800,600));
 		this.map = map;
 		this.originalMap = map.clone();
 		this.previousMap = null;
-		this.settings = settings;
 
 		length = map.getLength();
 		height = map.getHeight();
@@ -204,6 +202,7 @@ public class GamePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Clicked Main Menu!");
 				disableKeys();
+				//WarehouseBoss.swap("Menu");
 				views.show(mainPanel, "Menu");
 			}
 		});
@@ -215,7 +214,7 @@ public class GamePanel extends JPanel {
 		btnPanel.add(quitBtn);
 
 		// Gets the file names of sounds
-		String path = "assets/" + settings.getSpriteSet();
+		String path = "assets/" + models.getSpriteSet();
 		m_footsteps = path + m_footsteps;
 		m_moveBox = path + m_moveBox;
 		m_winGame = path + m_winGame;
@@ -230,7 +229,7 @@ public class GamePanel extends JPanel {
 					if (key.getKeyCode() == KeyEvent.VK_W || key.getKeyCode() == KeyEvent.VK_UP){
 						GamePanel.this.previousMap = GamePanel.this.map.clone();
 						GamePanel.this.map.moveUp();
-						System.out.println("music is " + settings.isEnableMusic());
+						System.out.println("music is " + models.isEnableMusic());
 						playSound(m_footsteps);
 						keyPressed = "w";
 					}
@@ -274,7 +273,7 @@ public class GamePanel extends JPanel {
 								views.show(mainPanel, "Random");
 							}
 						} else {
-							settings.setNumLevelsCleared();
+							models.setNumLevelsCleared();
 							Object[] options = {"Play Next?", "Main Menu"};
 							int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!", 
 									"You have won!", JOptionPane.YES_NO_CANCEL_OPTION, 
@@ -288,7 +287,7 @@ public class GamePanel extends JPanel {
 							}
 							if (n == JOptionPane.YES_OPTION){
 								System.out.println("Clicked Play Next!");
-								StoryLevelSelector sL = new StoryLevelSelector(views, mainPanel, settings, models);
+								StoryLevelSelector sL = new StoryLevelSelector(views, mainPanel, models);
 								mainPanel.add(sL, "Story");
 								views.show(mainPanel, "Story");
 							}
@@ -303,7 +302,7 @@ public class GamePanel extends JPanel {
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(keyDispatcher);
 		
 		//Add bg image
-		ImageIcon bgImage = new ImageIcon("image/" + settings.getSpriteSet() + "bg.png");
+		ImageIcon bgImage = new ImageIcon("image/" + models.getSpriteSet() + "bg.png");
 		JLabel  bgLabel = new JLabel("", bgImage, JLabel.CENTER);
 		bgLabel.setBounds(0, 0, 800, 600);
 		bgLabel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -355,7 +354,7 @@ public class GamePanel extends JPanel {
 				}
 			}
 		};
-		if (settings.isEnableSFX()) {
+		if (models.isEnableSFX()) {
 			System.out.println("SFX enabled");
 			musicThread.start();
 		}
@@ -371,7 +370,7 @@ public class GamePanel extends JPanel {
 	private ImageIcon resizedImage(int item, int size) {
 
 		String imgLoc = null;
-		if (settings.isSkin1()){
+		if (models.isSkin1()){
 			imgLoc = imageSelector("player", item);
 		} else {
 			imgLoc = imageSelector("player2", item);
@@ -477,7 +476,7 @@ public class GamePanel extends JPanel {
 	 * @return String as the path for the image object
 	 */
 	private String imageSelector(String skin, int item) {
-		String path = "image/" + settings.getSpriteSet();
+		String path = "image/" + models.getSpriteSet();
 		String imgLoc = null;
 		switch (item) {
 		case MapModel.WALL:

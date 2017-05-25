@@ -26,17 +26,17 @@ import javax.swing.border.LineBorder;
 public class SettingsPanel extends JPanel {
 	private static final String[] BUTTON_TEXT = {"   Music", "   SFX", "Back"};
 	private static final String[] SPRITE_SETS = {"Star Warehouse", "PokeManGo"};
-	private SettingsModel settings;
+//	private SettingsModel settings;
 	private Models models;
 	//private final String m_background = "assets/MusicBackground.wav";
 
 	/**
 	 * Constructor for Settings Panel/View
 	 */
-	public SettingsPanel(CardLayout views, JPanel mainPanel, SettingsModel settings, Models models) {
+	public SettingsPanel(CardLayout views, JPanel mainPanel, Models models) {
 		this.models = models;
 		this.setLayout(new BorderLayout());
-		this.settings = settings;
+//		this.settings = settings;
 
 		//Make new check boxes and button
 		JCheckBox musicBox = new JCheckBox(BUTTON_TEXT[0]);
@@ -44,8 +44,8 @@ public class SettingsPanel extends JPanel {
 		JButton backBtn = new JButton(BUTTON_TEXT[2]);
 
 		//Make checkBox selected initially if settings say it is
-		musicBox.setSelected(settings.isEnableMusic());
-		SFXBox.setSelected(settings.isEnableSFX());
+		musicBox.setSelected(models.isEnableMusic());
+		SFXBox.setSelected(models.isEnableSFX());
 
 		//Set the location of each button
 		int btnWidth = 200;
@@ -71,11 +71,11 @@ public class SettingsPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (musicBox.isSelected()){
-					settings.setEnableMusic(true);
-					String skin = settings.getSpriteSet();
-					WarehouseBoss.changeSound(skin, settings);
+				    models.setEnableMusic(true);
+					String skin = models.getSpriteSet();
+					WarehouseBoss.changeSound(skin);
 				} else {
-					settings.setEnableMusic(false);
+				    models.setEnableMusic(false);
 					try{
 						WarehouseBoss.clip.stop();
 						WarehouseBoss.clip.close();
@@ -90,8 +90,8 @@ public class SettingsPanel extends JPanel {
 		SFXBox.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (SFXBox.isSelected()){settings.setEnableSFX(true);}
-				else{settings.setEnableSFX(false);}
+				if (SFXBox.isSelected()){models.setEnableSFX(true);}
+				else{models.setEnableSFX(false);}
 
 			}
 		});
@@ -100,7 +100,8 @@ public class SettingsPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					SaveLoad.saveSettings(SettingsPanel.this.settings);
+//					SaveLoad.saveSettings(SettingsPanel.this.settings);
+					SaveLoad.saveSettings(models.getSettings());
 				} catch (IOException e1) {
 					System.out.println("save failed");
 				}
@@ -120,7 +121,7 @@ public class SettingsPanel extends JPanel {
 		//Set active spriteSet to selected
 		int i = 0;
 		for (String s : SPRITE_SETS) {
-			if (settings.getSpriteSet().equals(s + "/"))
+			if (models.getSpriteSet().equals(s + "/"))
 				spriteSetList.setSelectedIndex(i);
 			i++;
 		}
@@ -131,15 +132,15 @@ public class SettingsPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				JComboBox<String> combo = (JComboBox<String>)e.getSource();
 				String selectedSkin = (String) combo.getSelectedItem();
-				settings.setSpriteSet(selectedSkin + "/");
+				models.setSpriteSet(selectedSkin + "/");
 					try {
 						WarehouseBoss.clip.stop();
 						WarehouseBoss.clip.close();
 					} catch (Exception e1) {
 
 					}
-				if (settings.isEnableMusic()) {
-					WarehouseBoss.changeSound(selectedSkin + "/", settings);
+				if (models.isEnableMusic()) {
+					WarehouseBoss.changeSound(selectedSkin + "/");
 				}
 				update(views, mainPanel);
 			}
@@ -148,7 +149,7 @@ public class SettingsPanel extends JPanel {
 		this.add(spriteSetList);
 
 
-		String spriteSet = "image/" + settings.getSpriteSet();
+		String spriteSet = "image/" + models.getSpriteSet();
 
 		//Display player skins
 		ImageIcon skin1Image = new ImageIcon(spriteSet + "Player1.png");
@@ -160,7 +161,7 @@ public class SettingsPanel extends JPanel {
 		skin2Label.setBounds(startXPos + 100, startYPos + 175, 100, 100);
 
 		//Set active skin to selected
-		if (settings.isSkin1()) {
+		if (models.isSkin1()) {
 			skin1Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
 		} else {
 			skin2Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
@@ -172,7 +173,7 @@ public class SettingsPanel extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				skin1Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
 				skin2Label.setBorder(null);
-				settings.setSkin(true);
+				models.setSkin(true);
 			}
 		});
 
@@ -181,7 +182,7 @@ public class SettingsPanel extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				skin2Label.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
 				skin1Label.setBorder(null);
-				settings.setSkin(false);
+				models.setSkin(false);
 			}
 		});
 
@@ -203,10 +204,10 @@ public class SettingsPanel extends JPanel {
 	private void update(CardLayout views, JPanel mainPanel) {
 		mainPanel.removeAll();
 		
-		mainPanel.add(new JPanel().add(new MenuPanel(views, mainPanel, settings, models)), "Menu");
-		mainPanel.add(new JPanel().add(new StoryLevelSelector(views, mainPanel, settings, models)), "Story");
-		mainPanel.add(new JPanel().add(new RandomLevelSelector(views, mainPanel, settings, models)), "Random");
-		mainPanel.add(new JPanel().add(new SettingsPanel(views, mainPanel, settings, models)), "Settings");
+		mainPanel.add(new JPanel().add(new MenuPanel(views, mainPanel, models)), "Menu");
+		mainPanel.add(new JPanel().add(new StoryLevelSelector(views, mainPanel, models)), "Story");
+		mainPanel.add(new JPanel().add(new RandomLevelSelector(views, mainPanel, models)), "Random");
+		mainPanel.add(new JPanel().add(new SettingsPanel(views, mainPanel, models)), "Settings");
 		views.show(mainPanel, "Settings");
 	}
 }

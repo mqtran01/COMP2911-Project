@@ -23,10 +23,10 @@ public class StoryLevelSelector extends JPanel {
 	private char[] seed = {'a','b','c'};
 	private Models models;
 	
-	public StoryLevelSelector(final CardLayout views, final JPanel mainPanel, SettingsModel settings, Models models) {
+	public StoryLevelSelector(final CardLayout views, final JPanel mainPanel, Models models) {
 		this.setLayout(new BorderLayout());
 		this.models = models;
-		ImageIcon bgImage = new ImageIcon("image/" + settings.getSpriteSet() + "bg.png");
+		ImageIcon bgImage = new ImageIcon("image/" + models.getSpriteSet() + "bg.png");
 		JLabel  bgLabel = new JLabel("", bgImage, JLabel.CENTER);
 		bgLabel.setBounds(0, 0, 800, 600);
 		bgLabel.setLayout(new GridBagLayout());
@@ -62,7 +62,7 @@ public class StoryLevelSelector extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					MapModel newMap = new MapModel(levelSeed, levelNum);
-					GamePanel newGame = new GamePanel(views, mainPanel, newMap, settings, false, models);
+					GamePanel newGame = new GamePanel(views, mainPanel, newMap, false, models);
 					try {
 						gamePanel.disableKeys();
 						mainPanel.remove(gamePanel);
@@ -77,7 +77,7 @@ public class StoryLevelSelector extends JPanel {
 			});
 			
 			//Use to determine which levels can user play
-			if (counter > settings.getNumLevelsCleared()) level.setEnabled(false);
+			if (counter > models.getNumLevelsCleared()) level.setEnabled(false);
 			
 			//Add level button the label
 			bgLabel.add(level, gbc);
