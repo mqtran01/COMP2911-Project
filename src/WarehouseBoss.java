@@ -137,10 +137,11 @@ public class WarehouseBoss extends JFrame {
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				System.out.println("Looping sound");
 				// if music is enabled and skin has not been changed
 				if (settings.isEnableMusic() && (skin.equals(settings.getSpriteSet()))) {
-					playSound(filename, settings);
+					clip.loop(1);
+					System.out.println("loop");
+					loopSound(filename, musicThread, settings);
 				}
 			}
 		}, delay);
