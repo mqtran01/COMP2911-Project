@@ -31,6 +31,10 @@ public class Models {
         gamePanel.update("s");
     }
 
+    public boolean winState(){
+    	return map.winState();
+    }
+    
     public boolean moveLeft() {
         undoMap = map.clone();
         return map.moveLeft();
@@ -54,13 +58,30 @@ public class Models {
     public int getTile(int x, int y) {
         return map.getTile(x, y);
     }
+    
+    public MapModel getMap(){
+    	return map;
+    }
+    
+    public int getLength() {
+        return map.getLength();
+    }
+
+    public int getHeight() {
+        return map.getHeight();
+    }
+    
 
     public void reset() {
-        map = resetMap;
+    	if (resetMap != null){
+    		map = resetMap;
+    	}
     }
 
     public void undo() {
-        map = undoMap;
+    	if (undoMap != null){
+    		map = undoMap;
+    	}
     }
 
     /**

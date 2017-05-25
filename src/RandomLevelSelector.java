@@ -1,12 +1,10 @@
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -73,7 +71,8 @@ public class RandomLevelSelector extends JPanel {
                 System.out.println("Clicked Easy Button!");
                 MapModel newMap;
                 newMap = new MapModel(0);
-                GamePanel newGame = new GamePanel(warehouseBoss, newMap, true, models);
+                models.setMap(newMap);
+                GamePanel newGame = new GamePanel(warehouseBoss, true, models);
                 try {
                     gamePanel.disableKeys();
                     warehouseBoss.removePanel(gamePanel);
@@ -93,7 +92,8 @@ public class RandomLevelSelector extends JPanel {
                 System.out.println("Clicked Medium Button!");
 
                 MapModel newMap = new MapModel(1);
-                GamePanel newGame = new GamePanel(warehouseBoss, newMap, true, models);
+                models.setMap(newMap);
+                GamePanel newGame = new GamePanel(warehouseBoss, true, models);
                 try {
                     gamePanel.disableKeys();
                     warehouseBoss.removePanel(gamePanel);
@@ -112,7 +112,8 @@ public class RandomLevelSelector extends JPanel {
                 System.out.println("Clicked Hard Button!");
 
                 MapModel newMap = new MapModel(2);
-                GamePanel newGame = new GamePanel(warehouseBoss, newMap, true, models);
+                models.setMap(newMap);
+                GamePanel newGame = new GamePanel(warehouseBoss, true, models);
                 try {
                     gamePanel.disableKeys();
                     warehouseBoss.removePanel(gamePanel);

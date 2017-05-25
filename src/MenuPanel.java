@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -83,7 +82,7 @@ public class MenuPanel extends JPanel {
                 try {
                     MapModel map = SaveLoad.load();
                     if (map != null) {
-                        GamePanel newGame = new GamePanel(warehouseBoss, map, false, models);
+                        GamePanel newGame = new GamePanel(warehouseBoss, false, models);
                         warehouseBoss.addPanel(newGame, "Game");
                         map.printMap();
                     } else {

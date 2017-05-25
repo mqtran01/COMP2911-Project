@@ -1,9 +1,7 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
 
@@ -2890,14 +2888,8 @@ public class MapModel implements Serializable {
      * Moves the player to the left
      */
     public boolean moveLeft() {
-        // System.out.println("left");
-        // System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x,
-        // player_y, player_x-1, player_y));
         if (moveTo(player_x, player_y, player_x - 1, player_y)) {
             player_x--;
-            // System.out.println("moveTo was successful");
-            // printMap();
-            // System.out.println(hManhattan());
             return true;
         }
         return false;
@@ -2907,14 +2899,8 @@ public class MapModel implements Serializable {
      * Moves the player to the right
      */
     public boolean moveRight() {
-        // System.out.println("right");
-        // System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x,
-        // player_y, player_x+1, player_y));
         if (moveTo(player_x, player_y, player_x + 1, player_y)) {
             player_x++;
-            // System.out.println("moveTo was successful");
-            // printMap();
-            // System.out.println(hManhattan());
             return true;
         }
         return false;
@@ -2924,14 +2910,8 @@ public class MapModel implements Serializable {
      * Moves the player upwards
      */
     public boolean moveUp() {
-        // System.out.println("up");
-        // System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x,
-        // player_y, player_x, player_y+1));
         if (moveTo(player_x, player_y, player_x, player_y - 1)) {
             player_y--;
-            // System.out.println("moveTo was successful");
-            // printMap();
-            // System.out.println(hManhattan());
             return true;
         }
         return false;
@@ -2941,14 +2921,8 @@ public class MapModel implements Serializable {
      * Moves the player downwards
      */
     public boolean moveDown() {
-        // System.out.println("down");
-        // System.out.println(String.format("moveTo(%d,%d,%d,%d)",player_x,
-        // player_y, player_x, player_y-1));
         if (moveTo(player_x, player_y, player_x, player_y + 1)) {
             player_y++;
-            // System.out.println("moveTo was successful");
-            // printMap();
-            // System.out.println(hManhattan());
             return true;
         }
         return false;

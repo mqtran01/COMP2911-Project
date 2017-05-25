@@ -1,12 +1,9 @@
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,7 +67,8 @@ public class StoryLevelSelector extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         MapModel newMap = new MapModel(levelSeed, levelNum);
-                        GamePanel gamePanel = new GamePanel(warehouseBoss, newMap, false, models);
+                        models.setMap(newMap);
+                        GamePanel gamePanel = new GamePanel(warehouseBoss, false, models);
                         warehouseBoss.addPanel(gamePanel, "Game");
                         warehouseBoss.swapPanel("Game");
 

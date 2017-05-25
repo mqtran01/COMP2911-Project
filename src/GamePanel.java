@@ -24,9 +24,6 @@ public class GamePanel extends JPanel {
     private JLabel[][] grid;
     private int length;
     private int height;
-    private MapModel map;
-    private MapModel originalMap;
-    private MapModel previousMap;// i.e. the map used for undo
     private KeyEventDispatcher keyDispatcher;
 
     // Music assets
@@ -51,16 +48,16 @@ public class GamePanel extends JPanel {
      * @param isRandom as the check for random map
      * @param models as the models handler
      */
-    public GamePanel(WarehouseBoss warehouseBoss, MapModel map, boolean isRandom, Models models) {
+    public GamePanel(WarehouseBoss warehouseBoss, boolean isRandom, Models models) {
         this.models = models;
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(800, 600));
-        this.map = map;
-        this.originalMap = map.clone();
-        this.previousMap = null;
+        //this.map = map;
+        //this.originalMap = map.clone();
+        //this.previousMap = null;
 
-        length = map.getLength();
-        height = map.getHeight();
+        length = models.getLength();
+        height = models.getHeight();
 
         // Create grid layout
         JPanel gridPanel = new JPanel(new GridBagLayout());
@@ -89,7 +86,7 @@ public class GamePanel extends JPanel {
             gbc.gridy = y;
             for (int x = 0; x < length; x++) {
                 gbc.gridx = x;
-                int tileItem = map.getTile(x, y);
+                int tileItem = models.getTile(x, y);
                 ImageIcon img = null;
                 switch (tileItem) {
                 case MapModel.WALL:
@@ -165,7 +162,7 @@ public class GamePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Save!");
                 try {
-                    SaveLoad.save(GamePanel.this.map);
+                    SaveLoad.save(GamePanel.this.models.getMap());
                     JOptionPane.showMessageDialog(null, "          Your progress has been saved!", "Game Saved!",
                             JOptionPane.PLAIN_MESSAGE);
                 } catch (IOException e1) {
@@ -179,10 +176,12 @@ public class GamePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Undo!");
-                if (previousMap != null) {
+                /*if (previousMap != null) {
                     setMap(GamePanel.this.previousMap);
                     update("s");
-                }
+                }*/
+                GamePanel.this.models.undo();
+                update("s");
             }
         });
 
@@ -190,8 +189,9 @@ public class GamePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Reset!");
-                MapModel resetMap = GamePanel.this.originalMap.clone();
-                setMap(resetMap);
+                GamePanel.this.models.reset();
+                /*MapModel resetMap = GamePanel.this.originalMap.clone();
+                setMap(resetMap);*/
                 update("s");
             }
         });
@@ -225,33 +225,29 @@ public class GamePanel extends JPanel {
                     System.out.println(key.getKeyCode());
 
                     if (key.getKeyCode() == KeyEvent.VK_W || key.getKeyCode() == KeyEvent.VK_UP) {
-                        GamePanel.this.previousMap = GamePanel.this.map.clone();
-                        GamePanel.this.map.moveUp();
+                        GamePanel.this.models.moveUp();
                         System.out.println("music is " + models.isEnableMusic());
                         playSound(m_footsteps);
                         keyPressed = "w";
                     }
                     if (key.getKeyCode() == KeyEvent.VK_S || key.getKeyCode() == KeyEvent.VK_DOWN) {
-                        GamePanel.this.previousMap = GamePanel.this.map.clone();
-                        GamePanel.this.map.moveDown();
+                        GamePanel.this.models.moveDown();
                         playSound(m_footsteps);
                         keyPressed = "s";
                     }
                     if (key.getKeyCode() == KeyEvent.VK_A || key.getKeyCode() == KeyEvent.VK_LEFT) {
-                        GamePanel.this.previousMap = GamePanel.this.map.clone();
-                        GamePanel.this.map.moveLeft();
+                        GamePanel.this.models.moveLeft();
                         playSound(m_footsteps);
                         keyPressed = "a";
                     }
                     if (key.getKeyCode() == KeyEvent.VK_D || key.getKeyCode() == KeyEvent.VK_RIGHT) {
-                        GamePanel.this.previousMap = GamePanel.this.map.clone();
-                        GamePanel.this.map.moveRight();
+                        GamePanel.this.models.moveRight();
                         playSound(m_footsteps);
                         keyPressed = "d";
                     }
                     update(keyPressed);
 
-                    if (GamePanel.this.map.winState()) {
+                    if (GamePanel.this.models.winState()) {
                         disableKeys();
                         playSound(m_winGame);
                         if (isRandom) {
@@ -383,10 +379,10 @@ public class GamePanel extends JPanel {
      * 
      * @param map
      */
-    public void setMap(MapModel map) {
+    /*public void setMap(MapModel map) {
         this.map = map;
         update((String) null);
-    }
+    }*/
 
     /**
      * Method for updating the sprites displayed by the grid
@@ -430,7 +426,7 @@ public class GamePanel extends JPanel {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < length; x++) {
-                int tileItem = map.getTile(x, y);
+                int tileItem = models.getTile(x, y);
                 ImageIcon img = null;
                 switch (tileItem) {
                 case MapModel.WALL:
