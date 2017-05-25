@@ -258,9 +258,10 @@ public class GamePanel extends JPanel {
                         } else {
                             GamePanel.this.models.setNumLevelsCleared(level);
 
-                            // Recreated StoryLevelSelector to update number of
-                            // playable levels
+                            // Recreate StoryLevelSelector and SettingsPanel to update number of
+                            // to update number of completed levels
                             warehouseBoss.addPanel(new StoryLevelSelector(warehouseBoss, GamePanel.this.models), "Story");
+                            warehouseBoss.addPanel(new SettingsPanel(warehouseBoss, GamePanel.this.models), "Settings");
                             
                             // Save progress
                             try {
