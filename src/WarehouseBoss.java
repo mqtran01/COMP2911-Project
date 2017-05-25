@@ -82,14 +82,30 @@ public class WarehouseBoss extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Changes current panel currently displayed
+     * 
+     * @param hash the key of the panel to switch to
+     */
     public void swapPanel(String hash) {
         views.show(mainPanel, hash);
     }
 
+    /**
+     * Add a panel to the mainPanel - the library of views
+     * 
+     * @param panel to be added
+     * @param hash the key to access the panel
+     */
     public void addPanel(JPanel panel, String hash) {
         mainPanel.add(panel, hash);
     }
 
+    /**
+     * Remove a panel from the mainPanel
+     * 
+     * @param panel to be removed
+     */
     public void removePanel(JPanel panel) {
         mainPanel.remove(panel);
     }
