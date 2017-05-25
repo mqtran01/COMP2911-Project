@@ -48,9 +48,15 @@ public class StoryLevelSelector extends JPanel {
 
         // Set font and border settings
         Font gameFont = new Font("Myriad Pro Light", Font.BOLD, 20);
-        Border easyBorder = new LineBorder(Color.GREEN, 2);
-        Border mediumBorder = new LineBorder(Color.ORANGE, 2);
-        Border hardBorder = new LineBorder(Color.RED, 2);
+        
+        Color easyColor = new Color(0, 130, 15);
+        Color mediumColor = new Color(215,90,0);
+        Color hardColor = new Color(215,0,0);
+        
+        Border easyBorder = new LineBorder(easyColor, 2);
+        Border mediumBorder = new LineBorder(mediumColor, 2);
+        Border hardBorder = new LineBorder(hardColor, 2);
+        
         Border buttonBorder = new LineBorder(Color.BLUE, 2);
 
 
@@ -68,10 +74,16 @@ public class StoryLevelSelector extends JPanel {
             level.setFont(gameFont);
             if (counter < 10){
             	level.setBorder(easyBorder);
+                level.setForeground(easyColor);
+                
             } else if (counter < 20){
             	level.setBorder(mediumBorder);
+                level.setForeground(mediumColor);
+
             } else {
             	level.setBorder(hardBorder);
+                level.setForeground(hardColor);
+
             }
             
             final int levelNum = counter+1;
