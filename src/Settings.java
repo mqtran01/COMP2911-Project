@@ -71,11 +71,12 @@ public class Settings extends JPanel {
 				if (musicBox.isSelected()){
 					settings.setEnableMusic(true);
 					String skin = settings.getSpriteSet();
-					WarehouseBoss.playSound("assets/" + skin + "MusicBackground.wav", settings);
+					WarehouseBoss.changeSound(skin, settings);
 				} else {
 					settings.setEnableMusic(false);
 					try{
 						WarehouseBoss.clip.stop();
+						WarehouseBoss.clip.close();
 					}
 					catch(Exception e1){
 						
@@ -129,13 +130,15 @@ public class Settings extends JPanel {
 				JComboBox<String> combo = (JComboBox<String>)e.getSource();
 				String selectedSkin = (String) combo.getSelectedItem();
 				settings.setSpriteSet(selectedSkin + "/");
-				try{
-					WarehouseBoss.clip.stop();
+					try {
+						WarehouseBoss.clip.stop();
+						WarehouseBoss.clip.close();
+					} catch (Exception e1) {
+
+					}
+				if (settings.isEnableMusic()) {
+					WarehouseBoss.changeSound(selectedSkin + "/", settings);
 				}
-				catch(Exception e1){
-					
-				}
-				WarehouseBoss.changeSound(selectedSkin + "/", settings);
 				update(views, mainPanel);
 			}
 		});
