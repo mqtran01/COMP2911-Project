@@ -19,7 +19,6 @@ import javax.swing.border.LineBorder;
  */
 public class RandomLevelSelector extends JPanel {
     private static final String[] BUTTON_TEXT = { "Easy", "Medium", "Hard", "Back"};
-    private GamePanel gamePanel;
     private Models models;
 
     /**
@@ -31,8 +30,7 @@ public class RandomLevelSelector extends JPanel {
     public RandomLevelSelector(WarehouseBoss warehouseBoss, Models models) {
         this.setLayout(new BorderLayout());
         this.models = models;
-        this.gamePanel = null;
-
+        
         // Make selection buttons
         JButton easyBtn = new JButton(BUTTON_TEXT[0]);
         JButton medBtn = new JButton(BUTTON_TEXT[1]);
@@ -69,17 +67,10 @@ public class RandomLevelSelector extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Easy Button!");
-                MapModel newMap;
-                newMap = new MapModel('e');
+                
+                MapModel newMap = new MapModel('e');
                 RandomLevelSelector.this.models.setMap(newMap);
                 GamePanel newGame = new GamePanel(warehouseBoss, RandomLevelSelector.this.models);
-                try {
-                    gamePanel.disableKeys();
-                    warehouseBoss.removePanel(gamePanel);
-                } catch (Exception g) {
-                    System.out.println("Nothing to remove");
-                }
-                gamePanel = newGame;
                 warehouseBoss.addPanel(newGame, "Game");
                 warehouseBoss.swapPanel("Game");
 
@@ -94,13 +85,6 @@ public class RandomLevelSelector extends JPanel {
                 MapModel newMap = new MapModel('m');
                 RandomLevelSelector.this.models.setMap(newMap);
                 GamePanel newGame = new GamePanel(warehouseBoss, RandomLevelSelector.this.models);
-                try {
-                    gamePanel.disableKeys();
-                    warehouseBoss.removePanel(gamePanel);
-                } catch (Exception g) {
-                    System.out.println("Nothing to remove");
-                }
-                gamePanel = newGame;
                 warehouseBoss.addPanel(newGame, "Game");
                 warehouseBoss.swapPanel("Game");
             }
@@ -114,13 +98,6 @@ public class RandomLevelSelector extends JPanel {
                 MapModel newMap = new MapModel('h');
                 RandomLevelSelector.this.models.setMap(newMap);
                 GamePanel newGame = new GamePanel(warehouseBoss, RandomLevelSelector.this.models);
-                try {
-                    gamePanel.disableKeys();
-                    warehouseBoss.removePanel(gamePanel);
-                } catch (Exception g) {
-                    System.out.println("Nothing to remove");
-                }
-                gamePanel = newGame;
                 warehouseBoss.addPanel(newGame, "Game");
                 warehouseBoss.swapPanel("Game");
             }
