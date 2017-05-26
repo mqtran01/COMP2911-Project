@@ -1,4 +1,20 @@
-#!/bin/sh
-javac src/*.java #compile everything in the src folder
-mkdir -p bin #create the bin directory if it does not already exist
-mv src/*.class `pwd` #move every .class file from src folder to here
+#! /bin/sh
+
+# find all java source files in src directory
+FILES=$(find src -iname "*.java")
+
+rm -rf bin
+mkdir -p bin
+
+# compile each source file into bin directory, exiting on compilation failure
+for file in $FILES
+do
+    echo "compiling $file"
+    javac -cp "./src/" -d bin $file
+    if [ $? -ne 0 ]
+    then
+        exit 1
+    fi
+done
+
+echo "done"
