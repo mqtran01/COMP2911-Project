@@ -43,11 +43,11 @@ public class GamePanel extends JPanel {
     
     /**
      * 
-     * @param warehouseBoss as the main game container
+     * @param wb as the main game container
      * @param map as the map to play
      * @param models as the models handler
      */
-    public GamePanel(WarehouseBoss warehouseBoss, Models models) {
+    public GamePanel(WarehouseBoss wb, Models models) {
         this.models = models;
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(800, 600));
@@ -187,7 +187,7 @@ public class GamePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 disableKeys();
-                warehouseBoss.swapPanel("Menu");
+                wb.swapPanel("Menu");
             }
         });
 
@@ -245,19 +245,19 @@ public class GamePanel extends JPanel {
                             JOptionPane.getRootFrame().dispose();
                             if (n == JOptionPane.NO_OPTION) {
                                 //System.out.println("Clicked Main Menu!");
-                                warehouseBoss.swapPanel("Menu");
+                                wb.swapPanel("Menu");
                             }
                             if (n == JOptionPane.YES_OPTION) {
                                 //System.out.println("Clicked Play Again!");
-                                warehouseBoss.swapPanel("Random");
+                                wb.swapPanel("Random");
                             }
                         } else {
                             GamePanel.this.models.setNumLevelsCleared(level);
 
                             // Recreate StoryLevelSelector and SettingsPanel to update number of
                             // to update number of completed levels
-                            warehouseBoss.addPanel(new StoryLevelSelector(warehouseBoss, GamePanel.this.models), "Story");
-                            warehouseBoss.addPanel(new SettingsPanel(warehouseBoss, GamePanel.this.models), "Settings");
+                            wb.addPanel(new StoryLevelSelector(wb, GamePanel.this.models), "Story");
+                            wb.addPanel(new SettingsPanel(wb, GamePanel.this.models), "Settings");
                             
                             // Save progress
                             try {
@@ -272,10 +272,10 @@ public class GamePanel extends JPanel {
                                     options, options[1]);
                             JOptionPane.getRootFrame().dispose();
                             if (n == JOptionPane.NO_OPTION) {
-                                warehouseBoss.swapPanel("Menu");
+                                wb.swapPanel("Menu");
                             }
                             if (n == JOptionPane.YES_OPTION) {
-                                warehouseBoss.swapPanel("Story");
+                                wb.swapPanel("Story");
                             }
                         }
                     }
