@@ -63,7 +63,6 @@ public class Models {
     /**
      * Intermediate handler to move character left
      * 
-     * @return true if character moved successfully
      */
     public void moveLeft() {
         undoMap = map.clone();
