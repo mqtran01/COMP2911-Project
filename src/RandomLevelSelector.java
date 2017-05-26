@@ -66,8 +66,6 @@ public class RandomLevelSelector extends JPanel {
         easyBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Easy Button!");
-                
                 MapModel newMap = new MapModel('e');
                 RandomLevelSelector.this.models.setMap(newMap);
                 GamePanel newGame = new GamePanel(wb, RandomLevelSelector.this.models);
@@ -80,8 +78,6 @@ public class RandomLevelSelector extends JPanel {
         medBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Medium Button!");
-
                 MapModel newMap = new MapModel('m');
                 RandomLevelSelector.this.models.setMap(newMap);
                 GamePanel newGame = new GamePanel(wb, RandomLevelSelector.this.models);
@@ -93,8 +89,6 @@ public class RandomLevelSelector extends JPanel {
         hardBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Hard Button!");
-
                 MapModel newMap = new MapModel('h');
                 RandomLevelSelector.this.models.setMap(newMap);
                 GamePanel newGame = new GamePanel(wb, RandomLevelSelector.this.models);
@@ -106,7 +100,6 @@ public class RandomLevelSelector extends JPanel {
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Back Button!");
                 wb.swapPanel("Menu");
             }
         });
