@@ -24,10 +24,10 @@ public class RandomLevelSelector extends JPanel {
     /**
      * Constructor of the Level Selector object
      * 
-     * @param warehouseBoss as the main game container
+     * @param wb as the main game container
      * @param models as the model controller
      */
-    public RandomLevelSelector(WarehouseBoss warehouseBoss, Models models) {
+    public RandomLevelSelector(WarehouseBoss wb, Models models) {
         this.setLayout(new BorderLayout());
         this.models = models;
         
@@ -70,9 +70,9 @@ public class RandomLevelSelector extends JPanel {
                 
                 MapModel newMap = new MapModel('e');
                 RandomLevelSelector.this.models.setMap(newMap);
-                GamePanel newGame = new GamePanel(warehouseBoss, RandomLevelSelector.this.models);
-                warehouseBoss.addPanel(newGame, "Game");
-                warehouseBoss.swapPanel("Game");
+                GamePanel newGame = new GamePanel(wb, RandomLevelSelector.this.models);
+                wb.addPanel(newGame, "Game");
+                wb.swapPanel("Game");
 
             }
         });
@@ -84,9 +84,9 @@ public class RandomLevelSelector extends JPanel {
 
                 MapModel newMap = new MapModel('m');
                 RandomLevelSelector.this.models.setMap(newMap);
-                GamePanel newGame = new GamePanel(warehouseBoss, RandomLevelSelector.this.models);
-                warehouseBoss.addPanel(newGame, "Game");
-                warehouseBoss.swapPanel("Game");
+                GamePanel newGame = new GamePanel(wb, RandomLevelSelector.this.models);
+                wb.addPanel(newGame, "Game");
+                wb.swapPanel("Game");
             }
         });
 
@@ -97,9 +97,9 @@ public class RandomLevelSelector extends JPanel {
 
                 MapModel newMap = new MapModel('h');
                 RandomLevelSelector.this.models.setMap(newMap);
-                GamePanel newGame = new GamePanel(warehouseBoss, RandomLevelSelector.this.models);
-                warehouseBoss.addPanel(newGame, "Game");
-                warehouseBoss.swapPanel("Game");
+                GamePanel newGame = new GamePanel(wb, RandomLevelSelector.this.models);
+                wb.addPanel(newGame, "Game");
+                wb.swapPanel("Game");
             }
         });
 
@@ -107,7 +107,7 @@ public class RandomLevelSelector extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked Back Button!");
-                warehouseBoss.swapPanel("Menu");
+                wb.swapPanel("Menu");
             }
         });
 
