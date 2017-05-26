@@ -26,10 +26,10 @@ public class MenuPanel extends JPanel {
     /**
      * Constructor for Menu Panel/View
      * 
-     * @param warehouseBoss as the main game container
+     * @param wb as the main game container
      * @param models as the model handler
      */
-    public MenuPanel(WarehouseBoss warehouseBoss, Models models) {
+    public MenuPanel(WarehouseBoss wb, Models models) {
         this.models = models;
         this.setLayout(new BorderLayout());
         
@@ -71,8 +71,8 @@ public class MenuPanel extends JPanel {
         startGameBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Play Game!");
-                warehouseBoss.swapPanel("Story");
+                //System.out.println("Clicked Play Game!");
+                wb.swapPanel("Story");
             }
         });
 
@@ -84,8 +84,8 @@ public class MenuPanel extends JPanel {
                     MapModel map = SaveLoad.load();
                     if (map != null) {
                     	MenuPanel.this.models.setMap(map);
-                        GamePanel newGame = new GamePanel(warehouseBoss, MenuPanel.this.models);
-                        warehouseBoss.addPanel(newGame, "Game");
+                        GamePanel newGame = new GamePanel(wb, MenuPanel.this.models);
+                        wb.addPanel(newGame, "Game");
                     } else {
                         // Pop up when no saved file found
                     	JOptionPane.showMessageDialog(null, "              No saved progress Found!", "Resume Failed",
@@ -96,30 +96,30 @@ public class MenuPanel extends JPanel {
                     e1.printStackTrace();
                 }
 
-                warehouseBoss.swapPanel("Game");
+                wb.swapPanel("Game");
             }
         });
 
         randGameBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Random Game!");
-                warehouseBoss.swapPanel("Random");
+                //System.out.println("Clicked Random Game!");
+                wb.swapPanel("Random");
             }
         });
 
         settingsBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked settings!");
-                warehouseBoss.swapPanel("Settings");
+                //System.out.println("Clicked settings!");
+                wb.swapPanel("Settings");
             }
         });
 
         quitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Quit!");
+                //System.out.println("Clicked Quit!");
                 System.exit(0);
             }
         });

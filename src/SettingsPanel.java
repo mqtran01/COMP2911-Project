@@ -26,17 +26,17 @@ public class SettingsPanel extends JPanel {
     private static final String[] BUTTON_TEXT = { "   Music", "   SFX", "Back" };
     private static final String[] SPRITE_SETS = { "Star Warehouse", "PokeManGo" };
     private Models models;
-    private WarehouseBoss warehouseBoss;
+    private WarehouseBoss wb;
     
     /**
      * Constructor for Settings Panel/View
      * 
-     * @param warehouseBoss as the main game container
+     * @param wb as the main game container
      * @param models as the model handler
      */
-    public SettingsPanel(WarehouseBoss warehouseBoss, Models models) {
+    public SettingsPanel(WarehouseBoss wb, Models models) {
         this.models = models;
-        this.warehouseBoss = warehouseBoss;
+        this.wb = wb;
         this.setLayout(new BorderLayout());
 
         // Make new check boxes and button
@@ -74,7 +74,7 @@ public class SettingsPanel extends JPanel {
                 if (musicBox.isSelected()) {
                 	SettingsPanel.this.models.setEnableMusic(true);
                     String skin = SettingsPanel.this.models.getSpriteSet();
-                    warehouseBoss.changeSound(skin);
+                    wb.changeSound(skin);
                 } else {
                 	SettingsPanel.this.models.setEnableMusic(false);
                     try {
@@ -107,7 +107,7 @@ public class SettingsPanel extends JPanel {
                 } catch (IOException e1) {
                     //System.out.println("save failed");
                 }
-                warehouseBoss.swapPanel("Menu");
+                wb.swapPanel("Menu");
             }
         });
 
@@ -142,7 +142,7 @@ public class SettingsPanel extends JPanel {
 
                 }
                 if (SettingsPanel.this.models.isEnableMusic()) {
-                    warehouseBoss.changeSound(selectedSkin + "/");
+                    wb.changeSound(selectedSkin + "/");
                 }
                 update();
             }
@@ -202,10 +202,10 @@ public class SettingsPanel extends JPanel {
      * 
      */
     private void update() {
-        warehouseBoss.addPanel(new MenuPanel(warehouseBoss, models), "Menu");
-        warehouseBoss.addPanel(new StoryLevelSelector(warehouseBoss, models), "Story");
-        warehouseBoss.addPanel(new RandomLevelSelector(warehouseBoss, models), "Random");
-        warehouseBoss.addPanel(new SettingsPanel(warehouseBoss, models), "Settings");
-        warehouseBoss.swapPanel("Settings");
+        wb.addPanel(new MenuPanel(wb, models), "Menu");
+        wb.addPanel(new StoryLevelSelector(wb, models), "Story");
+        wb.addPanel(new RandomLevelSelector(wb, models), "Random");
+        wb.addPanel(new SettingsPanel(wb, models), "Settings");
+        wb.swapPanel("Settings");
     }
 }

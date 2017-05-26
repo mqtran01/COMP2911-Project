@@ -212,7 +212,7 @@ public class GamePanel extends JPanel {
             public boolean dispatchKeyEvent(KeyEvent key) {
                 if (key.getID() == KeyEvent.KEY_PRESSED) {
                     String keyPressed = null;
-                    System.out.println(key.getKeyCode());
+                    //System.out.println(key.getKeyCode());
 
                     if (key.getKeyCode() == KeyEvent.VK_W || key.getKeyCode() == KeyEvent.VK_UP) {
                         GamePanel.this.models.moveUp();
@@ -444,9 +444,9 @@ public class GamePanel extends JPanel {
                     break;
                 }
                 grid[x][y].setIcon(img);
-                System.out.print(tileItem);
+                //System.out.print(tileItem);
             }
-            System.out.println();
+            //System.out.println();
         }
     }
 
