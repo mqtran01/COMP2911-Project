@@ -156,13 +156,13 @@ public class GamePanel extends JPanel {
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Save!");
+                //System.out.println("Clicked Save!");
                 try {
                     SaveLoad.save(GamePanel.this.models.getMap());
                     JOptionPane.showMessageDialog(null, "          Your progress has been saved!", "Game Saved!",
                             JOptionPane.PLAIN_MESSAGE);
                 } catch (IOException e1) {
-                    System.out.println("Failed to save");
+                    //System.out.println("Failed to save");
                     e1.printStackTrace();
                 }
             }
@@ -171,7 +171,7 @@ public class GamePanel extends JPanel {
         undoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Undo!");
+                //System.out.println("Clicked Undo!");
                 GamePanel.this.models.undo();
                 update("s");
             }
@@ -180,7 +180,7 @@ public class GamePanel extends JPanel {
         resetBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Reset!");
+                //System.out.println("Clicked Reset!");
                 GamePanel.this.models.reset();
                 update("s");
             }
@@ -189,7 +189,7 @@ public class GamePanel extends JPanel {
         quitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Main Menu!");
+                //System.out.println("Clicked Main Menu!");
                 disableKeys();
                 warehouseBoss.swapPanel("Menu");
             }
@@ -216,7 +216,7 @@ public class GamePanel extends JPanel {
 
                     if (key.getKeyCode() == KeyEvent.VK_W || key.getKeyCode() == KeyEvent.VK_UP) {
                         GamePanel.this.models.moveUp();
-                        System.out.println("music is " + models.isEnableMusic());
+                        //System.out.println("music is " + models.isEnableMusic());
                         playSound(m_footsteps);
                         keyPressed = "w";
                     }
@@ -248,11 +248,11 @@ public class GamePanel extends JPanel {
                                     options, options[1]);
                             JOptionPane.getRootFrame().dispose();
                             if (n == JOptionPane.NO_OPTION) {
-                                System.out.println("Clicked Main Menu!");
+                                //System.out.println("Clicked Main Menu!");
                                 warehouseBoss.swapPanel("Menu");
                             }
                             if (n == JOptionPane.YES_OPTION) {
-                                System.out.println("Clicked Play Again!");
+                                //System.out.println("Clicked Play Again!");
                                 warehouseBoss.swapPanel("Random");
                             }
                         } else {
@@ -267,7 +267,7 @@ public class GamePanel extends JPanel {
                             try {
                                 SaveLoad.saveSettings(GamePanel.this.models.getSettings());
                             } catch (IOException e1) {
-                                System.out.println("save failed");
+                                //System.out.println("save failed");
                             }
 
                             Object[] options = { "Play Next?", "Main Menu" };
@@ -276,11 +276,11 @@ public class GamePanel extends JPanel {
                                     options, options[1]);
                             JOptionPane.getRootFrame().dispose();
                             if (n == JOptionPane.NO_OPTION) {
-                                System.out.println("Clicked Main Menu!");
+                                //System.out.println("Clicked Main Menu!");
                                 warehouseBoss.swapPanel("Menu");
                             }
                             if (n == JOptionPane.YES_OPTION) {
-                                System.out.println("Clicked Play Next!");
+                                //System.out.println("Clicked Play Next!");
                                 warehouseBoss.swapPanel("Story");
                             }
                         }
@@ -310,7 +310,7 @@ public class GamePanel extends JPanel {
         tuteBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked ? Button");
+                //System.out.println("Clicked ? Button");
                 JOptionPane.showMessageDialog(null, tuteLabel, "Tutorial", JOptionPane.PLAIN_MESSAGE, null);
             }
         });
@@ -344,7 +344,7 @@ public class GamePanel extends JPanel {
             }
         };
         if (models.isEnableSFX()) {
-            System.out.println("SFX enabled");
+            //System.out.println("SFX enabled");
             musicThread.start();
         }
     }
@@ -382,7 +382,7 @@ public class GamePanel extends JPanel {
      * @param direction as the direction the sprite is facing
      */
     public void update(String direction) {
-        System.out.println("updating");
+        //System.out.println("updating");
         double scaledLen = 800 / length;
         double scaledHgt = 500 / height;
 
@@ -514,7 +514,7 @@ public class GamePanel extends JPanel {
      * Disables the key controller
      */
     public void disableKeys() {
-        System.out.println("Disabled the keys");
+        //System.out.println("Disabled the keys");
         KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyDispatcher);
     }
 

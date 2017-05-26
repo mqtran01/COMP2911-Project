@@ -74,7 +74,7 @@ public class SettingsPanel extends JPanel {
                 if (musicBox.isSelected()) {
                 	SettingsPanel.this.models.setEnableMusic(true);
                     String skin = SettingsPanel.this.models.getSpriteSet();
-                    WarehouseBoss.changeSound(skin);
+                    warehouseBoss.changeSound(skin);
                 } else {
                 	SettingsPanel.this.models.setEnableMusic(false);
                     try {
@@ -104,9 +104,9 @@ public class SettingsPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     // SaveLoad.saveSettings(SettingsPanel.this.settings);
-                    SaveLoad.saveSettings(SettingsPanel.this.models.getSettings());
+                    SaveLoad.save(SettingsPanel.this.models);
                 } catch (IOException e1) {
-                    System.out.println("save failed");
+                    //System.out.println("save failed");
                 }
                 warehouseBoss.swapPanel("Menu");
             }
@@ -143,7 +143,7 @@ public class SettingsPanel extends JPanel {
 
                 }
                 if (SettingsPanel.this.models.isEnableMusic()) {
-                    WarehouseBoss.changeSound(selectedSkin + "/");
+                    warehouseBoss.changeSound(selectedSkin + "/");
                 }
                 update();
             }

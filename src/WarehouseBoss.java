@@ -21,7 +21,7 @@ public class WarehouseBoss extends JFrame {
     private JPanel mainPanel;
     private CardLayout views;
     private Models models;
-    private static SettingsModel settings;
+    //private static SettingsModel settings;
     public static Clip clip;
 
     /**
@@ -74,7 +74,7 @@ public class WarehouseBoss extends JFrame {
         this.add(mainPanel);
 
         // Play BGM
-        playSound("assets/" + settings.getSpriteSet() + "/MusicBackground.wav", settings);
+        playSound("assets/" + models.getSpriteSet() + "/MusicBackground.wav", models.getSettings());
 
         // Display the window.
         this.pack();
@@ -135,7 +135,7 @@ public class WarehouseBoss extends JFrame {
             }
         };
         if (settings.isEnableMusic()) {
-            System.out.println("Music enabled");
+            //System.out.println("Music enabled");
             musicThread.start();
             loopSound(settings);
         }
@@ -146,10 +146,10 @@ public class WarehouseBoss extends JFrame {
      * 
      * @param skin as the skin set
      */
-    static public void changeSound(String skin) {
+    public void changeSound(String skin) {
         String path = "assets/" + skin + "MusicBackground.wav";
-        System.out.println("changeSound!" + path);
-        if (settings.isEnableMusic()) {
+        //System.out.println("changeSound!" + path);
+        if (models.isEnableMusic()) {
             try {
                 // Open an audio input stream.
                 AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(path));
@@ -158,7 +158,7 @@ public class WarehouseBoss extends JFrame {
                 // Open audio clip and load samples from the audio input stream.
                 clip.open(audioIn);
                 clip.start();
-                loopSound(settings);
+                loopSound(models.getSettings());
             } catch (Exception e) {
             }
         }
@@ -184,7 +184,7 @@ public class WarehouseBoss extends JFrame {
                 // if music is enabled and skin has not been changed
                 if (settings.isEnableMusic() && (skin.equals(settings.getSpriteSet()))) {
                     clip.loop(1);
-                    System.out.println("loop");
+                    //System.out.println("loop");
                     loopSound(settings);
                 }
             }

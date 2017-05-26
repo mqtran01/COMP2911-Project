@@ -79,21 +79,20 @@ public class MenuPanel extends JPanel {
         resumeGameBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Resume Game!");
+                //System.out.println("Clicked Resume Game!");
                 try {
                     MapModel map = SaveLoad.load();
                     if (map != null) {
                     	MenuPanel.this.models.setMap(map);
                         GamePanel newGame = new GamePanel(warehouseBoss, MenuPanel.this.models);
                         warehouseBoss.addPanel(newGame, "Game");
-                        //map.printMap();
                     } else {
                         // Pop up when no saved file found
                     	JOptionPane.showMessageDialog(null, "              No saved progress Found!", "Resume Failed",
                                 JOptionPane.PLAIN_MESSAGE);
                     }
                 } catch (IOException e1) {
-                    System.out.println("Load failed!");
+                    //System.out.println("Load failed!");
                     e1.printStackTrace();
                 }
 
