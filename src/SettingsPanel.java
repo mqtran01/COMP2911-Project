@@ -26,6 +26,7 @@ public class SettingsPanel extends JPanel {
     private static final String[] BUTTON_TEXT = { "   Music", "   SFX", "Back" };
     private static final String[] SPRITE_SETS = { "Star Warehouse", "PokeManGo" };
     private Models models;
+    private WarehouseBoss wb;
     
     /**
      * Constructor for Settings Panel/View
@@ -35,6 +36,7 @@ public class SettingsPanel extends JPanel {
      */
     public SettingsPanel(WarehouseBoss wb, Models models) {
         this.models = models;
+        this.wb = wb;
         this.setLayout(new BorderLayout());
 
         // Make new check boxes and button
@@ -76,8 +78,7 @@ public class SettingsPanel extends JPanel {
                 } else {
                 	SettingsPanel.this.models.setEnableMusic(false);
                     try {
-                        WarehouseBoss.clip.stop();
-                        WarehouseBoss.clip.close();
+                    	SettingsPanel.this.wb.stopClip();
                     } catch (Exception e1) {
 
                     }
@@ -133,13 +134,12 @@ public class SettingsPanel extends JPanel {
                 String selectedSkin = (String) combo.getSelectedItem();
                 SettingsPanel.this.models.setSpriteSet(selectedSkin + "/");
                 try {
-                    WarehouseBoss.clip.stop();
-                    WarehouseBoss.clip.close();
+                	SettingsPanel.this.wb.stopClip();
                 } catch (Exception e1) {
 
                 }
                 if (SettingsPanel.this.models.isEnableMusic()) {
-                    wb.changeSound(selectedSkin + "/");
+                	SettingsPanel.this.wb.changeSound(selectedSkin + "/");
                 }
                 
                 // Updates all panels to the new skin set

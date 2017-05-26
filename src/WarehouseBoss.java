@@ -21,7 +21,7 @@ public class WarehouseBoss extends JFrame {
     private JPanel mainPanel;
     private CardLayout views;
     private Models models;
-    public static Clip clip;
+    private Clip clip;
 
     /**
      * Constructor of the overall game container. Also controls the background
@@ -90,6 +90,14 @@ public class WarehouseBoss extends JFrame {
     public void swapPanel(String hash) {
         views.show(mainPanel, hash);
     }
+    
+    /**
+     * stops the current music clip from playing
+     */
+    public void stopClip(){
+    	clip.stop();
+    	clip.close();
+    }
 
     /**
      * Add a panel to the mainPanel - the library of views
@@ -116,7 +124,7 @@ public class WarehouseBoss extends JFrame {
      * @param filename as the file path of the sound file
      * @param settings as the settings controller
      */
-    static public void playSound(String filename, SettingsModel settings) {
+     public void playSound(String filename, SettingsModel settings) {
         Thread musicThread = new Thread() {
             @Override
             public void run() {
@@ -124,11 +132,11 @@ public class WarehouseBoss extends JFrame {
                     // Open an audio input stream.
                     AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(filename));
                     // Get a sound clip resource.
-                    clip = AudioSystem.getClip();
+                    WarehouseBoss.this.clip = AudioSystem.getClip();
                     // Open audio clip and load samples from the audio input
                     // stream.
-                    clip.open(audioIn);
-                    clip.start();
+                    WarehouseBoss.this.clip.open(audioIn);
+                    WarehouseBoss.this.clip.start();
                 } catch (Exception e) {
                 }
             }
@@ -166,7 +174,7 @@ public class WarehouseBoss extends JFrame {
 
      * @param settings as the settings controller
      */
-    static private void loopSound(SettingsModel settings) {
+    private void loopSound(SettingsModel settings) {
         String skin = settings.getSpriteSet();
         int delay;
         if (skin.equals("Star Warehouse/")) {
@@ -180,7 +188,7 @@ public class WarehouseBoss extends JFrame {
             public void run() {
                 // if music is enabled and skin has not been changed
                 if (settings.isEnableMusic() && (skin.equals(settings.getSpriteSet()))) {
-                    clip.loop(1);
+                	WarehouseBoss.this.clip.loop(1);
                     loopSound(settings);
                 }
             }
