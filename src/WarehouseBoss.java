@@ -41,6 +41,7 @@ public class WarehouseBoss extends JFrame {
         // To prevent window resizing
         this.setResizable(false);
 
+        SettingsModel settings = null;
         try {
             settings = SaveLoad.loadSettings();
             if (settings == null) {

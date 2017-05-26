@@ -103,8 +103,7 @@ public class SettingsPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // SaveLoad.saveSettings(SettingsPanel.this.settings);
-                    SaveLoad.save(SettingsPanel.this.models);
+                    SaveLoad.saveSettings(SettingsPanel.this.models.getSettings());
                 } catch (IOException e1) {
                     //System.out.println("save failed");
                 }
