@@ -3023,7 +3023,6 @@ public class MapModel implements Serializable {
                 }
             }
         }
-        //System.out.println("in win state");
         return true;
     }
 

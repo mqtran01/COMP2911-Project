@@ -156,13 +156,12 @@ public class GamePanel extends JPanel {
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //System.out.println("Clicked Save!");
                 try {
                     SaveLoad.save(GamePanel.this.models.getMap());
-                    JOptionPane.showMessageDialog(null, "          Your progress has been saved!", "Game Saved!",
+                    JOptionPane.showMessageDialog(null, 
+                            "          Your progress has been saved!", "Game Saved!",
                             JOptionPane.PLAIN_MESSAGE);
                 } catch (IOException e1) {
-                    //System.out.println("Failed to save");
                     e1.printStackTrace();
                 }
             }
@@ -171,7 +170,6 @@ public class GamePanel extends JPanel {
         undoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //System.out.println("Clicked Undo!");
                 GamePanel.this.models.undo();
                 update("s");
             }
@@ -180,7 +178,6 @@ public class GamePanel extends JPanel {
         resetBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //System.out.println("Clicked Reset!");
                 GamePanel.this.models.reset();
                 update("s");
             }
@@ -189,7 +186,6 @@ public class GamePanel extends JPanel {
         quitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //System.out.println("Clicked Main Menu!");
                 disableKeys();
                 warehouseBoss.swapPanel("Menu");
             }
@@ -267,20 +263,18 @@ public class GamePanel extends JPanel {
                             try {
                                 SaveLoad.saveSettings(GamePanel.this.models.getSettings());
                             } catch (IOException e1) {
-                                //System.out.println("save failed");
                             }
 
                             Object[] options = { "Play Next?", "Main Menu" };
-                            int n = JOptionPane.showOptionDialog(null, "              Congratulations on winning!",
+                            int n = JOptionPane.showOptionDialog(null, 
+                                    "              Congratulations on winning!",
                                     "You have won!", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION, null,
                                     options, options[1]);
                             JOptionPane.getRootFrame().dispose();
                             if (n == JOptionPane.NO_OPTION) {
-                                //System.out.println("Clicked Main Menu!");
                                 warehouseBoss.swapPanel("Menu");
                             }
                             if (n == JOptionPane.YES_OPTION) {
-                                //System.out.println("Clicked Play Next!");
                                 warehouseBoss.swapPanel("Story");
                             }
                         }
@@ -310,11 +304,10 @@ public class GamePanel extends JPanel {
         tuteBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //System.out.println("Clicked ? Button");
-                JOptionPane.showMessageDialog(null, tuteLabel, "Tutorial", JOptionPane.PLAIN_MESSAGE, null);
+                JOptionPane.showMessageDialog(null, tuteLabel, 
+                        "Tutorial", JOptionPane.PLAIN_MESSAGE, null);
             }
         });
-        
 
     }
 
@@ -380,7 +373,6 @@ public class GamePanel extends JPanel {
      * @param direction as the direction the sprite is facing
      */
     public void update(String direction) {
-        //System.out.println("updating");
         double scaledLen = 800 / length;
         double scaledHgt = 500 / height;
 
@@ -442,9 +434,7 @@ public class GamePanel extends JPanel {
                     break;
                 }
                 grid[x][y].setIcon(img);
-                //System.out.print(tileItem);
             }
-            //System.out.println();
         }
     }
 
@@ -512,7 +502,6 @@ public class GamePanel extends JPanel {
      * Disables the key controller
      */
     public void disableKeys() {
-        //System.out.println("Disabled the keys");
         KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(keyDispatcher);
     }
 

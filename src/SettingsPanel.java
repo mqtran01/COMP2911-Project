@@ -103,7 +103,6 @@ public class SettingsPanel extends JPanel {
                 try {
                     SaveLoad.saveSettings(SettingsPanel.this.models.getSettings());
                 } catch (IOException e1) {
-                    //System.out.println("save failed");
                 }
                 wb.swapPanel("Menu");
             }
