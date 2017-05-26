@@ -2934,12 +2934,12 @@ public class MapModel implements Serializable {
      * Prints the map on console
      */
     public void printMap() {
-        System.out.println("printing internal map");
+        //System.out.println("printing internal map");
         for (int y = 0; y < getHeight(); y++) {
             for (int x = 0; x < getLength(); x++) {
-                System.out.print(getTile(x, y));
+                //System.out.print(getTile(x, y));
             }
-            System.out.print("\n");
+            //System.out.print("\n");
         }
     }
 
@@ -2960,7 +2960,7 @@ public class MapModel implements Serializable {
         if (grid[to_x][to_y] == WALL) {// wall
             return false;// can never move into a wall
         } else if (grid[to_x][to_y] == EMPTY) {// empty
-            System.out.println("target is an empty");
+            //System.out.println("target is an empty");
             grid[to_x][to_y] = PLAYER;// set the to tile to be a player
             grid[from_x][from_y] = removeObject(from_x, from_y);
             return true;// can always move into an empty space
@@ -3012,7 +3012,7 @@ public class MapModel implements Serializable {
             grid[from_x][from_y] = removeObject(from_x, from_y);
             return true;
         } else if (grid[to_x][to_y] == GOALPLAYER) {// player + goal, this should never happen
-            System.out.println("error, attempted to move into a space that is occupied by the player");
+            //System.out.println("error, attempted to move into a space that is occupied by the player");
             return false;
         }
         return false;
@@ -3031,7 +3031,7 @@ public class MapModel implements Serializable {
                 }
             }
         }
-        System.out.println("in win state");
+        //System.out.println("in win state");
         return true;
     }
 

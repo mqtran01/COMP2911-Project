@@ -65,9 +65,9 @@ public class Models {
      * 
      * @return true if character moved successfully
      */
-    public boolean moveLeft() {
+    public void moveLeft() {
         undoMap = map.clone();
-        return map.moveLeft();
+        map.moveLeft();
     }
 
     /**
@@ -75,9 +75,9 @@ public class Models {
      * 
      * @return true if character moved successfully
      */
-    public boolean moveRight() {
+    public void moveRight() {
         undoMap = map.clone();
-        return map.moveRight();
+        map.moveRight();
     }
 
     /**
@@ -85,9 +85,9 @@ public class Models {
      * 
      * @return true if character moved successfully
      */
-    public boolean moveUp() {
+    public void moveUp() {
         undoMap = map.clone();
-        return map.moveUp();
+        map.moveUp();
     }
 
     /**
@@ -95,9 +95,9 @@ public class Models {
      * 
      * @return true if character moved successfully
      */
-    public boolean moveDown() {
+    public void moveDown() {
         undoMap = map.clone();
-        return map.moveDown();
+        map.moveDown();
     }
 
     /**

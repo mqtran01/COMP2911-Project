@@ -28,10 +28,10 @@ public class StoryLevelSelector extends JPanel {
     /**
      * Constructor for Story Level Panel
      * 
-     * @param warehouseBoss as the main game container
+     * @param wb as the main game container
      * @param models as the models handler
      */
-    public StoryLevelSelector(WarehouseBoss warehouseBoss, Models models) {
+    public StoryLevelSelector(WarehouseBoss wb, Models models) {
         this.setLayout(new BorderLayout());
         this.models = models;
         ImageIcon bgImage = new ImageIcon("image/" + models.getSpriteSet() + "bg.png");
@@ -96,11 +96,11 @@ public class StoryLevelSelector extends JPanel {
 
                         MapModel newMap = new MapModel(levelNum);
                         StoryLevelSelector.this.models.setMap(newMap);
-                        GamePanel gamePanel = new GamePanel(warehouseBoss, models);
+                        GamePanel gamePanel = new GamePanel(wb, models);
 
                         StoryLevelSelector.this.models.setGamePanel(gamePanel);
-                        warehouseBoss.addPanel(gamePanel, "Game");
-                        warehouseBoss.swapPanel("Game");
+                        wb.addPanel(gamePanel, "Game");
+                        wb.swapPanel("Game");
 
                     }
                 });
@@ -134,8 +134,8 @@ public class StoryLevelSelector extends JPanel {
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Clicked Back Button!");
-                warehouseBoss.swapPanel("Menu");
+                //System.out.println("Clicked Back Button!");
+                wb.swapPanel("Menu");
             }
         });
     }
