@@ -111,31 +111,8 @@ public class WarehouseBoss extends JFrame {
     }
 
     /**
-     * Changes the background music based on skin
-     * 
-     * @param skin as the skin set
-     */
-    static public void changeSound(String skin) {
-        String path = "assets/" + skin + "MusicBackground.wav";
-        System.out.println("changeSound!" + path);
-        if (settings.isEnableMusic()) {
-            try {
-                // Open an audio input stream.
-                AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(path));
-                // Get a sound clip resource.
-                clip = AudioSystem.getClip();
-                // Open audio clip and load samples from the audio input stream.
-                clip.open(audioIn);
-                clip.start();
-                loopSound(settings);
-            } catch (Exception e) {
-            }
-        }
-    }
-
-    /**
      * Plays the sound of the specific sound file.
-     * 
+     *
      * @param filename as the file path of the sound file
      * @param settings as the settings controller
      */
@@ -161,6 +138,29 @@ public class WarehouseBoss extends JFrame {
             System.out.println("Music enabled");
             musicThread.start();
             loopSound(settings);
+        }
+    }
+
+    /**
+     * Changes the background music based on skin
+     * 
+     * @param skin as the skin set
+     */
+    static public void changeSound(String skin) {
+        String path = "assets/" + skin + "MusicBackground.wav";
+        System.out.println("changeSound!" + path);
+        if (settings.isEnableMusic()) {
+            try {
+                // Open an audio input stream.
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(path));
+                // Get a sound clip resource.
+                clip = AudioSystem.getClip();
+                // Open audio clip and load samples from the audio input stream.
+                clip.open(audioIn);
+                clip.start();
+                loopSound(settings);
+            } catch (Exception e) {
+            }
         }
     }
 
