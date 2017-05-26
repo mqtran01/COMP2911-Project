@@ -26,7 +26,6 @@ public class SettingsPanel extends JPanel {
     private static final String[] BUTTON_TEXT = { "   Music", "   SFX", "Back" };
     private static final String[] SPRITE_SETS = { "Star Warehouse", "PokeManGo" };
     private Models models;
-    private WarehouseBoss wb;
     
     /**
      * Constructor for Settings Panel/View
@@ -36,7 +35,6 @@ public class SettingsPanel extends JPanel {
      */
     public SettingsPanel(WarehouseBoss wb, Models models) {
         this.models = models;
-        this.wb = wb;
         this.setLayout(new BorderLayout());
 
         // Make new check boxes and button
@@ -144,7 +142,13 @@ public class SettingsPanel extends JPanel {
                 if (SettingsPanel.this.models.isEnableMusic()) {
                     wb.changeSound(selectedSkin + "/");
                 }
-                update();
+                
+                // Updates all panels to the new skin set
+                wb.addPanel(new MenuPanel(wb, models), "Menu");
+                wb.addPanel(new StoryLevelSelector(wb, models), "Story");
+                wb.addPanel(new RandomLevelSelector(wb, models), "Random");
+                wb.addPanel(new SettingsPanel(wb, models), "Settings");
+                wb.swapPanel("Settings");
             }
         });
 
@@ -195,17 +199,5 @@ public class SettingsPanel extends JPanel {
         JLabel titleLabel = new JLabel("", titleImage, JLabel.CENTER);
         this.add(titleLabel);
         titleLabel.setBounds(0, 0, 800, 600);
-    }
-
-    /**
-     * Updates all panels to the new skin set
-     * 
-     */
-    private void update() {
-        wb.addPanel(new MenuPanel(wb, models), "Menu");
-        wb.addPanel(new StoryLevelSelector(wb, models), "Story");
-        wb.addPanel(new RandomLevelSelector(wb, models), "Random");
-        wb.addPanel(new SettingsPanel(wb, models), "Settings");
-        wb.swapPanel("Settings");
     }
 }
