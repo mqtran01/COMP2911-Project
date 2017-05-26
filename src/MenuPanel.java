@@ -86,6 +86,7 @@ public class MenuPanel extends JPanel {
                     	MenuPanel.this.models.setMap(map);
                         GamePanel newGame = new GamePanel(wb, MenuPanel.this.models);
                         wb.addPanel(newGame, "Game");
+                        wb.swapPanel("Game");
                     } else {
                         // Pop up when no saved file found
                     	JOptionPane.showMessageDialog(null, "              No saved progress Found!", "Resume Failed",
@@ -95,8 +96,6 @@ public class MenuPanel extends JPanel {
                     //System.out.println("Load failed!");
                     e1.printStackTrace();
                 }
-
-                wb.swapPanel("Game");
             }
         });
 
