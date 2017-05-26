@@ -21,7 +21,6 @@ public class WarehouseBoss extends JFrame {
     private JPanel mainPanel;
     private CardLayout views;
     private Models models;
-    //private static SettingsModel settings;
     public static Clip clip;
 
     /**
@@ -136,7 +135,6 @@ public class WarehouseBoss extends JFrame {
             }
         };
         if (settings.isEnableMusic()) {
-            //System.out.println("Music enabled");
             musicThread.start();
             loopSound(settings);
         }
@@ -149,7 +147,6 @@ public class WarehouseBoss extends JFrame {
      */
     public void changeSound(String skin) {
         String path = "assets/" + skin + "MusicBackground.wav";
-        //System.out.println("changeSound!" + path);
         if (models.isEnableMusic()) {
             try {
                 // Open an audio input stream.
@@ -185,7 +182,6 @@ public class WarehouseBoss extends JFrame {
                 // if music is enabled and skin has not been changed
                 if (settings.isEnableMusic() && (skin.equals(settings.getSpriteSet()))) {
                     clip.loop(1);
-                    //System.out.println("loop");
                     loopSound(settings);
                 }
             }

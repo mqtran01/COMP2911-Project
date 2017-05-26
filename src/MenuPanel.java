@@ -71,7 +71,6 @@ public class MenuPanel extends JPanel {
         startGameBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //System.out.println("Clicked Play Game!");
                 wb.swapPanel("Story");
             }
         });
@@ -79,7 +78,6 @@ public class MenuPanel extends JPanel {
         resumeGameBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //System.out.println("Clicked Resume Game!");
                 try {
                     MapModel map = SaveLoad.load();
                     if (map != null) {
@@ -93,7 +91,6 @@ public class MenuPanel extends JPanel {
                                 JOptionPane.PLAIN_MESSAGE);
                     }
                 } catch (IOException e1) {
-                    //System.out.println("Load failed!");
                     e1.printStackTrace();
                 }
             }
@@ -102,7 +99,6 @@ public class MenuPanel extends JPanel {
         randGameBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //System.out.println("Clicked Random Game!");
                 wb.swapPanel("Random");
             }
         });
@@ -110,7 +106,6 @@ public class MenuPanel extends JPanel {
         settingsBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //System.out.println("Clicked settings!");
                 wb.swapPanel("Settings");
             }
         });
@@ -118,7 +113,6 @@ public class MenuPanel extends JPanel {
         quitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //System.out.println("Clicked Quit!");
                 System.exit(0);
             }
         });

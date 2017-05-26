@@ -30,7 +30,6 @@ public class SaveLoad {
             FileInputStream inFile = new FileInputStream(filename);
             in = new ObjectInputStream(inFile);
             map = (MapModel) in.readObject();
-            //System.out.println("Read from file");
         } catch (FileNotFoundException e) {
             return null;
         } catch (IOException e) {
@@ -41,7 +40,6 @@ public class SaveLoad {
             if (in != null)
                 in.close();
         }
-        //System.out.println("in load");
         return map;
     }
 
@@ -60,7 +58,6 @@ public class SaveLoad {
             FileOutputStream outFile = new FileOutputStream(filename);
             out = new ObjectOutputStream(outFile);
             out.writeObject(map);
-            //System.out.println("Stored to file");
         } catch (IOException e) {
             System.out.println(e.toString());
         } finally {
@@ -82,7 +79,6 @@ public class SaveLoad {
             FileInputStream inFile = new FileInputStream(settingsfilename);
             in = new ObjectInputStream(inFile);
             settings = (SettingsModel) in.readObject();
-            //System.out.println("Read from file");
         } catch (FileNotFoundException e) {
             return null;
         } catch (IOException e) {
@@ -93,7 +89,6 @@ public class SaveLoad {
             if (in != null)
                 in.close();
         }
-        //System.out.println("in load");
         return settings;
     }
 
@@ -112,7 +107,6 @@ public class SaveLoad {
             FileOutputStream outFile = new FileOutputStream(settingsfilename);
             out = new ObjectOutputStream(outFile);
             out.writeObject(settings);
-            //System.out.println("Stored to file");
         } catch (IOException e) {
             System.out.println(e.toString());
         } finally {
