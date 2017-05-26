@@ -330,7 +330,6 @@ public class GamePanel extends JPanel {
                     clip.open(audioIn);
                     clip.start();
                 } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         };
