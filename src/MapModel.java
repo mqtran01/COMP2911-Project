@@ -2889,45 +2889,37 @@ public class MapModel implements Serializable {
     /**
      * Moves the player to the left
      */
-    public boolean moveLeft() {
+    public void moveLeft() {
         if (moveTo(player_x, player_y, player_x - 1, player_y)) {
             player_x--;
-            return true;
         }
-        return false;
     }
 
     /**
      * Moves the player to the right
      */
-    public boolean moveRight() {
+    public void moveRight() {
         if (moveTo(player_x, player_y, player_x + 1, player_y)) {
             player_x++;
-            return true;
         }
-        return false;
     }
 
     /**
      * Moves the player upwards
      */
-    public boolean moveUp() {
+    public void moveUp() {
         if (moveTo(player_x, player_y, player_x, player_y - 1)) {
             player_y--;
-            return true;
         }
-        return false;
     }
 
     /**
      * Moves the player downwards
      */
-    public boolean moveDown() {
+    public void moveDown() {
         if (moveTo(player_x, player_y, player_x, player_y + 1)) {
             player_y++;
-            return true;
         }
-        return false;
     }
 
     /**
