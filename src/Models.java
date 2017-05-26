@@ -39,6 +39,7 @@ public class Models {
     public void setMap(MapModel map) {
         this.map = map;
         this.resetMap = map.clone();
+        this.undoMap = map.clone();
     }
 
     /**
