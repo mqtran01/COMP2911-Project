@@ -98,7 +98,7 @@ public class StoryLevelSelector extends JPanel {
                         StoryLevelSelector.this.models.setMap(newMap);
                         GamePanel gamePanel = new GamePanel(wb, models);
 
-                        StoryLevelSelector.this.models.setGamePanel(gamePanel);
+                        //StoryLevelSelector.this.models.setGamePanel(gamePanel);
                         wb.addPanel(gamePanel, "Game");
                         wb.swapPanel("Game");
 

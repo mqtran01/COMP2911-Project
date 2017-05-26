@@ -315,8 +315,6 @@ public class GamePanel extends JPanel {
             }
         });
         
-      //tell the models that this is the map GUI that needs to be updated when the map is
-        this.models.setGamePanel(this);
 
     }
 

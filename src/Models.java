@@ -10,7 +10,6 @@ public class Models {
     private MapModel undoMap;
     private MapModel resetMap;
     private SettingsModel settings;
-    GamePanel gamePanel;
 
     /**
      * Constructor of the Models object
@@ -30,15 +29,6 @@ public class Models {
      */
     public SettingsModel getSettings() {
         return settings;
-    }
-
-    /**
-     * Sets the current game panel
-     * 
-     * @param gamePanel as the current game panel to add
-     */
-    public void setGamePanel(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
     }
 
     /**

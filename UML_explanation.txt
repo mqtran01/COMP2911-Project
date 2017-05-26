@@ -1,0 +1,11 @@
+The SettingsModel and MapModel are grouped under a container called Models. 
+The panels have references to the Models object as needed.
+The above two ideas reduce the number of parameters we need to pass to constructors of the panels.
+It also means that the panels are les interdependant as they do not have to call each other when one panel modifies the Map object (which could have been held by the GamePanel object).
+Panels store a reference to warehouseBoss as needed to call the method for swapping the displayed panel. This avoids having to pass in panels into other panels.
+The views object of the class WarehouseBoss stores the references to the various panels. Since the class does not directly store the panels we have choosen to say that WarehouseBoss simply associates with the panels.
+
+The SaveLoad class associates with the SetingsModels and MapModels classes since it implicitly calls functions relating to the callees serializable interface (used to convert an object to a file and back).
+We choose not to show the serializable (and other) interfaces for simplicity of the UML diagram.
+
+Coordinates is a private class within MapModel. It is used in part of the map generation algorithm.
