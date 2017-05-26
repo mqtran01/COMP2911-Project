@@ -130,7 +130,6 @@ public class WarehouseBoss extends JFrame {
                     clip.open(audioIn);
                     clip.start();
                 } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         };
